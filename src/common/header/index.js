@@ -4,6 +4,7 @@ import { Link, Redirect } from 'react-router-dom';
 
 import {
     HeaderWrapper,
+    GroupHeader,
     Logo,
     Nav,
     NavItem
@@ -12,10 +13,12 @@ import {
 class Header extends Component {
     
     render() {
+        const { login } = this.props;
         return (
             <HeaderWrapper> 
                 <Logo href='/' />
                 <Nav>
+                    <GroupHeader>GENERAL USER</GroupHeader>
                     <Link to={'/create-request'}>
                         <NavItem>
                             <i className="iconfont">&#xe616;</i>Create Request
@@ -26,9 +29,24 @@ class Header extends Component {
                             <i className="iconfont">&#xe602;</i>My Requests
                         </NavItem>
                     </Link>
+                    <GroupHeader className='setting'>SETTINGS</GroupHeader>
+                    { 
+                        login ? (<NavItem> <i className="iconfont">&#xe7cd;</i> Log Out</NavItem>) : 
+                        (
+                            <Link to='/login'>
+                                <NavItem> <i className="iconfont">&#xe7cd;</i> Log In</NavItem>
+                            </Link>
+                        )
+                    }
                 </Nav>
             </HeaderWrapper>
         );
+    }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        login: state.getIn(['login', 'login'])
     }
 }
 
@@ -40,4 +58,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

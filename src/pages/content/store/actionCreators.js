@@ -73,5 +73,8 @@ export const submitForm = (firstName, lastName) => {
                 // save to session story
                 dispatch(submitFormAction())
             })
+            .catch(error => {
+                console.log(error)
+            })
     }
 }

@@ -21,6 +21,16 @@ export const Logo = styled.a`
     border-right: 1px solid grey;
     margin-left: 8px;
 `
+export const GroupHeader = styled.div`
+    width: 220px;
+    line-height: 40px;
+    font-weight: 200;
+    font-size: 1rem;
+    padding-left: 15px;
+    border-right: 1px solid grey;
+    color: #95949c;
+    cursor: default;
+`
 
 export const Nav = styled.div`
     position: absolute;
