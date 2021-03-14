@@ -12,7 +12,7 @@ import {
 
 class Login extends Component {
     render() {
-        const { login } = this.props;
+        const { login, role } = this.props;
         const clientId = '767966548929-ghusim71l8qt3jv5ub8bhomtfg8t7787.apps.googleusercontent.com';
         // https://dev.to/sivaneshs/add-google-login-to-your-react-apps-in-10-mins-4del
 
@@ -34,14 +34,20 @@ class Login extends Component {
                 </LoginWrapper>
             );
         } else {
-            return <Redirect to='/choose-approval' />
-        };
+            if (role === 'approver') {
+                return <Redirect to='/choose-approval' />
+            }
+            else {
+                return <Redirect to='/' />
+            }
+        }
     }
 }
 
 const mapStateToProps = (state) => {
     return {
         login: state.getIn(['login', 'login']),
+        role: state.getIn(['login', 'user', 'role']),
     }
 }
 

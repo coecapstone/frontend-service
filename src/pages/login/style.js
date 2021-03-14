@@ -11,7 +11,7 @@ export const LoginWrapper = styled.div`
 
 export const LoginBox = styled.div`
     width: 400px;
-    height: 200px;
+    height: 250px;
     margin: 100px auto;
     background: #f6f5ff;
     padding-top: 20px;

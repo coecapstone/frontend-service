@@ -4,6 +4,8 @@ import { fromJS } from 'immutable';
 export const CHANGE_TO_LOGIN = 'login/CHANGE_TO_LOGIN';
 export const CHANGE_TO_LOGOUT = 'login/CHANGE_TO_LOGOUT';
 export const CHANGE_APPROVAL_SUBUNIT_LIST = 'login/CHANGE_APPROVAL_SUBUNIT_LIST';
+export const CHANGE_APPROVAL_INFO = 'login/CHANGE_APPROVAL_INFO';
+export const CHANGE_ROLE_TO_APPROVER = 'login/CHANGE_ROLE_TO_APPROVER';
 
 const changeLogin = (profile) => ({
     type: CHANGE_TO_LOGIN,
@@ -17,6 +19,19 @@ const changeApprovalSubunitList = (approvalSubunitList) => ({
 
 export const logout = () => ({
     type: CHANGE_TO_LOGOUT
+})
+
+export const changeApprovalInfo = (unitSubunitInfo) => {
+    const split = unitSubunitInfo.split('@');
+    return {
+        type: CHANGE_APPROVAL_INFO,
+        unit: split[1], 
+        subunit: split[0]
+    }
+}
+
+export const changeRoleToApprover = () => ({
+    type: CHANGE_ROLE_TO_APPROVER
 })
 
 export const login = (profile) => {
@@ -35,10 +50,13 @@ export const login = (profile) => {
                     const subunit = {};
                     subunit.key = subUnit;
                     subunit.text = text;
-                    subunit.value = subUnit;
+                    subunit.value = `${subUnit}@${unit}`;
                     approvalSubunitList.push(subunit);
                 }
                 console.log(approvalSubunitList);
+                if (approvalSubunitList.length > 0) {
+                    dispatch(changeRoleToApprover());
+                }
                 dispatch(changeApprovalSubunitList(approvalSubunitList));
                 dispatch(changeLogin(profile));
                 // save to session story?

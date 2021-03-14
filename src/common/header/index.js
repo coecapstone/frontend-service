@@ -14,7 +14,8 @@ import {
 class Header extends Component {
 
     getSubmitterNavItems() {
-        if (this.props.login) {
+        const { login, role } = this.props;
+        if (login && role === 'submitter') {
             return (
                 <Fragment>
                 <GroupHeader>GENERAL USER</GroupHeader>
@@ -37,7 +38,7 @@ class Header extends Component {
         const { login } = this.props;
         return (
             <HeaderWrapper> 
-                <Logo href='/' />
+                <Link to={'/'}><Logo /></Link>
                 <Nav>
                     <GroupHeader>SETTINGS</GroupHeader> { 
                         login ? (
@@ -57,7 +58,8 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        login: state.getIn(['login', 'login'])
+        login: state.getIn(['login', 'login']),
+        role: state.getIn(['login', 'user', 'role']),
     }
 }
 
