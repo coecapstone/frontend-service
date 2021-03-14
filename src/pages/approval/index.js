@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Dropdown, Header, Button } from 'semantic-ui-react';
@@ -9,10 +9,11 @@ import {
     ApprovalWrapper,
     DivideBox,
     ChooseTitle,
-    ChoooseDropdown
+    ChoooseDropdown,
 } from './style';
 
 class Approval extends Component {
+
     render() {
         if (this.props.login) {
             return (
