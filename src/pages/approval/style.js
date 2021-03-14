@@ -78,3 +78,9 @@ export const NavItem = styled.div`
         background-color: #d1ccff;
     }
 `
+
+export const DirectText = styled.div`
+    display: inline;
+    color: #4183C4;
+}
+`

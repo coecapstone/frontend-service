@@ -6,6 +6,7 @@ export const CHANGE_TO_LOGOUT = 'login/CHANGE_TO_LOGOUT';
 export const CHANGE_APPROVAL_SUBUNIT_LIST = 'login/CHANGE_APPROVAL_SUBUNIT_LIST';
 export const CHANGE_APPROVAL_INFO = 'login/CHANGE_APPROVAL_INFO';
 export const CHANGE_ROLE_TO_APPROVER = 'login/CHANGE_ROLE_TO_APPROVER';
+export const CHANGE_ROLE_TO_SUBMITTER = 'login/CHANGE_ROLE_TO_SUBMITTER';
 
 const changeLogin = (profile) => ({
     type: CHANGE_TO_LOGIN,
@@ -29,6 +30,10 @@ export const changeApprovalInfo = (unitSubunitInfo) => {
         subunit: split[0]
     }
 }
+
+export const changeRoleToSubmitter = () => ({
+    type: CHANGE_ROLE_TO_SUBMITTER
+})
 
 export const changeRoleToApprover = () => ({
     type: CHANGE_ROLE_TO_APPROVER

@@ -13,3 +13,8 @@
     color:#95949c !important;
     font-weight: normal !important;
 }
+
+.importantText {
+    font-weight: bold;
+    text-decoration: underline;
+}

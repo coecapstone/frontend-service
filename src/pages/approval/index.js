@@ -14,21 +14,23 @@ import {
     Nav,
     GroupHeader,
     NavItem,
+    DirectText,
 } from './style';
 
 class Approval extends Component {
     chooseUnitSubunit() {
-        if (this.props.login && this.props.subunit === '') {
+        const { login, subunit, list, readSubunit, changeRoleToSubmitter } = this.props;
+        if (login && subunit === '') {
             return (
                 <ApprovalWrapper>
                     <DivideBox>
                         <ChooseTitle> Here to Approve Requests? 
-                            <Header className='text' as='h4'>If yes, please select your subunit info</Header>
+                            <Header className='text' as='h4'>If <span className="importantText">Yes</span>, please select your subunit info</Header>
                             <ChoooseDropdown>
-                                <Dropdown placeholder='choose Unit Subunit' options={Immutable.List(this.props.list).toJS()} selection
-                                    onChange={(e, data) => this.props.readSubunit(data.value)} />
+                                <Dropdown placeholder='choose Unit Subunit' options={Immutable.List(list).toJS()} selection
+                                    onChange={(e, data) => readSubunit(data.value)} />
                             </ChoooseDropdown>
-                            <Header className='text' as='h4'>If no, click <Link to={'/'}>here</Link> to submit requests</Header>
+                            <Header className='text' as='h4'>If <span className="importantText">No</span>, click <Link to={'/'}><DirectText onClick={() => changeRoleToSubmitter()}>here</DirectText></Link> to submit requests</Header>
                         </ChooseTitle>
                     </DivideBox>
                 </ApprovalWrapper>
@@ -78,6 +80,9 @@ const mapDispatchToProps = (dispatch) => {
             console.log(unitSubunitInfo);
             dispatch(loginActionCreators.changeApprovalInfo(unitSubunitInfo));
         },
+        changeRoleToSubmitter() {
+            dispatch(loginActionCreators.changeRoleToSubmitter());
+        }
     }
 }
 

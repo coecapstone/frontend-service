@@ -35,7 +35,9 @@ const reducer = (state = defaultState, action) => {
                 approvalSubunitList: []
             })
         case constants.CHANGE_ROLE_TO_APPROVER: 
-        return state.setIn(['user', 'role'], 'approver');
+            return state.setIn(['user', 'role'], 'approver');
+        case constants.CHANGE_ROLE_TO_SUBMITTER: 
+            return state.setIn(['user', 'role'], 'submitter');
         case constants.CHANGE_APPROVAL_INFO:
             return state.merge({
                 user: {
