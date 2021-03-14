@@ -7,7 +7,7 @@ import { actionCreators } from './store';
 import {
     LoginWrapper,
     LoginBox,
-    LoginText
+    LoginText,
 } from './style';
 
 class Login extends Component {
@@ -35,7 +35,7 @@ class Login extends Component {
             );
         } else {
             if (role === 'approver') {
-                return <Redirect to='/choose-approval' />
+                return <Redirect to='/approval-welcome' />
             }
             else {
                 return <Redirect to='/' />

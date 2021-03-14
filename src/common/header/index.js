@@ -8,7 +8,7 @@ import {
     GroupHeader,
     Logo,
     Nav,
-    NavItem
+    NavItem,
 } from './style';
 
 class Header extends Component {
@@ -18,7 +18,7 @@ class Header extends Component {
         if (login && role === 'submitter') {
             return (
                 <Fragment>
-                <GroupHeader>GENERAL USER</GroupHeader>
+                    <GroupHeader>GENERAL USER</GroupHeader>
                     <Link to={'/create-request'}>
                         <NavItem>
                             <i className="iconfont">&#xe616;</i>Create Request
@@ -42,7 +42,9 @@ class Header extends Component {
                 <Nav>
                     <GroupHeader>SETTINGS</GroupHeader> { 
                         login ? (
-                            <NavItem onClick={() => this.props.logout()}> <i className="iconfont">&#xe7cd;</i> Log Out</NavItem> 
+                            <Link to='/'>
+                                <NavItem onClick={() => this.props.logout()}> <i className="iconfont">&#xe7cd;</i> Log Out</NavItem> 
+                            </Link>
                         ) : (
                             <Link to='/login'>
                                 <NavItem> <i className="iconfont">&#xe7cd;</i> Log In</NavItem>

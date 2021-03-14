@@ -20,7 +20,7 @@ class App extends Component {
             <div>
               <Header />
               <Route path='/login' exact component={Login}></Route>
-              <Route path='/choose-approval' exact component={Approval}></Route>
+              <Route path='/approval-welcome' exact component={Approval}></Route>
               <Route path='/create-request' exact component={Content}></Route>
               <Route path='/my-requests' exact render={()=><div>hahah</div>}></Route>
             </div>

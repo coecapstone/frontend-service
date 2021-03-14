@@ -10,12 +10,15 @@ import {
     DivideBox,
     ChooseTitle,
     ChoooseDropdown,
+    ApprovalWelcomeWrapper,
+    Nav,
+    GroupHeader,
+    NavItem,
 } from './style';
 
 class Approval extends Component {
-
-    render() {
-        if (this.props.login) {
+    chooseUnitSubunit() {
+        if (this.props.login && this.props.subunit === '') {
             return (
                 <ApprovalWrapper>
                     <DivideBox>
@@ -34,12 +37,38 @@ class Approval extends Component {
             return null;
         }
     }
+
+    displayApprovalWelcome() {
+        if (this.props.subunit !== '') {
+            return (
+                <Nav>
+                    <GroupHeader>GENERAL USER</GroupHeader>
+                    <Link to={'/create-request'}>
+                        <NavItem>
+                            <i className="iconfont">&#xe616;</i>To Be Approved
+                        </NavItem>
+                    </Link>
+                </Nav>
+            );
+        }
+    }
+
+    render() {
+        return (
+            <Fragment>
+                {this.chooseUnitSubunit()}
+                {this.displayApprovalWelcome()}
+            </Fragment>
+        );
+    }
 }
 
 const mapStateToProps = (state) => {
     return {
         list: state.getIn(['login', 'approvalSubunitList']),
         login: state.getIn(['login', 'login']),
+        unit: state.getIn(['login', 'user', 'unit']),
+        subunit: state.getIn(['login', 'user', 'subunit']),
     }
 }
 
