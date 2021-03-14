@@ -1,12 +1,23 @@
 import axios from 'axios';
 import { fromJS } from 'immutable';
 
+export const GET_ALL_UNITS = 'content/get_all_units';
 export const GET_FORMLIST = 'content/get_formlist';
 export const READ_FORM_TYPE = 'content/read_form_type';
+export const READ_INPUT_UNIT = 'content/read_input_unit';
 export const CREATE_ANOTHER_REQUEST = 'content/create_another_request';
 export const RESET_FORM_TYPE = 'content/reset_form_type';
 export const CHANGE_TO_LOGOUT = 'content/CHANGE_TO_LOGOUT';
 
+const getFormListAction = (data) => ({
+    type: GET_FORMLIST,
+    data: fromJS(data)
+});
+
+const getAllUnitsAction = (data) => ({
+    type: GET_ALL_UNITS,
+    data: fromJS(data)
+});
 
 export const createAnotherRequest = () => ({
     type: CREATE_ANOTHER_REQUEST
@@ -16,13 +27,13 @@ export const resetFormType = () => ({
     type: RESET_FORM_TYPE
 });
 
-const getFormListAction = (data) => ({
-    type: GET_FORMLIST,
-    data: fromJS(data)
-});
-
 export const readFormType = (data) => ({
     type: READ_FORM_TYPE,
+    data
+});
+
+export const readInputUnit = (data) => ({
+    type: READ_INPUT_UNIT,
     data
 });
 
@@ -35,6 +46,26 @@ export const getFormList = () => {
         axios.get('http://localhost:8080/api/getAllForms')
             .then(res => {
                 dispatch(getFormListAction(res.data))
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+};
+
+export const getAllUnitsList = () => {
+    return (dispatch) => {
+        axios.get('http://localhost:8080/api/getAllUnits')
+            .then(res => {
+                let allUnitsList = [];
+                res.data.map(item => {
+                    const unit = {};
+                    unit.key = item;
+                    unit.text = item;
+                    unit.value = item;
+                    allUnitsList.push(unit);
+                });
+                dispatch(getAllUnitsAction(allUnitsList))
             })
             .catch((error) => {
                 console.log(error)

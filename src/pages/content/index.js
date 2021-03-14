@@ -15,6 +15,7 @@ class Content extends Component {
 
     componentDidMount() {
         this.props.getFormList();
+        this.props.getAllUnitsList();
     }
 
     travelRequestForm() {
@@ -90,7 +91,8 @@ class Content extends Component {
     }
 
     displayChooseForm() {
-        const { formToSubmitType, formToSubmitSubunit, formToSubmitUnit, showSuccessToast, formTypeList, readFormType } = this.props;
+        const { formToSubmitType, formToSubmitSubunit, formToSubmitUnit, showSuccessToast, formTypeList, 
+            readFormType, allUnitList, readInputUnit } = this.props;
         if ( (formToSubmitType === '' || formToSubmitSubunit === '' || formToSubmitUnit === '') && !showSuccessToast) {
             return (
                 <Fragment>
@@ -98,41 +100,44 @@ class Content extends Component {
                         <Form>
                             <Form.Group widths='equal'>
                                 <Form.Field required> <label>Choose Your Unit</label>
-                                    <input placeholder='Unit' />
+                                    <Dropdown clearable options={Immutable.List(allUnitList).toJS()} selection
+                                     onChange={(e, data) => readInputUnit(data.value)} />
                                 </Form.Field>
                                 <Form.Field required> <label>Choose Your Subunit</label>
                                     <input placeholder='Last Name' />
                                 </Form.Field>
                             </Form.Group>
                             <Form.Field required> <label>Choose Your Form</label>
-                                <Dropdown className='chooseFormType' clearable options={Immutable.List(formTypeList).toJS()} selection
-                                onChange={(e, data) => readFormType(data.value)} />
+                                <Dropdown clearable options={Immutable.List(formTypeList).toJS()} selection
+                                    onChange={(e, data) => readFormType(data.value)} />
                             </Form.Field>
                         </Form>
                     </ChooseWrapper>
-                    {/* <ChooseWrapper>
-                        <Header as='h2'>Choose Your Form:</Header>
-                         />
-                    </ChooseWrapper> */}
                 </Fragment>
             );
         }
     }
 
     render() {
-        return (
-            <ContentWrapper>
-                {this.displayChooseForm()}
-                {this.displayMessage()}
-                {this.displayForm()}
-            </ContentWrapper>
-        );
+        if (this.props.login) {
+            return (
+                <ContentWrapper>
+                    {this.displayChooseForm()}
+                    {this.displayMessage()}
+                    {this.displayForm()}
+                </ContentWrapper>
+            );
+        } else {
+            return null;
+        }
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        formTypeList: state.getIn(['content', 'list']),
+        login: state.getIn(['login', 'login']),
+        allUnitList: state.getIn(['content', 'static', 'unit']),
+        formTypeList: state.getIn(['content', 'static', 'list']),
         formToSubmitType: state.getIn(['content', 'formToSubmit', 'formtype']),
         formToSubmitSubunit: state.getIn(['content', 'formToSubmit', 'subunit']),
         formToSubmitUnit: state.getIn(['content', 'formToSubmit', 'unit']),
@@ -144,11 +149,17 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        getAllUnitsList() {
+            dispatch(actionCreators.getAllUnitsList());
+        },
         getFormList() {
             dispatch(actionCreators.getFormList());
         },
         readFormType(data) {
             dispatch(actionCreators.readFormType(data));
+        },
+        readInputUnit(data) {
+            dispatch(actionCreators.readInputUnit(data));
         },
         updateFirstName(e) {
             dispatch(actionCreators.updateFirstNameAction(e.target.value));

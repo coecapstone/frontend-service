@@ -7,7 +7,11 @@ const defaultState = fromJS({
         subunit: '',
         formtype: '',
     },
-    list: [],
+    static: {
+        list: [],
+        unit: [],
+        subunit: [],
+    },
     showSuccessToast: false,
     tra: {
         legal_firstname: '',
@@ -19,8 +23,12 @@ const reducer = (state = defaultState, action) => {
     switch (action.type) {
         case constants.READ_FORM_TYPE: 
             return state.setIn(['formToSubmit','formtype'], action.data);
+        case constants.READ_INPUT_UNIT: 
+            return state.setIn(['formToSubmit','unit'], action.data);
         case constants.GET_FORMLIST:
-            return state.set('list', action.data);
+            return state.setIn(['static', 'list'], action.data);
+        case constants.GET_ALL_UNITS:
+            return state.setIn(['static', 'unit'], action.data);
         case constants.UPDATE_FIRSTNAME:
             return state.setIn(['tra', 'legal_firstname'], action.value);
         case constants.UPDATE_LASTNAME:
