@@ -43,9 +43,9 @@ class Approval extends Component {
             return (
                 <Nav>
                     <GroupHeader>GENERAL USER</GroupHeader>
-                    <Link to={'/create-request'}>
+                    <Link to={'/requests-to-approve'}>
                         <NavItem>
-                            <i className="iconfont">&#xe616;</i>To Be Approved
+                            <i className="iconfont">&#xe638;</i>To Be Approved
                         </NavItem>
                     </Link>
                 </Nav>

@@ -43,11 +43,11 @@ class Header extends Component {
                     <GroupHeader>SETTINGS</GroupHeader> { 
                         login ? (
                             <Link to='/'>
-                                <NavItem onClick={() => this.props.logout()}> <i className="iconfont">&#xe7cd;</i> Log Out</NavItem> 
+                                <NavItem onClick={() => this.props.logout()}> <i className="iconfont">&#xe723;</i> Log Out</NavItem> 
                             </Link>
                         ) : (
                             <Link to='/login'>
-                                <NavItem> <i className="iconfont">&#xe7cd;</i> Log In</NavItem>
+                                <NavItem> <i className="iconfont">&#xe723;</i> Log In</NavItem>
                             </Link>
                         )
                     }
