@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
-export const ChooseFormWrapper= styled.div`
-    height: 130px;
+export const ChooseWrapper= styled.div`
+    height: 100%;
+    background-color: yellow;
 `
 
 export const ContentWrapper = styled.div`

@@ -2,7 +2,11 @@ import * as constants from './actionCreators';
 import { fromJS } from 'immutable';
 
 const defaultState = fromJS({
-    formtype: '',
+    formToSubmit: {
+        unit: '',
+        subunit: '',
+        formtype: '',
+    },
     list: [],
     showSuccessToast: false,
     tra: {
@@ -14,7 +18,7 @@ const defaultState = fromJS({
 const reducer = (state = defaultState, action) => {
     switch (action.type) {
         case constants.READ_FORM_TYPE: 
-            return state.set('formtype', action.data);
+            return state.setIn(['formToSubmit','formtype'], action.data);
         case constants.GET_FORMLIST:
             return state.set('list', action.data);
         case constants.UPDATE_FIRSTNAME:
@@ -23,7 +27,11 @@ const reducer = (state = defaultState, action) => {
             return state.setIn(['tra', 'legal_lastname'], action.value);
         case constants.SUBMIT_FORM:
             return state.merge({
-                formtype: '',
+                formToSubmit: {
+                    unit: '',
+                    subunit: '',
+                    formtype: '',
+                },
                 tra: {
                     legal_firstname: '',
                     legal_lastname:''
@@ -33,8 +41,13 @@ const reducer = (state = defaultState, action) => {
         case constants.CREATE_ANOTHER_REQUEST:
             return state.setIn(['showSuccessToast'], false);
         case constants.RESET_FORM_TYPE:
+        case constants.CHANGE_TO_LOGOUT:
             return state.merge({
-                formtype: '',
+                formToSubmit: {
+                    unit: '',
+                    subunit: '',
+                    formtype: '',
+                },
                 tra: {
                     legal_firstname: '',
                     legal_lastname:''

@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { actionCreators as loginActionCreators } from '../../pages/login/store';
+import { actionCreators as contentActionCreators } from '../../pages/content/store';
 
 import {
     HeaderWrapper,
@@ -38,7 +39,7 @@ class Header extends Component {
         const { login } = this.props;
         return (
             <HeaderWrapper> 
-                <Link to={'/'}><Logo /></Link>
+                <Logo href='/' />
                 <Nav>
                     <GroupHeader>SETTINGS</GroupHeader> { 
                         login ? (
@@ -69,6 +70,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         logout() {
             dispatch(loginActionCreators.logout());
+            dispatch(contentActionCreators.logout());
             //dispatch(actionCreators.resetContentState());
         }
     }

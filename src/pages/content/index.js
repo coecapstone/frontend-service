@@ -6,30 +6,12 @@ import Immutable from 'immutable';
 import { Dropdown, Header } from 'semantic-ui-react';
 import { Form, Button, Input, Message } from 'semantic-ui-react';
 import {
-    ChooseFormWrapper,
+    ChooseWrapper,
     ContentWrapper,
     FormWrapper
 } from './style';
 
-
-// const defaultState = fromJS({
-//     formtype: '',
-//     list: [],
-//     showSuccessToast: false,
-//     tra: {
-//         legal_firstname: '',
-//         legal_lastname: ''
-//     }
-// });
-
 class Content extends Component {
-    // constructor(props) {
-    //     super(props)
-    //     this.state = defaultState;
-    // }
-    // reset() {
-    //     this.setState(defaultState);
-    // }
 
     componentDidMount() {
         this.props.getFormList();
@@ -70,17 +52,17 @@ class Content extends Component {
         );
     }
 
-    displayTravelForm() {
-        const { type, showSuccessToast } = this.props;
-        if (!showSuccessToast) {
-            if (type === 'tra') {
+    displayForm() {
+        const { formToSubmitType, showSuccessToast, formToSubmitSubunit } = this.props;
+        if (!showSuccessToast && formToSubmitSubunit !== '') {
+            if (formToSubmitType === 'tra') {
                 return (
                     <Fragment>
                         {this.travelRequestForm()}
                     </Fragment>
                 );
             }
-            else if (type === 'pur') {
+            else if (formToSubmitType === 'pur') {
                 return (
                     <Fragment>
                         {this.purchaseRequestForm()}
@@ -108,13 +90,31 @@ class Content extends Component {
     }
 
     displayChooseForm() {
-        if (this.props.type === '' && !this.props.showSuccessToast) {
+        const { formToSubmitType, formToSubmitSubunit, formToSubmitUnit, showSuccessToast, formTypeList, readFormType } = this.props;
+        if ( (formToSubmitType === '' || formToSubmitSubunit === '' || formToSubmitUnit === '') && !showSuccessToast) {
             return (
-                <ChooseFormWrapper>
-                    <Header as='h2'>Choose Your Form:</Header>
-                    <Dropdown clearable options={Immutable.List(this.props.list).toJS()} selection
-                        onChange={(e, data) => this.props.readFormType(data.value)} />
-                </ChooseFormWrapper>
+                <Fragment>
+                    <ChooseWrapper>
+                        <Form>
+                            <Form.Group widths='equal'>
+                                <Form.Field required> <label>Choose Your Unit</label>
+                                    <input placeholder='Unit' />
+                                </Form.Field>
+                                <Form.Field required> <label>Choose Your Subunit</label>
+                                    <input placeholder='Last Name' />
+                                </Form.Field>
+                            </Form.Group>
+                            <Form.Field required> <label>Choose Your Form</label>
+                                <Dropdown className='chooseFormType' clearable options={Immutable.List(formTypeList).toJS()} selection
+                                onChange={(e, data) => readFormType(data.value)} />
+                            </Form.Field>
+                        </Form>
+                    </ChooseWrapper>
+                    {/* <ChooseWrapper>
+                        <Header as='h2'>Choose Your Form:</Header>
+                         />
+                    </ChooseWrapper> */}
+                </Fragment>
             );
         }
     }
@@ -124,7 +124,7 @@ class Content extends Component {
             <ContentWrapper>
                 {this.displayChooseForm()}
                 {this.displayMessage()}
-                {this.displayTravelForm()}
+                {this.displayForm()}
             </ContentWrapper>
         );
     }
@@ -132,8 +132,10 @@ class Content extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        list: state.getIn(['content', 'list']),
-        type: state.getIn(['content', 'formtype']), // state.get('content').get('formtype'),
+        formTypeList: state.getIn(['content', 'list']),
+        formToSubmitType: state.getIn(['content', 'formToSubmit', 'formtype']),
+        formToSubmitSubunit: state.getIn(['content', 'formToSubmit', 'subunit']),
+        formToSubmitUnit: state.getIn(['content', 'formToSubmit', 'unit']),
         legalFirstName: state.getIn(['content', 'tra', 'legal_firstname']),
         legalLastName: state.getIn(['content', 'tra', 'legal_lastname']),
         showSuccessToast: state.getIn(['content', 'showSuccessToast']),

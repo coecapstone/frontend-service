@@ -45,15 +45,6 @@ const reducer = (state = defaultState, action) => {
                     subunit: action.subunit
                 }
             })
-        //case constants.RESET_FORM_TYPE:
-            // return state.merge({
-            //     formtype: '',
-            //     tra: {
-            //         legal_firstname: '',
-            //         legal_lastname:''
-            //     },
-            //     showSuccessToast: false
-            // });
         default:
             return state;
     }

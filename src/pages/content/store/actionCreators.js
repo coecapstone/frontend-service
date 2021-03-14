@@ -5,6 +5,8 @@ export const GET_FORMLIST = 'content/get_formlist';
 export const READ_FORM_TYPE = 'content/read_form_type';
 export const CREATE_ANOTHER_REQUEST = 'content/create_another_request';
 export const RESET_FORM_TYPE = 'content/reset_form_type';
+export const CHANGE_TO_LOGOUT = 'content/CHANGE_TO_LOGOUT';
+
 
 export const createAnotherRequest = () => ({
     type: CREATE_ANOTHER_REQUEST
@@ -23,6 +25,10 @@ export const readFormType = (data) => ({
     type: READ_FORM_TYPE,
     data
 });
+
+export const logout = () => ({
+    type: CHANGE_TO_LOGOUT
+})
 
 export const getFormList = () => {
     return (dispatch) => {
