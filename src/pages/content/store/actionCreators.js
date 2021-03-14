@@ -5,6 +5,8 @@ export const GET_ALL_UNITS = 'content/get_all_units';
 export const GET_FORMLIST = 'content/get_formlist';
 export const READ_FORM_TYPE = 'content/read_form_type';
 export const READ_INPUT_UNIT = 'content/read_input_unit';
+export const READ_INPUT_SUBUNIT = 'content/read_input_subunit';
+export const GET_SUBUNITS = 'content/GET_SUBUNITS';
 export const CREATE_ANOTHER_REQUEST = 'content/create_another_request';
 export const RESET_FORM_TYPE = 'content/reset_form_type';
 export const CHANGE_TO_LOGOUT = 'content/CHANGE_TO_LOGOUT';
@@ -19,6 +21,16 @@ const getAllUnitsAction = (data) => ({
     data: fromJS(data)
 });
 
+const getSubunits = (data) => ({
+    type: GET_SUBUNITS,
+    data: fromJS(data)
+});
+
+const inputUnit = (data) => ({
+    type: READ_INPUT_UNIT,
+    data
+})
+
 export const createAnotherRequest = () => ({
     type: CREATE_ANOTHER_REQUEST
 });
@@ -29,11 +41,6 @@ export const resetFormType = () => ({
 
 export const readFormType = (data) => ({
     type: READ_FORM_TYPE,
-    data
-});
-
-export const readInputUnit = (data) => ({
-    type: READ_INPUT_UNIT,
     data
 });
 
@@ -53,6 +60,34 @@ export const getFormList = () => {
     }
 };
 
+export const readInputSubunit = (data) => ({
+    type: READ_INPUT_SUBUNIT,
+    data
+})
+
+export const readInputUnit = (unit) => {
+    return (dispatch) => {
+        axios.get(`http://localhost:8080/api/getSubunits/${unit}`)
+            .then(res => {
+                // console.log(res)
+                let allSubunitsList = [];
+                res.data.map(item => {
+                    const subunit = {};
+                    subunit.key = item;
+                    subunit.text = item;
+                    subunit.value = item;
+                    allSubunitsList.push(subunit);
+                });
+                console.log(allSubunitsList);
+                dispatch(inputUnit(unit));
+                dispatch(getSubunits(allSubunitsList));
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+};
+
 export const getAllUnitsList = () => {
     return (dispatch) => {
         axios.get('http://localhost:8080/api/getAllUnits')
@@ -65,7 +100,30 @@ export const getAllUnitsList = () => {
                     unit.value = item;
                     allUnitsList.push(unit);
                 });
-                dispatch(getAllUnitsAction(allUnitsList))
+                dispatch(getAllUnitsAction(allUnitsList));
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+};
+
+export const getSubunitsList = (subunit) => {
+    return (dispatch) => {
+        const url = `http://localhost:8080/api/getSubunits/${subunit}`;
+        console.log(url)
+        axios.get(url)
+            .then(res => {
+                let subunitsList = [];
+                res.data.map(item => {
+                    const subunit = {};
+                    subunit.key = item;
+                    subunit.text = item;
+                    subunit.value = item;
+                    subunitsList.push(subunit);
+                });
+                console.log(subunitsList)
+                //dispatch(getAllUnitsAction(subunitsList))
             })
             .catch((error) => {
                 console.log(error)

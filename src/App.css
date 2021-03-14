@@ -18,3 +18,7 @@
     font-weight: bold;
     text-decoration: underline;
 }
+
+.ui.selection.dropdown .menu {
+    max-height: 20rem !important;
+}

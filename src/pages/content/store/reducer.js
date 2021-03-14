@@ -25,6 +25,10 @@ const reducer = (state = defaultState, action) => {
             return state.setIn(['formToSubmit','formtype'], action.data);
         case constants.READ_INPUT_UNIT: 
             return state.setIn(['formToSubmit','unit'], action.data);
+        case constants.READ_INPUT_SUBUNIT:
+            return state.setIn(['formToSubmit','subunit'], action.data);
+        case constants.GET_SUBUNITS:
+            return state.setIn(['static','subunit'], action.data);
         case constants.GET_FORMLIST:
             return state.setIn(['static', 'list'], action.data);
         case constants.GET_ALL_UNITS:

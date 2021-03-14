@@ -92,7 +92,7 @@ class Content extends Component {
 
     displayChooseForm() {
         const { formToSubmitType, formToSubmitSubunit, formToSubmitUnit, showSuccessToast, formTypeList, 
-            readFormType, allUnitList, readInputUnit } = this.props;
+            readFormType, allUnitList, subunitList, readInputUnit, readInputSubunit } = this.props;
         if ( (formToSubmitType === '' || formToSubmitSubunit === '' || formToSubmitUnit === '') && !showSuccessToast) {
             return (
                 <Fragment>
@@ -104,7 +104,8 @@ class Content extends Component {
                                      onChange={(e, data) => readInputUnit(data.value)} />
                                 </Form.Field>
                                 <Form.Field required> <label>Choose Your Subunit</label>
-                                    <input placeholder='Last Name' />
+                                    <Dropdown clearable options={Immutable.List(subunitList).toJS()} selection
+                                     onChange={(e, data) => readInputSubunit(data.value)} />
                                 </Form.Field>
                             </Form.Group>
                             <Form.Field required> <label>Choose Your Form</label>
@@ -137,6 +138,7 @@ const mapStateToProps = (state) => {
     return {
         login: state.getIn(['login', 'login']),
         allUnitList: state.getIn(['content', 'static', 'unit']),
+        subunitList: state.getIn(['content', 'static', 'subunit']),
         formTypeList: state.getIn(['content', 'static', 'list']),
         formToSubmitType: state.getIn(['content', 'formToSubmit', 'formtype']),
         formToSubmitSubunit: state.getIn(['content', 'formToSubmit', 'subunit']),
@@ -161,6 +163,9 @@ const mapDispatchToProps = (dispatch) => {
         readInputUnit(data) {
             dispatch(actionCreators.readInputUnit(data));
         },
+        readInputSubunit(data) {
+            dispatch(actionCreators.readInputSubunit(data));
+        }, 
         updateFirstName(e) {
             dispatch(actionCreators.updateFirstNameAction(e.target.value));
         },

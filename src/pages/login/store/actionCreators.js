@@ -42,7 +42,9 @@ export const changeRoleToApprover = () => ({
 export const login = (profile) => {
     return (dispatch) => {
         const netId = profile.email.split('@')[0];
-        const url = 'http://localhost:8080/api/getUserRole/'+netId;
+        const url = `http://localhost:8080/api/getUserRole/${netId}`;
+        console.log(url)
+        console.log('url')
         axios.get(url)
             .then(res => {
                 console.log(res.data);
