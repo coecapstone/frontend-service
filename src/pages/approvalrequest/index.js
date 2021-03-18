@@ -14,22 +14,12 @@ import {
 class ApprovalRequests extends Component {
 
     componentDidMount() {
+        console.log('a')
         this.props.getSubunitRequests(this.props.unit, this.props.subunit);
-    }
-
-    componentWillUpdate() {
-        this.props.getSubunitRequests(this.props.unit, this.props.subunit);
-    }
-    
-    shouldComponentUpdate(nextProps, nextState) {
-        if (this.props.requests !== nextProps.requests) {
-            return true;
-        }
-        return false;
     }
 
     displayDetail() {
-        const { detailRequest, detailId, backToRequests, approvalRequest } = this.props;
+        const { detailRequest, detailId, backToRequests, approvalRequest, unit, subunit } = this.props;
         if (detailId !== '') {
             const detail = Immutable.List(detailRequest).toJS()[0];
             console.log(detail);
@@ -61,7 +51,7 @@ class ApprovalRequests extends Component {
                             </div>
                         </Card.Content>
                     </Card>
-                    <Button basic color='violet' onClick={() => backToRequests()}>
+                    <Button basic color='violet' onClick={() => backToRequests(unit, subunit)}>
                         Back
                     </Button>
                 </Fragment>
@@ -72,7 +62,6 @@ class ApprovalRequests extends Component {
     displayTable() {
         const { requests, seeRequestDetail, detailId } = this.props;
         const allSubunitRequests = Immutable.List(requests).toJS();
-        console.log(allSubunitRequests);
         if (detailId === '') {
             return (
                 <TableWrapper>
@@ -147,8 +136,9 @@ const mapDispatchToProps = (dispatch) => {
         seeRequestDetail(id) {
             dispatch(actionCreators.changeDetailId(id));
         },
-        backToRequests() {
+        backToRequests(unit, subunit) {
             dispatch(actionCreators.backToRequests());
+            dispatch(actionCreators.getSubunitRequests(unit, subunit));
         }, 
         approvalRequest(detailId) {
             dispatch(actionCreators.approvalRequest(detailId));

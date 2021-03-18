@@ -65,7 +65,7 @@ export const approvalRequest = (id) => {
         }
         fetch(`http://localhost:8080/api/approvalRequest/${id}`, options)
             .then(res => {
-                console.log(res.data)
+                console.log(res)
                 //dispatch(setRequestDetailAction(res.data, id))
             })
             .catch((error) => {
