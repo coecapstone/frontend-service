@@ -1,0 +1,51 @@
+.googleLogin {
+    width: 250px;
+    padding: 0 10px;
+    margin: 20px auto 10px 75px;
+    display: block;
+}
+
+.chooseSubmitter {
+    height: 50px;
+}
+
+.text {
+    color:#95949c !important;
+    font-weight: normal !important;
+}
+
+.importantText {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.ui.selection.dropdown .menu {
+    max-height: 20rem !important;
+}
+
+.card {
+    width: 80% !important;
+    font-size: 1.2rem !important;
+    line-height: 160% !important;
+}
+
+.submitFormBtn {
+    float: right !important;
+}
+
+.approveMessage {
+    width: 80% !important;
+}
+
+.declineMessage {
+    width: 80% !important;
+    margin-bottom: 20px !important;
+}
+
+.travelForm {
+    margin-bottom: 20px !important;
+}
+
+.anotherRequestBtn {
+    margin-top: 30px !important;
+}
