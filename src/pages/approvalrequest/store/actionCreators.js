@@ -56,9 +56,16 @@ export const changeDetailId = (id) => {
 
 export const approvalRequest = (id) => {
     return (dispatch) => {
-        axios.get(`http://localhost:8080/api/approvalRequest/${id}`)
+        const options = {
+            method: 'post',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(id)
+        }
+        fetch(`http://localhost:8080/api/approvalRequest/${id}`, options)
             .then(res => {
-                //console.log(res.data)
+                console.log(res.data)
                 //dispatch(setRequestDetailAction(res.data, id))
             })
             .catch((error) => {

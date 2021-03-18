@@ -17,6 +17,17 @@ class ApprovalRequests extends Component {
         this.props.getSubunitRequests(this.props.unit, this.props.subunit);
     }
 
+    componentWillUpdate() {
+        this.props.getSubunitRequests(this.props.unit, this.props.subunit);
+    }
+    
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.props.requests !== nextProps.requests) {
+            return true;
+        }
+        return false;
+    }
+
     displayDetail() {
         const { detailRequest, detailId, backToRequests, approvalRequest } = this.props;
         if (detailId !== '') {
