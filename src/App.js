@@ -7,6 +7,7 @@ import Content from './pages/content';
 import Login from './pages/login';
 import Requests from './pages/requests';
 import Approval from './pages/approval';
+import ApprovalRequests from './pages/approvalrequest';
 import { GlobalIcon } from './statics/iconfont/iconfont';
 import { Globalstyle } from './style';
 
@@ -24,6 +25,7 @@ class App extends Component {
               <Route path='/approval-welcome' exact component={Approval}></Route>
               <Route path='/create-request' exact component={Content}></Route>
               <Route path='/my-requests' exact component={Requests}></Route>
+              <Route path='/requests-to-approve' exact component={ApprovalRequests}></Route>
             </div>
           </BrowserRouter>
         </div>

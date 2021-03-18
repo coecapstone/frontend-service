@@ -3,6 +3,7 @@ import { combineReducers } from 'redux-immutable';
 import { reducer as contentReducer } from '../pages/content/store';
 import { reducer as loginReducer } from '../pages/login/store';
 import { reducer as requestsReducer } from '../pages/requests/store';
+import { reducer as approvalRequestReducer } from '../pages/approvalrequest/store';
 
 
 const reducer = combineReducers({
@@ -10,6 +11,7 @@ const reducer = combineReducers({
     content: contentReducer,
     login: loginReducer,
     request: requestsReducer,
+    approvalrequest: approvalRequestReducer
 })
 
 export default reducer;

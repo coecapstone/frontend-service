@@ -5,6 +5,7 @@ import { actionCreators as loginActionCreators } from '../../pages/login/store';
 import { actionCreators as contentActionCreators } from '../../pages/content/store';
 //import { actionCreators as approvalActionCreators } from '../../pages/approval/store';
 import { actionCreators as requestsActionCreators } from '../../pages/requests/store';
+import { actionCreators as approvalRequestsActionCreators } from '../../pages/approvalrequest/store';
 
 import {
     HeaderWrapper,
@@ -75,6 +76,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(contentActionCreators.logout());
             dispatch(requestsActionCreators.logout());
             //dispatch(actionCreators.resetContentState());
+            dispatch(approvalRequestsActionCreators.logout());
         }
     }
 }

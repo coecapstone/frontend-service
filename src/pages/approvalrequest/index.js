@@ -11,10 +11,10 @@ import {
     DirectText,
 } from './style';
 
-class Requests extends Component {
+class ApprovalRequests extends Component {
 
     componentDidMount() {
-        this.props.getUserRequests(this.props.creatorEmail.split('@')[0]);
+        this.props.getSubunitRequests(this.props.unit, this.props.subunit);
     }
 
     displayDetail() {
@@ -50,7 +50,8 @@ class Requests extends Component {
 
     displayTable() {
         const { requests, seeRequestDetail, showDetail } = this.props;
-        const allUserRequests = Immutable.List(requests).toJS();
+        const allSubunitRequests = Immutable.List(requests).toJS();
+        console.log(allSubunitRequests);
         if (!showDetail) {
             return (
                 <TableWrapper>
@@ -58,13 +59,10 @@ class Requests extends Component {
                         <Table.Header>
                             <Table.Row>
                                 <Table.HeaderCell>
+                                    Form Creator
+                                </Table.HeaderCell>
+                                <Table.HeaderCell>
                                     Form Type
-                                </Table.HeaderCell>
-                                <Table.HeaderCell>
-                                    Unit Name
-                                </Table.HeaderCell>
-                                <Table.HeaderCell>
-                                    Subunit Name
                                 </Table.HeaderCell>
                                 <Table.HeaderCell>
                                     Created Time
@@ -78,11 +76,10 @@ class Requests extends Component {
                             </Table.Row>
                         </Table.Header>
                         <Table.Body>
-                            {allUserRequests.map(({ id, formType, unitName, subunitName, createdTimePST, approvalStatus }) => (
+                            {allSubunitRequests.map(({ id, formCreator, formType, createdTimePST, approvalStatus }) => (
                                 <Table.Row key={id}>
+                                    <Table.Cell>{formCreator}</Table.Cell>
                                     <Table.Cell>{formType}</Table.Cell>
-                                    <Table.Cell>{unitName}</Table.Cell>
-                                    <Table.Cell>{subunitName}</Table.Cell>
                                     <Table.Cell>{createdTimePST}</Table.Cell>
                                     <Table.Cell>{approvalStatus}</Table.Cell>
                                     <Table.Cell><DirectText onClick={() => seeRequestDetail(id)}>detail</DirectText></Table.Cell>
@@ -94,6 +91,7 @@ class Requests extends Component {
             );
         }
     }
+
 
     render() {
         if (this.props.login) {
@@ -112,18 +110,18 @@ class Requests extends Component {
 const mapStateToProps = (state) => {
     return {
         login: state.getIn(['login', 'login']),
-        creatorEmail: state.getIn(['login', 'profileObj', 'email']),
-        requests: state.getIn(['request', 'requests']),
-        allUnitList: state.getIn(['content', 'static', 'unit']),
-        detailRequest: state.getIn(['request', 'detailRequest']),
-        showDetail: state.getIn(['request', 'showDetail']),
+        unit: state.getIn(['login', 'user', 'unit']),
+        subunit: state.getIn(['login', 'user', 'subunit']),
+        requests: state.getIn(['approvalrequest', 'requests']),
+        detailRequest: state.getIn(['approvalrequest', 'detailRequest']),
+        showDetail: state.getIn(['approvalrequest', 'showDetail']),
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getUserRequests(userNetId) {
-            dispatch(actionCreators.getUserRequests(userNetId));
+        getSubunitRequests(unit, subunit) {
+            dispatch(actionCreators.getSubunitRequests(unit, subunit));
         },
         seeRequestDetail(id) {
             dispatch(actionCreators.changeDetailId(id));
@@ -134,4 +132,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Requests);
+export default connect(mapStateToProps, mapDispatchToProps)(ApprovalRequests);

@@ -41,6 +41,7 @@ const reducer = (state = defaultState, action) => {
         case constants.CHANGE_APPROVAL_INFO:
             return state.merge({
                 user: {
+                    role: 'approver',
                     unit: action.unit,
                     subunit: action.subunit
                 }
