@@ -15,7 +15,10 @@ const defaultState = fromJS({
     showSuccessToast: false,
     tra: {
         legal_firstname: '',
-        legal_lastname: ''
+        legal_lastname: '',
+        departure: '',
+        destination: '',
+        reason: '',
     }
 });
 
@@ -37,7 +40,11 @@ const reducer = (state = defaultState, action) => {
             return state.setIn(['tra', 'legal_firstname'], action.value);
         case constants.UPDATE_LASTNAME:
             return state.setIn(['tra', 'legal_lastname'], action.value);
-        case constants.SUBMIT_FORM:
+        case constants.UPDATE_DEPARTURE:
+            return state.setIn(['tra', 'departure'], action.value);
+        case constants.UPDATE_DESTINATION:
+            return state.setIn(['tra', 'destination'], action.value);
+        case constants.SUBMIT_TRAVEL_REQUEST_FORM:
             return state.merge({
                 formToSubmit: {
                     unit: '',
@@ -46,7 +53,10 @@ const reducer = (state = defaultState, action) => {
                 },
                 tra: {
                     legal_firstname: '',
-                    legal_lastname:''
+                    legal_lastname: '',
+                    departure: '',
+                    destination: '',
+                    reason: '',
                 },
                 showSuccessToast: true
             });

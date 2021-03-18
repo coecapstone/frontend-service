@@ -133,7 +133,9 @@ export const getSubunitsList = (subunit) => {
 
 export const UPDATE_FIRSTNAME = 'content/UPDATE_FIRSTNAME';
 export const UPDATE_LASTNAME = 'content/UPDATE_LASTNAME';
-export const SUBMIT_FORM = 'content/SUBMIT_FORM';
+export const UPDATE_DEPARTURE = 'content/UPDATE_DEPARTURE';
+export const UPDATE_DESTINATION = 'content/UPDATE_DESTINATION';
+export const SUBMIT_TRAVEL_REQUEST_FORM = 'content/SUBMIT_TRAVEL_REQUEST_FORM';
 
 export const updateFirstNameAction = (value) => ({
     type: UPDATE_FIRSTNAME,
@@ -143,30 +145,34 @@ export const updateLastNameAction = (value) => ({
     type: UPDATE_LASTNAME,
     value
 })
-const submitFormAction = () => ({
-    type: SUBMIT_FORM
+export const updateDepartureAction = (value) => ({
+    type: UPDATE_DEPARTURE,
+    value
+})
+export const updateDestinationAction = (value) => ({
+    type: UPDATE_DESTINATION,
+    value
+})
+const submitTravelRequestFormAction = () => ({
+    type: SUBMIT_TRAVEL_REQUEST_FORM
 })
 
-export const submitForm = (firstName, lastName) => {
+export const submitTravelRequestForm = (formToSubmitData) => {
     return (dispatch) => {
-        const data = {
-            "legal_firstname": firstName, 
-            "legal_lastname": lastName
-        }
         const options = {
             method: 'post',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(formToSubmitData)
         }
-        console.log(data)
+        console.log(formToSubmitData)
         console.log(options)
-        fetch('http://localhost:8080/api/saveFormData', options)
+        fetch('http://localhost:8080/api/saveTravelRequestForm', options)
             .then(res => {
                 console.log(res)
                 // save to session story
-                dispatch(submitFormAction())
+                dispatch(submitTravelRequestFormAction())
             })
             .catch(error => {
                 console.log(error)

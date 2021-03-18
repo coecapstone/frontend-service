@@ -8,7 +8,6 @@ import { Form, Button, Input, Message } from 'semantic-ui-react';
 import {
     ChooseWrapper,
     ContentWrapper,
-    FormWrapper
 } from './style';
 
 class Content extends Component {
@@ -19,28 +18,44 @@ class Content extends Component {
     }
 
     travelRequestForm() {
+        const { creatorEmail, legalFirstName, updateFirstName, legalLastName, updateLastName, departure, updateDeparture,
+            destination, updateDestination, submitTravelRequestForm, resetFormType,
+            formToSubmitType, formToSubmitSubunit, formToSubmitUnit} = this.props;
+        const creatorNetId = creatorEmail.split('@')[0];
+        const travelRequestFormData = { creatorNetId, formToSubmitType, formToSubmitSubunit, formToSubmitUnit, legalFirstName, legalLastName, departure, destination };
         return (
             <Fragment>
                 <Form>
                     <Form.Group widths='equal'>
-                        <Form.Field required>
-                            <label>Legal First Name</label>
+                        <Form.Field required> <label>Legal First Name</label>
                             <Input placeholder='First name'
-                                value={this.props.legalFirstName}
-                                onChange={this.props.updateFirstName} />
+                                value={legalFirstName}
+                                onChange={updateFirstName} />
                         </Form.Field>
-                        <Form.Field required>
-                            <label>Legal Last Name</label>
+                        <Form.Field required> <label>Legal Last Name</label>
                             <Input placeholder='Last name'
-                                value={this.props.legalLastName}
-                                onChange={this.props.updateLastName} />
+                                value={legalLastName}
+                                onChange={updateLastName} />
                         </Form.Field>
                     </Form.Group>
+                    <Form.Group widths='equal'>
+                        <Form.Field required> <label>Departure</label>
+                            <Input placeholder='City of airport'
+                                value={departure}
+                                onChange={updateDeparture} />
+                        </Form.Field>
+                        <Form.Field required> <label>Destination</label>
+                            <Input placeholder=''
+                                value={destination}
+                                onChange={updateDestination} />
+                        </Form.Field>
+                    </Form.Group>
+                    <Form.TextArea required label='Reason for request this travel' placeholder='No longer than 1000 characters' />
                 </Form>
-                <Button secondary onClick={() => this.props.submitForm(this.props.legalFirstName, this.props.legalLastName)}>
+                <Button secondary onClick={() => submitTravelRequestForm(travelRequestFormData)}>
                     Submit
                 </Button>
-                <Button basic color='violet' onClick={() => this.props.resetFormType()}>Reset Form Type</Button>
+                <Button basic color='violet' onClick={() => resetFormType()}>Reset Form Type</Button>
             </Fragment>
         );
     }
@@ -100,7 +115,7 @@ class Content extends Component {
                         <Form>
                             <Form.Group widths='equal'>
                                 <Form.Field required> <label>Choose Your Unit</label>
-                                    <Dropdown clearable options={Immutable.List(allUnitList).toJS()} selection
+                                    <Dropdown options={Immutable.List(allUnitList).toJS()} selection
                                      onChange={(e, data) => readInputUnit(data.value)} />
                                 </Form.Field>
                                 <Form.Field required> <label>Choose Your Subunit</label>
@@ -137,6 +152,7 @@ class Content extends Component {
 const mapStateToProps = (state) => {
     return {
         login: state.getIn(['login', 'login']),
+        creatorEmail: state.getIn(['login', 'profileObj', 'email']),
         allUnitList: state.getIn(['content', 'static', 'unit']),
         subunitList: state.getIn(['content', 'static', 'subunit']),
         formTypeList: state.getIn(['content', 'static', 'list']),
@@ -145,6 +161,8 @@ const mapStateToProps = (state) => {
         formToSubmitUnit: state.getIn(['content', 'formToSubmit', 'unit']),
         legalFirstName: state.getIn(['content', 'tra', 'legal_firstname']),
         legalLastName: state.getIn(['content', 'tra', 'legal_lastname']),
+        departure: state.getIn(['content', 'tra', 'departure']),
+        destination: state.getIn(['content', 'tra', 'destination']),
         showSuccessToast: state.getIn(['content', 'showSuccessToast']),
     }
 }
@@ -172,8 +190,14 @@ const mapDispatchToProps = (dispatch) => {
         updateLastName(e) {
             dispatch(actionCreators.updateLastNameAction(e.target.value));
         },
-        submitForm(firstName, lastName) {
-            dispatch(actionCreators.submitForm(firstName, lastName))
+        updateDeparture(e) {
+            dispatch(actionCreators.updateDepartureAction(e.target.value));
+        },
+        updateDestination(e) {
+            dispatch(actionCreators.updateDestinationAction(e.target.value));
+        },
+        submitTravelRequestForm(formToSubmitData) {
+            dispatch(actionCreators.submitTravelRequestForm(formToSubmitData))
         },
         createAnotherRequest() {
             dispatch(actionCreators.createAnotherRequest())

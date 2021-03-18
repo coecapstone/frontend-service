@@ -14,5 +14,4 @@ export const ContentWrapper = styled.div`
     padding: 20px 30px 30px 30px;
 `
 
-export const FormWrapper = styled.div`
-`
+
