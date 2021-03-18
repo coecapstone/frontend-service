@@ -41,6 +41,10 @@ class ApprovalRequests extends Component {
                                 <div><b>Reason</b>: {detail.reason}</div>
                             </Card.Description>
                         </Card.Content>
+                        { detail.declinedReason ? 
+                            <Card.Content extra>
+                                <div><b>Declined Reason</b>: {detail.declinedReason}</div>
+                            </Card.Content> : null }
                         <Card.Content extra>
                             <div className='ui two buttons'>
                                 <Button content='Approve' onClick={() => approvalRequest(detailId)} basic color='green' />

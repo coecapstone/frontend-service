@@ -26,19 +26,23 @@ class Requests extends Component {
                 <Fragment>
                     <Card className='card'>
                         <Card.Content>
-                        <Card.Header>{detail.unitName}, {detail.subunitName} - {detail.formType}</Card.Header>
-                        <Card.Meta>
-                            <div className='date'>{detail.createdTime}</div>
-                            <div className='date'>{detail.approvalStatus}</div>
-                        </Card.Meta>
-                        <Card.Description>
-                            <div><b>Legal First Name</b>: {detail.legalFirstName}</div>
-                            <div><b>Legal Last Name</b>: {detail.legalLastName}</div>
-                            <div><b>Departure</b>: {detail.departure}</div>
-                            <div><b>Destination</b>: {detail.destination}</div>
-                            <div><b>Reason</b>: {detail.reason}</div>
-                        </Card.Description>
+                            <Card.Header>{detail.unitName}, {detail.subunitName} - {detail.formType}</Card.Header>
+                            <Card.Meta>
+                                <div className='date'>{detail.createdTime}</div>
+                                <div className='date'>{detail.approvalStatus}</div>
+                            </Card.Meta>
+                            <Card.Description>
+                                <div><b>Legal First Name</b>: {detail.legalFirstName}</div>
+                                <div><b>Legal Last Name</b>: {detail.legalLastName}</div>
+                                <div><b>Departure</b>: {detail.departure}</div>
+                                <div><b>Destination</b>: {detail.destination}</div>
+                                <div><b>Reason</b>: {detail.reason}</div>
+                            </Card.Description>
                         </Card.Content>
+                        { detail.declinedReason ? 
+                            <Card.Content extra>
+                                <div><b>Declined Reason</b>: {detail.declinedReason}</div>
+                            </Card.Content> : null }
                     </Card>
                     <Button basic color='violet' onClick={() => backToRequests()}>
                         Back
