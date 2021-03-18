@@ -25,7 +25,7 @@ class Content extends Component {
         const travelRequestFormData = { creatorNetId, formToSubmitType, formToSubmitSubunit, formToSubmitUnit, legalFirstName, legalLastName, departure, destination, reason };
         return (
             <Fragment>
-                <Form>
+                <Form className='travelForm'>
                     <Form.Group widths='equal'>
                         <Form.Field required> <label>Legal First Name</label>
                             <Input placeholder='First name'
@@ -54,10 +54,8 @@ class Content extends Component {
                         value={reason}
                         onChange={updateReason}/>
                 </Form>
-                <Button secondary onClick={() => submitTravelRequestForm(travelRequestFormData)}>
-                    Submit
-                </Button>
-                <Button basic color='violet' onClick={() => resetFormType()}>Reset Form Type</Button>
+                <Button content='Submit' className='submitFormBtn' secondary onClick={() => submitTravelRequestForm(travelRequestFormData)} />
+                <Button content='Reset FormType' labelPosition='left' icon='backward' color='violet' basic onClick={() => resetFormType()} />
             </Fragment>
         );
     }
@@ -94,14 +92,9 @@ class Content extends Component {
         if (this.props.showSuccessToast) {
             return (
                 <div>
-                    <Message
-                        header='Success!'
-                        color='violet'
-                        content='We have received your request.'
-                    />
-                    <Button basic color='violet' onClick={() => this.props.createAnotherRequest()}>
-                        Create  Another  Request
-                    </Button>
+                    <Message header='Success!' color='violet' content='We have received your request.' />
+                    <Button content='Create Another Request' labelPosition='left' icon='edit' color='violet' 
+                        className='anotherRequestBtn' onClick={() => this.props.createAnotherRequest()} />
                 </div>
             )
         }

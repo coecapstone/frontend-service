@@ -5,7 +5,9 @@ const defaultState = fromJS({
     requests: { },
     detailRequest: { },
     detailId: '',
-    showApprovedMessage: false
+    showApprovedMessage: false,
+    showDeclineMessageInputBox: false,
+    reason: ''
 });
 
 const reducer = (state = defaultState, action) => {
@@ -17,7 +19,9 @@ const reducer = (state = defaultState, action) => {
             return state.merge({
                 detailRequest: {},
                 detailId: '',
-                showApprovedMessage: false
+                showApprovedMessage: false,
+                showDeclineMessageInputBox: false,
+                reason: ''
             });
         case constants.SET_REQUEST_DETAIL:
             return state.merge({
@@ -25,7 +29,17 @@ const reducer = (state = defaultState, action) => {
                 detailId: action.id
             });
         case constants.SHOW_APPROVED_MESSAGE:
-            return state.set('showApprovedMessage', true);
+            return state.merge({
+                showApprovedMessage: true,
+                showDeclineMessageInputBox: false,
+            });
+        case constants.SHOW_DECLINE_MESSAGE_INPUTBOX:
+            return state.merge({
+                showApprovedMessage: false,
+                showDeclineMessageInputBox: true,
+            });
+        case constants.UPDATE_REASON:
+            return state.set('reason', action.value);
         default:
             return state;
     }

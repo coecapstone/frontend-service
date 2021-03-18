@@ -7,6 +7,8 @@ export const SET_REQUEST_DETAIL = 'content/SET_REQUEST_DETAIL';
 export const BACK_TO_REQUESTS = 'content/BACK_TO_REQUESTS';
 export const CHANGE_TO_LOGOUT = 'content/CHANGE_TO_LOGOUT';
 export const SHOW_APPROVED_MESSAGE = 'content/SHOW_APPROVED_MESSAGE';
+export const SHOW_DECLINE_MESSAGE_INPUTBOX = 'content/SHOW_DECLINE_MESSAGE_INPUTBOX';
+export const UPDATE_REASON = 'content/UPDATE_REASON';
 
 export const backToRequests = () => ({
     type: BACK_TO_REQUESTS
@@ -76,5 +78,34 @@ export const approvalRequest = (id) => {
             .catch((error) => {
                 console.log(error)
             })
+    }
+}
+
+export const showDeclineMessageInputBox = () => ({
+    type: SHOW_DECLINE_MESSAGE_INPUTBOX
+});
+
+export const updateReasonAction = (value) => ({
+    type: UPDATE_REASON,
+    value
+})
+
+export const declineRequest = (id) => {
+    return (dispatch) => {
+        // const options = {
+        //     method: 'post',
+        //     headers: {
+        //       'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(id)
+        // }
+        // fetch(`http://localhost:8080/api/approvalRequest/${id}`, options)
+        //     .then(res => {
+        //         console.log(res)
+        //         dispatch(showApprovedMessage())
+        //     })
+        //     .catch((error) => {
+        //         console.log(error)
+        //     })
     }
 }

@@ -3,7 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actionCreators } from './store';
 import Immutable from 'immutable';
-import { Table, Card, Button, Message } from 'semantic-ui-react';
+import { Table, Card, Button, Message, Form } from 'semantic-ui-react';
 
 import {
     ContentWrapper,
@@ -19,10 +19,11 @@ class ApprovalRequests extends Component {
     }
 
     displayDetail() {
-        const { detailRequest, detailId, backToRequests, approvalRequest, unit, subunit, showApprovedMessage } = this.props;
+        const { detailRequest, detailId, backToRequests, approvalRequest, declineRequest,
+            unit, subunit, showApprovedMessage } = this.props;
         if (detailId !== '') {
             const detail = Immutable.List(detailRequest).toJS()[0];
-            console.log(detail);
+            // console.log(detail);
             return (
                 <Fragment>
                     <Card className='card'>
@@ -42,21 +43,35 @@ class ApprovalRequests extends Component {
                         </Card.Content>
                         <Card.Content extra>
                             <div className='ui two buttons'>
-                            <Button onClick={() => approvalRequest(detailId)} basic color='green'>
-                                Approve
-                            </Button>
-                            <Button basic color='red'>
-                                Decline
-                            </Button>
+                                <Button content='Approve' onClick={() => approvalRequest(detailId)} basic color='green' />
+                                <Button content='Decline' onClick={() => declineRequest(detailId)} basic color='red' />
                             </div>
                         </Card.Content>
                     </Card>
-                    { showApprovedMessage ? <Message className='approvalMessage' header='Approved!' color='green' content='The request status has changed.'/>: null}
-                    <Button basic color='violet' onClick={() => backToRequests(unit, subunit)}>
-                        Back
-                    </Button>
+                    { showApprovedMessage ? 
+                        <Message className='approveMessage' header='Approved!' color='green' content='The request status has changed.'/>
+                        : null}
+                    { this.showDecline() }
+                    <Button basic content='Back' labelPosition='left' icon='backward' color='violet' onClick={() => backToRequests(unit, subunit)} />
                 </Fragment>
             );
+        }
+    }
+
+    showDecline() {
+        const { showDeclineMessageInputBox, updateReason, reason } = this.props;
+        if (showDeclineMessageInputBox) {
+            return (
+                <Form className='declineMessage'> 
+                    <Form.TextArea required label='Reason for decline this request' placeholder='No longer than 1000 characters' 
+                        value={reason}
+                        onChange={updateReason}/> 
+                    <Button content='Reply' labelPosition='left' icon='edit' color='red'/>
+                </Form>
+
+            );
+        } else {
+            return null;
         }
     }
 
@@ -127,6 +142,8 @@ const mapStateToProps = (state) => {
         detailRequest: state.getIn(['approvalrequest', 'detailRequest']),
         detailId: state.getIn(['approvalrequest', 'detailId']),
         showApprovedMessage: state.getIn(['approvalrequest', 'showApprovedMessage']),
+        showDeclineMessageInputBox: state.getIn(['approvalrequest', 'showDeclineMessageInputBox']),
+        reason: state.getIn(['approvalrequest', 'reason']),
     }
 }
 
@@ -144,7 +161,14 @@ const mapDispatchToProps = (dispatch) => {
         }, 
         approvalRequest(detailId) {
             dispatch(actionCreators.approvalRequest(detailId));
-        }
+        },
+        declineRequest(detailId) {
+            dispatch(actionCreators.showDeclineMessageInputBox());
+            //dispatch(actionCreators.declineRequest(detailId));
+        },
+        updateReason(e) {
+            dispatch(actionCreators.updateReasonAction(e.target.value));
+        },
     }
 }
 
