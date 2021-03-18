@@ -3,7 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actionCreators } from './store';
 import Immutable from 'immutable';
-import { Table, Card, Button } from 'semantic-ui-react';
+import { Table, Card, Button, Message } from 'semantic-ui-react';
 
 import {
     ContentWrapper,
@@ -19,7 +19,7 @@ class ApprovalRequests extends Component {
     }
 
     displayDetail() {
-        const { detailRequest, detailId, backToRequests, approvalRequest, unit, subunit } = this.props;
+        const { detailRequest, detailId, backToRequests, approvalRequest, unit, subunit, showApprovedMessage } = this.props;
         if (detailId !== '') {
             const detail = Immutable.List(detailRequest).toJS()[0];
             console.log(detail);
@@ -51,6 +51,7 @@ class ApprovalRequests extends Component {
                             </div>
                         </Card.Content>
                     </Card>
+                    { showApprovedMessage ? <Message className='approvalMessage' header='Approved!' color='green' content='The request status has changed.'/>: null}
                     <Button basic color='violet' onClick={() => backToRequests(unit, subunit)}>
                         Back
                     </Button>
@@ -125,6 +126,7 @@ const mapStateToProps = (state) => {
         requests: state.getIn(['approvalrequest', 'requests']),
         detailRequest: state.getIn(['approvalrequest', 'detailRequest']),
         detailId: state.getIn(['approvalrequest', 'detailId']),
+        showApprovedMessage: state.getIn(['approvalrequest', 'showApprovedMessage']),
     }
 }
 

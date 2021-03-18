@@ -5,6 +5,7 @@ const defaultState = fromJS({
     requests: { },
     detailRequest: { },
     detailId: '',
+    showApprovedMessage: false
 });
 
 const reducer = (state = defaultState, action) => {
@@ -15,13 +16,16 @@ const reducer = (state = defaultState, action) => {
         case constants.CHANGE_TO_LOGOUT:
             return state.merge({
                 detailRequest: {},
-                detailId: ''
+                detailId: '',
+                showApprovedMessage: false
             });
         case constants.SET_REQUEST_DETAIL:
             return state.merge({
                 detailRequest: action.data,
                 detailId: action.id
             });
+        case constants.SHOW_APPROVED_MESSAGE:
+            return state.set('showApprovedMessage', true);
         default:
             return state;
     }

@@ -28,3 +28,7 @@
     font-size: 1.2rem !important;
     line-height: 160% !important;
 }
+
+.approvalMessage {
+    width: 80% !important;
+}

@@ -6,6 +6,7 @@ export const GET_SUBUNIT_REQUESTS = 'content/GET_SUBUNIT_REQUESTS';
 export const SET_REQUEST_DETAIL = 'content/SET_REQUEST_DETAIL';
 export const BACK_TO_REQUESTS = 'content/BACK_TO_REQUESTS';
 export const CHANGE_TO_LOGOUT = 'content/CHANGE_TO_LOGOUT';
+export const SHOW_APPROVED_MESSAGE = 'content/SHOW_APPROVED_MESSAGE';
 
 export const backToRequests = () => ({
     type: BACK_TO_REQUESTS
@@ -13,6 +14,10 @@ export const backToRequests = () => ({
 
 export const logout = () => ({
     type: CHANGE_TO_LOGOUT
+})
+
+export const showApprovedMessage = () => ({
+    type: SHOW_APPROVED_MESSAGE
 })
 
 const getSubunitRequestsAction = (data) => ({
@@ -66,7 +71,7 @@ export const approvalRequest = (id) => {
         fetch(`http://localhost:8080/api/approvalRequest/${id}`, options)
             .then(res => {
                 console.log(res)
-                //dispatch(setRequestDetailAction(res.data, id))
+                dispatch(showApprovedMessage())
             })
             .catch((error) => {
                 console.log(error)
