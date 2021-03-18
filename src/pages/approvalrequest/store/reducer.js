@@ -4,7 +4,7 @@ import { fromJS } from 'immutable';
 const defaultState = fromJS({
     requests: { },
     detailRequest: { },
-    showDetail: false,
+    detailId: '',
 });
 
 const reducer = (state = defaultState, action) => {
@@ -15,12 +15,12 @@ const reducer = (state = defaultState, action) => {
         case constants.CHANGE_TO_LOGOUT:
             return state.merge({
                 detailRequest: {},
-                showDetail: false
+                detailId: ''
             });
         case constants.SET_REQUEST_DETAIL:
             return state.merge({
                 detailRequest: action.data,
-                showDetail: true
+                detailId: action.id
             });
         default:
             return state;

@@ -7,11 +7,9 @@ export const ContentWrapper = styled.div`
     left: 230px;
     right: 0;
     padding: 20px 30px 30px 30px;
-    background-color: red;
 `
 export const TableWrapper = styled.div`
     height: 100%;
-    background-color: yellow;
 `
 
 export const DirectText = styled.div`

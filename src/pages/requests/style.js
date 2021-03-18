@@ -10,7 +10,6 @@ export const ContentWrapper = styled.div`
 `
 export const TableWrapper = styled.div`
     height: 100%;
-    background-color: yellow;
 `
 
 export const DirectText = styled.div`

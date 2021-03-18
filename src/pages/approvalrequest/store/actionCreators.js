@@ -20,8 +20,9 @@ const getSubunitRequestsAction = (data) => ({
     data: fromJS(data)
 });
 
-const setRequestDetailAction = (data) => ({
+const setRequestDetailAction = (data, id) => ({
     type: SET_REQUEST_DETAIL,
+    id, 
     data: fromJS(data)
 });
 
@@ -45,7 +46,20 @@ export const changeDetailId = (id) => {
         axios.get(`http://localhost:8080/api/getRequestDetail/${id}`)
             .then(res => {
                 console.log(res.data)
-                dispatch(setRequestDetailAction(res.data))
+                dispatch(setRequestDetailAction(res.data, id))
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+}
+
+export const approvalRequest = (id) => {
+    return (dispatch) => {
+        axios.get(`http://localhost:8080/api/approvalRequest/${id}`)
+            .then(res => {
+                //console.log(res.data)
+                //dispatch(setRequestDetailAction(res.data, id))
             })
             .catch((error) => {
                 console.log(error)

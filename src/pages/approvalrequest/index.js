@@ -18,26 +18,36 @@ class ApprovalRequests extends Component {
     }
 
     displayDetail() {
-        const { detailRequest, showDetail, backToRequests } = this.props;
-        if (showDetail) {
+        const { detailRequest, detailId, backToRequests, approvalRequest } = this.props;
+        if (detailId !== '') {
             const detail = Immutable.List(detailRequest).toJS()[0];
             console.log(detail);
             return (
                 <Fragment>
                     <Card className='card'>
                         <Card.Content>
-                        <Card.Header>{detail.unitName}, {detail.subunitName} - {detail.formType}</Card.Header>
-                        <Card.Meta>
-                            <div className='date'>{detail.createdTime}</div>
-                            <div className='date'>{detail.approvalStatus}</div>
-                        </Card.Meta>
-                        <Card.Description>
-                            <div><b>Legal First Name</b>: {detail.legalFirstName}</div>
-                            <div><b>Legal Last Name</b>: {detail.legalLastName}</div>
-                            <div><b>Departure</b>: {detail.departure}</div>
-                            <div><b>Destination</b>: {detail.destination}</div>
-                            <div><b>Reason</b>: {detail.reason}</div>
-                        </Card.Description>
+                            <Card.Header>{detail.unitName}, {detail.subunitName} - {detail.formType}</Card.Header>
+                            <Card.Meta>
+                                <div className='date'>{detail.createdTime}</div>
+                                <div className='date'>{detail.approvalStatus}</div>
+                            </Card.Meta>
+                            <Card.Description>
+                                <div><b>Legal First Name</b>: {detail.legalFirstName}</div>
+                                <div><b>Legal Last Name</b>: {detail.legalLastName}</div>
+                                <div><b>Departure</b>: {detail.departure}</div>
+                                <div><b>Destination</b>: {detail.destination}</div>
+                                <div><b>Reason</b>: {detail.reason}</div>
+                            </Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                            <div className='ui two buttons'>
+                            <Button onClick={() => approvalRequest(detailId)} basic color='green'>
+                                Approve
+                            </Button>
+                            <Button basic color='red'>
+                                Decline
+                            </Button>
+                            </div>
                         </Card.Content>
                     </Card>
                     <Button basic color='violet' onClick={() => backToRequests()}>
@@ -49,10 +59,10 @@ class ApprovalRequests extends Component {
     }
 
     displayTable() {
-        const { requests, seeRequestDetail, showDetail } = this.props;
+        const { requests, seeRequestDetail, detailId } = this.props;
         const allSubunitRequests = Immutable.List(requests).toJS();
         console.log(allSubunitRequests);
-        if (!showDetail) {
+        if (detailId === '') {
             return (
                 <TableWrapper>
                     <Table sortable celled fixed>
@@ -114,7 +124,7 @@ const mapStateToProps = (state) => {
         subunit: state.getIn(['login', 'user', 'subunit']),
         requests: state.getIn(['approvalrequest', 'requests']),
         detailRequest: state.getIn(['approvalrequest', 'detailRequest']),
-        showDetail: state.getIn(['approvalrequest', 'showDetail']),
+        detailId: state.getIn(['approvalrequest', 'detailId']),
     }
 }
 
@@ -128,6 +138,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         backToRequests() {
             dispatch(actionCreators.backToRequests());
+        }, 
+        approvalRequest(detailId) {
+            dispatch(actionCreators.approvalRequest(detailId));
         }
     }
 }
