@@ -67,8 +67,7 @@ export const approvalRequest = (id) => {
             method: 'post',
             headers: {
               'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(id)
+            }
         }
         fetch(`http://localhost:8080/api/approvalRequest/${id}`, options)
             .then(res => {
@@ -90,22 +89,23 @@ export const updateReasonAction = (value) => ({
     value
 })
 
-export const declineRequest = (id) => {
+export const sendDeclineMessage = (id, reason) => {
     return (dispatch) => {
-        // const options = {
-        //     method: 'post',
-        //     headers: {
-        //       'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(id)
-        // }
-        // fetch(`http://localhost:8080/api/approvalRequest/${id}`, options)
-        //     .then(res => {
-        //         console.log(res)
-        //         dispatch(showApprovedMessage())
-        //     })
-        //     .catch((error) => {
-        //         console.log(error)
-        //     })
+        const options = {
+            method: 'post',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(reason)
+        }
+        console.log(options);
+        fetch(`http://localhost:8080/api/sendDeclineMessage/${id}`, options)
+            .then(res => {
+                console.log(res)
+                //dispatch(showApprovedMessage())
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
 }

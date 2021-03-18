@@ -44,7 +44,7 @@ class ApprovalRequests extends Component {
                         <Card.Content extra>
                             <div className='ui two buttons'>
                                 <Button content='Approve' onClick={() => approvalRequest(detailId)} basic color='green' />
-                                <Button content='Decline' onClick={() => declineRequest(detailId)} basic color='red' />
+                                <Button content='Decline' onClick={() => declineRequest()} basic color='red' />
                             </div>
                         </Card.Content>
                     </Card>
@@ -59,16 +59,15 @@ class ApprovalRequests extends Component {
     }
 
     showDecline() {
-        const { showDeclineMessageInputBox, updateReason, reason } = this.props;
+        const { showDeclineMessageInputBox, updateReason, reason, sendDeclineMessage, detailId } = this.props;
         if (showDeclineMessageInputBox) {
             return (
                 <Form className='declineMessage'> 
                     <Form.TextArea required label='Reason for decline this request' placeholder='No longer than 1000 characters' 
                         value={reason}
                         onChange={updateReason}/> 
-                    <Button content='Reply' labelPosition='left' icon='edit' color='red'/>
+                    <Button content='Reply' labelPosition='left' icon='edit' color='red' onClick={() => sendDeclineMessage(detailId, reason)}/>
                 </Form>
-
             );
         } else {
             return null;
@@ -162,13 +161,16 @@ const mapDispatchToProps = (dispatch) => {
         approvalRequest(detailId) {
             dispatch(actionCreators.approvalRequest(detailId));
         },
-        declineRequest(detailId) {
+        declineRequest() {
             dispatch(actionCreators.showDeclineMessageInputBox());
             //dispatch(actionCreators.declineRequest(detailId));
         },
         updateReason(e) {
             dispatch(actionCreators.updateReasonAction(e.target.value));
         },
+        sendDeclineMessage(detailId, reason) {
+            dispatch(actionCreators.sendDeclineMessage(detailId, reason));
+        }
     }
 }
 
