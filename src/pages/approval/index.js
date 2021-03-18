@@ -10,7 +10,6 @@ import {
     DivideBox,
     ChooseTitle,
     ChoooseDropdown,
-    ApprovalWelcomeWrapper,
     Nav,
     GroupHeader,
     NavItem,

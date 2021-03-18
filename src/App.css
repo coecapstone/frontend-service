@@ -22,3 +22,9 @@
 .ui.selection.dropdown .menu {
     max-height: 20rem !important;
 }
+
+.card {
+    width: 80% !important;
+    font-size: 1.2rem !important;
+    line-height: 160% !important;
+}
