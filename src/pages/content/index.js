@@ -18,11 +18,11 @@ class Content extends Component {
     }
 
     travelRequestForm() {
-        const { creatorEmail, legalFirstName, updateFirstName, legalLastName, updateLastName, departure, updateDeparture,
+        const { creatorEmail, legalFirstName, updateFirstName, legalLastName, updateLastName, departure, reason, updateDeparture,
             destination, updateDestination, submitTravelRequestForm, resetFormType,
-            formToSubmitType, formToSubmitSubunit, formToSubmitUnit} = this.props;
+            formToSubmitType, formToSubmitSubunit, formToSubmitUnit, updateReason} = this.props;
         const creatorNetId = creatorEmail.split('@')[0];
-        const travelRequestFormData = { creatorNetId, formToSubmitType, formToSubmitSubunit, formToSubmitUnit, legalFirstName, legalLastName, departure, destination };
+        const travelRequestFormData = { creatorNetId, formToSubmitType, formToSubmitSubunit, formToSubmitUnit, legalFirstName, legalLastName, departure, destination, reason };
         return (
             <Fragment>
                 <Form>
@@ -50,7 +50,9 @@ class Content extends Component {
                                 onChange={updateDestination} />
                         </Form.Field>
                     </Form.Group>
-                    <Form.TextArea required label='Reason for request this travel' placeholder='No longer than 1000 characters' />
+                    <Form.TextArea required label='Reason for request this travel' placeholder='No longer than 1000 characters' 
+                        value={reason}
+                        onChange={updateReason}/>
                 </Form>
                 <Button secondary onClick={() => submitTravelRequestForm(travelRequestFormData)}>
                     Submit
@@ -119,7 +121,7 @@ class Content extends Component {
                                      onChange={(e, data) => readInputUnit(data.value)} />
                                 </Form.Field>
                                 <Form.Field required> <label>Choose Your Subunit</label>
-                                    <Dropdown clearable options={Immutable.List(subunitList).toJS()} selection
+                                    <Dropdown options={Immutable.List(subunitList).toJS()} selection
                                      onChange={(e, data) => readInputSubunit(data.value)} />
                                 </Form.Field>
                             </Form.Group>
@@ -163,6 +165,7 @@ const mapStateToProps = (state) => {
         legalLastName: state.getIn(['content', 'tra', 'legal_lastname']),
         departure: state.getIn(['content', 'tra', 'departure']),
         destination: state.getIn(['content', 'tra', 'destination']),
+        reason: state.getIn(['content', 'tra', 'reason']),
         showSuccessToast: state.getIn(['content', 'showSuccessToast']),
     }
 }
@@ -195,6 +198,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         updateDestination(e) {
             dispatch(actionCreators.updateDestinationAction(e.target.value));
+        },
+        updateReason(e) {
+            dispatch(actionCreators.updateReasonAction(e.target.value));
         },
         submitTravelRequestForm(formToSubmitData) {
             dispatch(actionCreators.submitTravelRequestForm(formToSubmitData))

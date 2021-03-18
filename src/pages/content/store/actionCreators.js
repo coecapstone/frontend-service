@@ -108,33 +108,11 @@ export const getAllUnitsList = () => {
     }
 };
 
-export const getSubunitsList = (subunit) => {
-    return (dispatch) => {
-        const url = `http://localhost:8080/api/getSubunits/${subunit}`;
-        console.log(url)
-        axios.get(url)
-            .then(res => {
-                let subunitsList = [];
-                res.data.map(item => {
-                    const subunit = {};
-                    subunit.key = item;
-                    subunit.text = item;
-                    subunit.value = item;
-                    subunitsList.push(subunit);
-                });
-                console.log(subunitsList)
-                //dispatch(getAllUnitsAction(subunitsList))
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }
-};
-
 export const UPDATE_FIRSTNAME = 'content/UPDATE_FIRSTNAME';
 export const UPDATE_LASTNAME = 'content/UPDATE_LASTNAME';
 export const UPDATE_DEPARTURE = 'content/UPDATE_DEPARTURE';
 export const UPDATE_DESTINATION = 'content/UPDATE_DESTINATION';
+export const UPDATE_REASON = 'content/UPDATE_REASON';
 export const SUBMIT_TRAVEL_REQUEST_FORM = 'content/SUBMIT_TRAVEL_REQUEST_FORM';
 
 export const updateFirstNameAction = (value) => ({
@@ -151,6 +129,10 @@ export const updateDepartureAction = (value) => ({
 })
 export const updateDestinationAction = (value) => ({
     type: UPDATE_DESTINATION,
+    value
+})
+export const updateReasonAction = (value) => ({
+    type: UPDATE_REASON,
     value
 })
 const submitTravelRequestFormAction = () => ({

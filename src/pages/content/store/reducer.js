@@ -44,6 +44,8 @@ const reducer = (state = defaultState, action) => {
             return state.setIn(['tra', 'departure'], action.value);
         case constants.UPDATE_DESTINATION:
             return state.setIn(['tra', 'destination'], action.value);
+        case constants.UPDATE_REASON:
+            return state.setIn(['tra', 'reason'], action.value);
         case constants.SUBMIT_TRAVEL_REQUEST_FORM:
             return state.merge({
                 formToSubmit: {
