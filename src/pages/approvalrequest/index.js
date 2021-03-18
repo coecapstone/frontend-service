@@ -20,7 +20,7 @@ class ApprovalRequests extends Component {
 
     displayDetail() {
         const { detailRequest, detailId, backToRequests, approvalRequest, declineRequest,
-            unit, subunit, showApprovedMessage } = this.props;
+            unit, subunit, showApprovedMessage, showDeclinedToast } = this.props;
         if (detailId !== '') {
             const detail = Immutable.List(detailRequest).toJS()[0];
             // console.log(detail);
@@ -54,6 +54,9 @@ class ApprovalRequests extends Component {
                     </Card>
                     { showApprovedMessage ? 
                         <Message className='approveMessage' header='Approved!' color='green' content='The request status has changed.'/>
+                        : null}
+                    { showDeclinedToast ? 
+                        <Message className='approveMessage' header='Success!' color='red' content='Your declined message has been sent.'/>
                         : null}
                     { this.showDecline() }
                     <Button basic content='Back' labelPosition='left' icon='backward' color='violet' onClick={() => backToRequests(unit, subunit)} />
@@ -145,6 +148,7 @@ const mapStateToProps = (state) => {
         detailRequest: state.getIn(['approvalrequest', 'detailRequest']),
         detailId: state.getIn(['approvalrequest', 'detailId']),
         showApprovedMessage: state.getIn(['approvalrequest', 'showApprovedMessage']),
+        showDeclinedToast: state.getIn(['approvalrequest', 'showDeclinedToast']),
         showDeclineMessageInputBox: state.getIn(['approvalrequest', 'showDeclineMessageInputBox']),
         reason: state.getIn(['approvalrequest', 'reason']),
     }

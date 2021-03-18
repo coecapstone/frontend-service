@@ -6,6 +6,7 @@ const defaultState = fromJS({
     detailRequest: { },
     detailId: '',
     showApprovedMessage: false,
+    showDeclinedToast: false,
     showDeclineMessageInputBox: false,
     reason: ''
 });
@@ -20,6 +21,7 @@ const reducer = (state = defaultState, action) => {
                 detailRequest: {},
                 detailId: '',
                 showApprovedMessage: false,
+                showDeclinedToast: false,
                 showDeclineMessageInputBox: false,
                 reason: ''
             });
@@ -31,12 +33,20 @@ const reducer = (state = defaultState, action) => {
         case constants.SHOW_APPROVED_MESSAGE:
             return state.merge({
                 showApprovedMessage: true,
+                showDeclinedToast: false,
                 showDeclineMessageInputBox: false,
             });
         case constants.SHOW_DECLINE_MESSAGE_INPUTBOX:
             return state.merge({
                 showApprovedMessage: false,
+                showDeclinedToast: false,
                 showDeclineMessageInputBox: true,
+            });
+        case constants.SHOW_DECLINED_TOAST:
+            return state.merge({
+                showApprovedMessage: false,
+                showDeclinedToast: true,
+                showDeclineMessageInputBox: false,
             });
         case constants.UPDATE_REASON:
             return state.set('reason', action.value);

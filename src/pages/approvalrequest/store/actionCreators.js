@@ -9,6 +9,7 @@ export const CHANGE_TO_LOGOUT = 'content/CHANGE_TO_LOGOUT';
 export const SHOW_APPROVED_MESSAGE = 'content/SHOW_APPROVED_MESSAGE';
 export const SHOW_DECLINE_MESSAGE_INPUTBOX = 'content/SHOW_DECLINE_MESSAGE_INPUTBOX';
 export const UPDATE_REASON = 'content/UPDATE_REASON';
+export const SHOW_DECLINED_TOAST = 'content/SHOW_DECLINED_TOAST';
 
 export const backToRequests = () => ({
     type: BACK_TO_REQUESTS
@@ -20,6 +21,10 @@ export const logout = () => ({
 
 export const showApprovedMessage = () => ({
     type: SHOW_APPROVED_MESSAGE
+})
+
+export const showDeclinedToast = () => ({
+    type: SHOW_DECLINED_TOAST
 })
 
 const getSubunitRequestsAction = (data) => ({
@@ -102,7 +107,7 @@ export const sendDeclineMessage = (id, reason) => {
         fetch(`http://localhost:8080/api/sendDeclineMessage/${id}`, options)
             .then(res => {
                 console.log(res)
-                //dispatch(showApprovedMessage())
+                dispatch(showDeclinedToast())
             })
             .catch((error) => {
                 console.log(error)
