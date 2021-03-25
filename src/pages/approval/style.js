@@ -10,8 +10,8 @@ export const ApprovalWrapper = styled.div`
 `
 
 export const DivideBox = styled.div`
-    width: 400px;
-    height: 250px;
+    width: 500px;
+    height: 350px;
     margin: 100px auto;
     background: #f6f5ff;
     padding-top: 20px;
@@ -20,11 +20,12 @@ export const DivideBox = styled.div`
     box-shadow: 0 0 8px rgba(0, 0, 0, .1);
 `
 export const ChooseTitle = styled.div`
-    margin-left: 20%;
+    margin-left: 95px;
+    margin-top: 30px;
     height: 200px;
     line-height: 50px;
     font-weight: 400;
-    font-size: 1.3rem;
+    font-size: 1.6rem;
     color: #626262;
 `
 
