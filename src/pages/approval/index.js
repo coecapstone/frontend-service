@@ -24,12 +24,12 @@ class Approval extends Component {
                 <ApprovalWrapper>
                     <DivideBox>
                         <ChooseTitle> Here to Approve Requests? 
-                            <Header className='text' as='h4'>If <span className="importantText">Yes</span>, please select your subunit info</Header>
+                            <Header className='text' as='h3'>If <span className="importantText">Yes</span>, please select your subunit info</Header>
                             <ChoooseDropdown>
                                 <Dropdown placeholder='choose Unit Subunit' options={Immutable.List(list).toJS()} selection
                                     onChange={(e, data) => readSubunit(data.value)} />
                             </ChoooseDropdown>
-                            <Header className='text' as='h4'>If <span className="importantText">No</span>, click <Link to={'/'}><DirectText onClick={() => changeRoleToSubmitter()}>here</DirectText></Link> to submit requests</Header>
+                            <Header className='textButtom' as='h3'>If <span className="importantText">No</span>, click <Link to={'/'}><DirectText onClick={() => changeRoleToSubmitter()}>here</DirectText></Link> to submit requests</Header>
                         </ChooseTitle>
                     </DivideBox>
                 </ApprovalWrapper>

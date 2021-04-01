@@ -9,6 +9,9 @@ import {
     ContentWrapper,
     TableWrapper,
     DirectText,
+    Nav,
+    GroupHeader,
+    NavItem,
 } from './style';
 
 class ApprovalRequests extends Component {
@@ -124,14 +127,30 @@ class ApprovalRequests extends Component {
         }
     }
 
+    displayApprovalWelcome() {
+        return (
+            <Nav>
+                <GroupHeader>GENERAL USER</GroupHeader>
+                <Link to={'/requests-to-approve'}>
+                    <NavItem>
+                        <i className="iconfont">&#xe638;</i>To Be Approved
+                    </NavItem>
+                </Link>
+            </Nav>
+        );
+    }
+
 
     render() {
         if (this.props.login) {
             return (
-                <ContentWrapper>
-                    {this.displayTable()}
-                    {this.displayDetail()}
-                </ContentWrapper>
+                <Fragment>
+                    {this.displayApprovalWelcome()}
+                    <ContentWrapper>
+                        {this.displayTable()}
+                        {this.displayDetail()}
+                    </ContentWrapper>
+                </Fragment>
             );
         } else {
             return null;
