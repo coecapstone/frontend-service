@@ -14,12 +14,13 @@ import {
 class Content extends Component {
 
     componentDidMount() {
-        this.props.getFormList();
-        this.props.getAllUnitsList();
+        const { getFormList, getAllUnitsList } = this.props;
+        getFormList();
+        getAllUnitsList();
     }
 
     travelRequestForm() {
-        const { creatorEmail, legalFirstName, updateFirstName, legalLastName, updateLastName, departure, reason, updateDeparture,
+        const { creatorEmail, legalFirstName, updateFirstName, legalLastName, updateLastName, departure, reason, updateDeparture, allBudgetNumbers,
             destination, departing_date, returning_date, updateDestination, updateDepartureDate, updateReturningDate, submitTravelRequestForm, resetFormType,
             formToSubmitType, formToSubmitSubunit, formToSubmitUnit, updateReason} = this.props;
         const creatorNetId = creatorEmail.split('@')[0];
@@ -67,7 +68,7 @@ class Content extends Component {
                         <Form.Field required> <label>Budget Number </label></Form.Field> <i className='minorText'>click plus icon to split the budget</i>
                     </Form.Group>
                     <Form.Group>
-                        <Dropdown className='budgetNumber' placeholder='Budget Number' options={Immutable.List(this.props.allUnitList).toJS()} selection />
+                        <Dropdown className='budgetNumber' placeholder='Budget Number' options={Immutable.List(allBudgetNumbers).toJS()} selection />
                         <Input placeholder='Amount' label='$'/>
                         <Form.Button className='addBudgetBtn' color='violet' circular icon='plus' />
                     </Form.Group>
@@ -146,7 +147,7 @@ class Content extends Component {
                                 </Form.Field>
                                 <Form.Field required> <label>Choose Your Subunit</label>
                                     <Dropdown options={Immutable.List(subunitList).toJS()} selection
-                                     onChange={(e, data) => readInputSubunit(data.value)} />
+                                     onChange={(e, data) => readInputSubunit(formToSubmitUnit, data.value)} />
                                 </Form.Field>
                             </Form.Group>
                             <Form.Field required> <label>Choose Your Form</label>
@@ -183,7 +184,9 @@ const mapStateToProps = (state) => {
         subunitList: state.getIn(['content', 'static', 'subunit']),
         formTypeList: state.getIn(['content', 'static', 'list']),
         formToSubmitType: state.getIn(['content', 'formToSubmit', 'formtype']),
+        formToSubmitUnit: state.getIn(['content', 'formToSubmit', 'unit']),
         formToSubmitSubunit: state.getIn(['content', 'formToSubmit', 'subunit']),
+        allBudgetNumbers: state.getIn(['content', 'formToSubmit', 'budget_numbers']),
         formToSubmitUnit: state.getIn(['content', 'formToSubmit', 'unit']),
         legalFirstName: state.getIn(['content', 'tra', 'legal_firstname']),
         legalLastName: state.getIn(['content', 'tra', 'legal_lastname']),
@@ -210,8 +213,8 @@ const mapDispatchToProps = (dispatch) => {
         readInputUnit(data) {
             dispatch(actionCreators.readInputUnit(data));
         },
-        readInputSubunit(data) {
-            dispatch(actionCreators.readInputSubunit(data));
+        readInputSubunit(unit, subunit) {
+            dispatch(actionCreators.readInputSubunit(unit, subunit));
         }, 
         updateFirstName(e) {
             dispatch(actionCreators.updateFirstNameAction(e.target.value));

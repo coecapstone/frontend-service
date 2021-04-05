@@ -6,6 +6,7 @@ export const GET_FORMLIST = 'content/get_formlist';
 export const READ_FORM_TYPE = 'content/read_form_type';
 export const READ_INPUT_UNIT = 'content/read_input_unit';
 export const READ_INPUT_SUBUNIT = 'content/read_input_subunit';
+export const CHANGE_BUDGET_NUMBERS = 'content/change_budget_numbers';
 export const GET_SUBUNITS = 'content/GET_SUBUNITS';
 export const CREATE_ANOTHER_REQUEST = 'content/create_another_request';
 export const RESET_FORM_TYPE = 'content/reset_form_type';
@@ -28,6 +29,16 @@ const getSubunits = (data) => ({
 
 const inputUnit = (data) => ({
     type: READ_INPUT_UNIT,
+    data
+})
+
+const changeSubunit = (data) => ({
+    type: READ_INPUT_SUBUNIT,
+    data
+})
+
+const changeBudgetNumbers = (data) => ({
+    type: CHANGE_BUDGET_NUMBERS,
     data
 })
 
@@ -60,34 +71,6 @@ export const getFormList = () => {
     }
 };
 
-export const readInputSubunit = (data) => ({
-    type: READ_INPUT_SUBUNIT,
-    data
-})
-
-export const readInputUnit = (unit) => {
-    return (dispatch) => {
-        axios.get(`http://localhost:8080/api/getSubunits/${unit}`)
-            .then(res => {
-                // console.log(res)
-                let allSubunitsList = [];
-                res.data.map(item => {
-                    const subunit = {};
-                    subunit.key = item;
-                    subunit.text = item;
-                    subunit.value = item;
-                    allSubunitsList.push(subunit);
-                });
-                console.log(allSubunitsList);
-                dispatch(inputUnit(unit));
-                dispatch(getSubunits(allSubunitsList));
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-    }
-};
-
 export const getAllUnitsList = () => {
     return (dispatch) => {
         axios.get('http://localhost:8080/api/getAllUnits')
@@ -107,6 +90,45 @@ export const getAllUnitsList = () => {
             })
     }
 };
+
+export const readInputUnit = (unit) => {
+    return (dispatch) => {
+        axios.get(`http://localhost:8080/api/getSubunits/${unit}`)
+            .then(res => {
+                // console.log(res)
+                let allSubunitsList = [];
+                res.data.map(item => {
+                    const subunit = {};
+                    subunit.key = item;
+                    subunit.text = item;
+                    subunit.value = item;
+                    allSubunitsList.push(subunit);
+                });
+                // console.log(allSubunitsList);
+                dispatch(inputUnit(unit));
+                dispatch(getSubunits(allSubunitsList));
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+};
+
+export const readInputSubunit = (unit, subunit) => {
+    return (dispatch) => {
+        dispatch(changeSubunit(subunit));
+        const unitWithoutSpace = unit.replaceAll(' ', '-');
+        const subunitWithoutSpace = subunit.replaceAll(' ', '-');
+        axios.get(`http://localhost:8080/api/getBudgets/${unitWithoutSpace}/${subunitWithoutSpace}`)
+            .then(res => {
+                dispatch(changeBudgetNumbers(res.data))
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+}
+
 
 export const UPDATE_FIRSTNAME = 'content/UPDATE_FIRSTNAME';
 export const UPDATE_LASTNAME = 'content/UPDATE_LASTNAME';

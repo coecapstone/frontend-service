@@ -6,6 +6,7 @@ const defaultState = fromJS({
         unit: '',
         subunit: '',
         formtype: '',
+        budget_numbers:[],
     },
     static: {
         list: [],
@@ -21,7 +22,6 @@ const defaultState = fromJS({
         departing_date: '',
         returning_date: '',
         reason: '',
-        budget_number:[],
     }
 });
 
@@ -33,6 +33,8 @@ const reducer = (state = defaultState, action) => {
             return state.setIn(['formToSubmit','unit'], action.data);
         case constants.READ_INPUT_SUBUNIT:
             return state.setIn(['formToSubmit','subunit'], action.data);
+        case constants.CHANGE_BUDGET_NUMBERS: 
+            return state.setIn(['formToSubmit','budget_numbers'], action.data);
         case constants.GET_SUBUNITS:
             return state.setIn(['static','subunit'], action.data);
         case constants.GET_FORMLIST:
@@ -55,7 +57,7 @@ const reducer = (state = defaultState, action) => {
             return state.setIn(['tra', 'reason'], action.value);
         case constants.SUBMIT_TRAVEL_REQUEST_FORM:
             return state.merge({
-                formToSubmit: { unit: '', subunit: '', formtype: '' },
+                formToSubmit: { unit: '', subunit: '', formtype: '', budget_numbers:[] },
                 tra: {
                     legal_firstname: '',
                     legal_lastname: '',
@@ -64,7 +66,6 @@ const reducer = (state = defaultState, action) => {
                     departing_date: '',
                     returning_date: '',
                     reason: '',
-                    budget_number:[],
                 },
                 showSuccessToast: true
             });
@@ -73,14 +74,15 @@ const reducer = (state = defaultState, action) => {
         case constants.RESET_FORM_TYPE:
         case constants.CHANGE_TO_LOGOUT:
             return state.merge({
-                formToSubmit: {
-                    unit: '',
-                    subunit: '',
-                    formtype: '',
-                },
+                formToSubmit: { unit: '', subunit: '', formtype: '', budget_numbers:[] },
                 tra: {
                     legal_firstname: '',
-                    legal_lastname:''
+                    legal_lastname: '',
+                    departure: '',
+                    destination: '',
+                    departing_date: '',
+                    returning_date: '',
+                    reason: '',
                 },
                 showSuccessToast: false
             });
