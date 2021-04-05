@@ -10,20 +10,20 @@ export const LoginWrapper = styled.div`
 `
 
 export const LoginBox = styled.div`
-    width: 400px;
-    height: 250px;
+    width: 500px;
+    height: 350px;
     margin: 100px auto;
     background: #f6f5ff;
     padding-top: 20px;
-    font-weight: 400;
-    font-size: 1.2rem;
     box-shadow: 0 0 8px rgba(0, 0, 0, .1);
 `
 
 export const LoginText = styled.div`
-    width: 250px;
-    height: 40px;
-    line-height: 40px;
-    padding: 0 10px;
-    margin: 10px auto;
+    margin-left: 95px;
+    margin-top: 30px;
+    height: 100px;
+    line-height: 50px;
+    font-weight: 400;
+    font-size: 1.6rem;
+    color: #626262;
 `
