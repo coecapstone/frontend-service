@@ -36,6 +36,8 @@ class Requests extends Component {
                                 <div><b>Legal Last Name</b>: {detail.legalLastName}</div>
                                 <div><b>Departure</b>: {detail.departure}</div>
                                 <div><b>Destination</b>: {detail.destination}</div>
+                                <div><b>Departing Date</b>: {detail.departingDate}</div>
+                                <div><b>Returning Date</b>: {detail.returningDate}</div>
                                 <div><b>Reason</b>: {detail.reason}</div>
                             </Card.Description>
                         </Card.Content>

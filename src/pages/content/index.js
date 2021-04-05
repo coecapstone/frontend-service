@@ -1,10 +1,11 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import { fromJS } from 'immutable';
 import { actionCreators } from './store';
 import Immutable from 'immutable';
 import { Dropdown, Header } from 'semantic-ui-react';
 import { Form, Button, Input, Message } from 'semantic-ui-react';
+import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import {
     ChooseWrapper,
     ContentWrapper,
@@ -19,10 +20,11 @@ class Content extends Component {
 
     travelRequestForm() {
         const { creatorEmail, legalFirstName, updateFirstName, legalLastName, updateLastName, departure, reason, updateDeparture,
-            destination, updateDestination, submitTravelRequestForm, resetFormType,
+            destination, departing_date, returning_date, updateDestination, updateDepartureDate, updateReturningDate, submitTravelRequestForm, resetFormType,
             formToSubmitType, formToSubmitSubunit, formToSubmitUnit, updateReason} = this.props;
         const creatorNetId = creatorEmail.split('@')[0];
-        const travelRequestFormData = { creatorNetId, formToSubmitType, formToSubmitSubunit, formToSubmitUnit, legalFirstName, legalLastName, departure, destination, reason };
+        const travelRequestFormData = { creatorNetId, formToSubmitType, formToSubmitSubunit, formToSubmitUnit, legalFirstName, legalLastName, departure, 
+            destination, departing_date, returning_date, reason };
         return (
             <Fragment>
                 <Form className='travelForm'>
@@ -50,11 +52,44 @@ class Content extends Component {
                                 onChange={updateDestination} />
                         </Form.Field>
                     </Form.Group>
+                    <Form.Group widths='equal'>
+                        <Form.Field required> <label>Departing Date</label>
+                            <SemanticDatepicker onChange={updateDepartureDate}/>
+                        </Form.Field>
+                        <Form.Field required> <label>Returning Date</label>
+                            <SemanticDatepicker onChange={updateReturningDate}/>
+                        </Form.Field>
+                    </Form.Group>
                     <Form.TextArea required label='Reason for request this travel' placeholder='No longer than 1000 characters' 
                         value={reason}
                         onChange={updateReason}/>
+                    <Form.Group inline>
+                        <Form.Field required> <label>Budget Number </label></Form.Field> <i className='minorText'>click plus icon to split the budget</i>
+                    </Form.Group>
+                    <Form.Group>
+                        <Dropdown className='budgetNumber' placeholder='Budget Number' options={Immutable.List(this.props.allUnitList).toJS()} selection />
+                        <Input placeholder='Amount' label='$'/>
+                        <Form.Button className='addBudgetBtn' color='violet' circular icon='plus' />
+                    </Form.Group>
+                    
+                    
+                    <Form.Group inline>
+                        <label>Size</label>
+                        <Form.Radio
+                            label='Small'
+                            value='sm'
+                        />
+                        <Form.Radio
+                            label='Medium'
+                            value='md'
+                        />
+                        <Form.Radio
+                            label='Large'
+                            value='lg'
+                        />
+                    </Form.Group>
                 </Form>
-                <Button content='Submit' className='submitFormBtn' secondary onClick={() => submitTravelRequestForm(travelRequestFormData)} />
+                <Button content='Submit' className='submitFormBtn' color='violet' onClick={() => submitTravelRequestForm(travelRequestFormData)} />
                 <Button content='Reset FormType' labelPosition='left' icon='backward' color='violet' basic onClick={() => resetFormType()} />
             </Fragment>
         );
@@ -73,16 +108,12 @@ class Content extends Component {
         if (!showSuccessToast && formToSubmitSubunit !== '') {
             if (formToSubmitType === 'tra') {
                 return (
-                    <Fragment>
-                        {this.travelRequestForm()}
-                    </Fragment>
+                    <Fragment> {this.travelRequestForm()} </Fragment>
                 );
             }
             else if (formToSubmitType === 'pur') {
                 return (
-                    <Fragment>
-                        {this.purchaseRequestForm()}
-                    </Fragment>
+                    <Fragment> {this.purchaseRequestForm()} </Fragment>
                 );
             }
         }
@@ -91,11 +122,11 @@ class Content extends Component {
     displayMessage() {
         if (this.props.showSuccessToast) {
             return (
-                <div>
+                <Fragment>
                     <Message header='Success!' color='violet' content='We have received your request.' />
                     <Button content='Create Another Request' labelPosition='left' icon='edit' color='violet' 
                         className='anotherRequestBtn' onClick={() => this.props.createAnotherRequest()} />
-                </div>
+                </Fragment>
             )
         }
     }
@@ -158,6 +189,8 @@ const mapStateToProps = (state) => {
         legalLastName: state.getIn(['content', 'tra', 'legal_lastname']),
         departure: state.getIn(['content', 'tra', 'departure']),
         destination: state.getIn(['content', 'tra', 'destination']),
+        departing_date: state.getIn(['content', 'tra', 'departing_date']),
+        returning_date: state.getIn(['content', 'tra', 'returning_date']),
         reason: state.getIn(['content', 'tra', 'reason']),
         showSuccessToast: state.getIn(['content', 'showSuccessToast']),
     }
@@ -191,6 +224,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         updateDestination(e) {
             dispatch(actionCreators.updateDestinationAction(e.target.value));
+        },
+        updateDepartureDate(e, data) {
+            dispatch(actionCreators.updateDepartureDate(JSON.stringify(data.value).split('T')[0].substring(1)));
+        },
+        updateReturningDate(e, data) {
+            dispatch(actionCreators.updateReturningDate(JSON.stringify(data.value).split('T')[0].substring(1)));
         },
         updateReason(e) {
             dispatch(actionCreators.updateReasonAction(e.target.value));
