@@ -112,6 +112,8 @@ export const UPDATE_FIRSTNAME = 'content/UPDATE_FIRSTNAME';
 export const UPDATE_LASTNAME = 'content/UPDATE_LASTNAME';
 export const UPDATE_DEPARTURE = 'content/UPDATE_DEPARTURE';
 export const UPDATE_DESTINATION = 'content/UPDATE_DESTINATION';
+export const UPDATE_DEPARTURE_DATE = 'content/UPDATE_DEPARTURE_DATE';
+export const UPDATE_RETURNING_DATE = 'content/UPDATE_RETURNING_DATE';
 export const UPDATE_REASON = 'content/UPDATE_REASON';
 export const SUBMIT_TRAVEL_REQUEST_FORM = 'content/SUBMIT_TRAVEL_REQUEST_FORM';
 
@@ -131,6 +133,14 @@ export const updateDestinationAction = (value) => ({
     type: UPDATE_DESTINATION,
     value
 })
+export const updateDepartureDate = (value) => ({
+    type: UPDATE_DEPARTURE_DATE,
+    value
+})
+export const updateReturningDate = (value) => ({
+    type: UPDATE_RETURNING_DATE,
+    value
+})
 export const updateReasonAction = (value) => ({
     type: UPDATE_REASON,
     value
@@ -148,6 +158,7 @@ export const submitTravelRequestForm = (formToSubmitData) => {
             },
             body: JSON.stringify(formToSubmitData)
         }
+        console.log('formToSubmitData')
         console.log(formToSubmitData)
         console.log(options)
         fetch('http://localhost:8080/api/saveTravelRequestForm', options)

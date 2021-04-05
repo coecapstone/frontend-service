@@ -55,3 +55,17 @@
 .anotherRequestBtn {
     margin-top: 30px !important;
 }
+
+.minorText {
+    font-size: 80% !important;   
+}
+
+.budgetNumber {
+    margin-left: 9px !important;
+    margin-right: 20px !important;
+}
+
+.addBudgetBtn {
+    margin-left: 45px !important;
+}
+
