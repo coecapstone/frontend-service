@@ -66,7 +66,7 @@ class Content extends Component {
                         value={reason}
                         onChange={updateReason}/>
                     <Form.Group inline>
-                        <Form.Field required> <label>Budget Number </label></Form.Field> <i className='minorText'>click plus icon to split the budget</i>
+                        <Form.Field required> <label>Budget Number</label></Form.Field> <i className='minorText'>click plus icon to split the budget</i>
                     </Form.Group>
                     {
                         budget_list.map((item, idx) => {
@@ -86,7 +86,7 @@ class Content extends Component {
                         })
                     }
                     <Form.Group inline>
-                        <label>Size</label>
+                        <Form.Field required> <label>Would you like unit to pay the flight</label> </Form.Field>
                         <Form.Radio
                             label='Small'
                             value='sm'
