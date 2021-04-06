@@ -1,5 +1,5 @@
 import * as constants from './actionCreators';
-import { fromJS } from 'immutable';
+import { fromJS, remove, set } from 'immutable';
 
 const defaultState = fromJS({
     formToSubmit: {
@@ -22,6 +22,9 @@ const defaultState = fromJS({
         departing_date: '',
         returning_date: '',
         reason: '',
+        budget_list: [ 
+            { budget_number: '', amount: '' },
+        ],
     }
 });
 
@@ -55,8 +58,16 @@ const reducer = (state = defaultState, action) => {
             return state.setIn(['tra', 'returning_date'], action.value);
         case constants.UPDATE_REASON:
             return state.setIn(['tra', 'reason'], action.value);
+        case constants.READ_INPUT_BUDGET:
+            return state.setIn(['tra', 'budget_list', action.idx, 'budget_number'], action.data);
+        case constants.READ_INPUT_AMOUNT:
+            return state.setIn(['tra', 'budget_list', action.idx, 'amount'], action.data);
+        case constants.ADD_MORE_BUDGET_NUMBER:
+            return state.updateIn(['tra', 'budget_list'], arr => arr.push(action.value));
+        case constants.REMOVE_BUDGET_NUMBER:
+            return state.updateIn(['tra', 'budget_list'], arr => remove(arr, action.idx));
         case constants.SUBMIT_TRAVEL_REQUEST_FORM:
-            return state.merge({
+            return state.merge(fromJS({
                 formToSubmit: { unit: '', subunit: '', formtype: '', budget_numbers:[] },
                 tra: {
                     legal_firstname: '',
@@ -66,14 +77,17 @@ const reducer = (state = defaultState, action) => {
                     departing_date: '',
                     returning_date: '',
                     reason: '',
+                    budget_list: [ 
+                        { budget_number: '', amount: '' },
+                    ],
                 },
                 showSuccessToast: true
-            });
+            }));
         case constants.CREATE_ANOTHER_REQUEST:
             return state.setIn(['showSuccessToast'], false);
         case constants.RESET_FORM_TYPE:
         case constants.CHANGE_TO_LOGOUT:
-            return state.merge({
+            return state.merge(fromJS({
                 formToSubmit: { unit: '', subunit: '', formtype: '', budget_numbers:[] },
                 tra: {
                     legal_firstname: '',
@@ -83,9 +97,12 @@ const reducer = (state = defaultState, action) => {
                     departing_date: '',
                     returning_date: '',
                     reason: '',
+                    budget_list: [ 
+                        { budget_number: '', amount: '' },
+                    ],
                 },
                 showSuccessToast: false
-            });
+            }));
         default:
             return state;
     }
