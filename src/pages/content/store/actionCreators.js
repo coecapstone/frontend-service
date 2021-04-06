@@ -137,6 +137,10 @@ export const UPDATE_DESTINATION = 'content/UPDATE_DESTINATION';
 export const UPDATE_DEPARTURE_DATE = 'content/UPDATE_DEPARTURE_DATE';
 export const UPDATE_RETURNING_DATE = 'content/UPDATE_RETURNING_DATE';
 export const UPDATE_REASON = 'content/UPDATE_REASON';
+export const READ_INPUT_BUDGET = 'content/READ_INPUT_BUDGET';
+export const READ_INPUT_AMOUNT = 'content/READ_INPUT_AMOUNT';
+export const ADD_MORE_BUDGET_NUMBER = 'content/ADD_MORE_BUDGET_NUMBER';
+export const REMOVE_BUDGET_NUMBER = 'content/REMOVE_BUDGET_NUMBER';
 export const SUBMIT_TRAVEL_REQUEST_FORM = 'content/SUBMIT_TRAVEL_REQUEST_FORM';
 
 export const updateFirstNameAction = (value) => ({
@@ -166,6 +170,24 @@ export const updateReturningDate = (value) => ({
 export const updateReasonAction = (value) => ({
     type: UPDATE_REASON,
     value
+})
+export const readIputBudget = (data, idx) => ({
+    type: READ_INPUT_BUDGET,
+    data, 
+    idx,
+})
+export const readInputAmount = (data, idx) => ({
+    type: READ_INPUT_AMOUNT,
+    data,
+    idx
+})
+export const addMoreBudgetNumber = () => ({
+    type: ADD_MORE_BUDGET_NUMBER,
+    value: fromJS({ budget_number: "", amount: "" }),
+})
+export const removeBudgetNumber = (idx) => ({
+    type: REMOVE_BUDGET_NUMBER,
+    idx
 })
 const submitTravelRequestFormAction = () => ({
     type: SUBMIT_TRAVEL_REQUEST_FORM

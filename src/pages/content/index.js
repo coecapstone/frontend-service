@@ -22,7 +22,7 @@ class Content extends Component {
     travelRequestForm() {
         const { creatorEmail, legalFirstName, updateFirstName, legalLastName, updateLastName, departure, reason, updateDeparture, allBudgetNumbers,
             destination, departing_date, returning_date, updateDestination, updateDepartureDate, updateReturningDate, submitTravelRequestForm, resetFormType,
-            formToSubmitType, formToSubmitSubunit, formToSubmitUnit, updateReason} = this.props;
+            formToSubmitType, formToSubmitSubunit, formToSubmitUnit, updateReason, addMoreBudgetNumber, removeBudgetNumber, readInputBudget, readInputAmount, budget_list} = this.props;
         const creatorNetId = creatorEmail.split('@')[0];
         const travelRequestFormData = { creatorNetId, formToSubmitType, formToSubmitSubunit, formToSubmitUnit, legalFirstName, legalLastName, departure, 
             destination, departing_date, returning_date, reason };
@@ -67,13 +67,23 @@ class Content extends Component {
                     <Form.Group inline>
                         <Form.Field required> <label>Budget Number </label></Form.Field> <i className='minorText'>click plus icon to split the budget</i>
                     </Form.Group>
-                    <Form.Group>
-                        <Dropdown className='budgetNumber' placeholder='Budget Number' options={Immutable.List(allBudgetNumbers).toJS()} selection />
-                        <Input placeholder='Amount' label='$'/>
-                        <Form.Button className='addBudgetBtn' color='violet' circular icon='plus' />
-                    </Form.Group>
-                    
-                    
+                    {
+                        budget_list.map((item, idx) => {
+                            return (
+                                <Form.Group key={idx}>
+                                    <Dropdown className='budgetNumber' placeholder='Budget Number' options={Immutable.List(allBudgetNumbers).toJS()} selection 
+                                        text={ budget_list.toJS()[idx].budget_number === '' ? 'Budget Number' : budget_list.toJS()[idx].budget_number}
+                                        onChange={(e, data) => readInputBudget(data.value, idx)} />
+                                    <Input placeholder='Amount' label='$' 
+                                        value={ budget_list.toJS()[idx].amount === '' ? '' : budget_list.toJS()[idx].amount}
+                                        onChange={(e, data) => readInputAmount(data.value, idx)}/>
+                                    { idx === 0 ?  <Form.Button onClick={addMoreBudgetNumber} className='addBudgetBtn' color='violet' circular icon='plus' /> : 
+                                        <Form.Button onClick={() => removeBudgetNumber(idx)} className='addBudgetBtn' color='red' circular icon='minus' />
+                                    }
+                                </Form.Group>
+                            );
+                        })
+                    }
                     <Form.Group inline>
                         <label>Size</label>
                         <Form.Radio
@@ -195,6 +205,7 @@ const mapStateToProps = (state) => {
         departing_date: state.getIn(['content', 'tra', 'departing_date']),
         returning_date: state.getIn(['content', 'tra', 'returning_date']),
         reason: state.getIn(['content', 'tra', 'reason']),
+        budget_list: state.getIn(['content', 'tra', 'budget_list']),
         showSuccessToast: state.getIn(['content', 'showSuccessToast']),
     }
 }
@@ -236,6 +247,18 @@ const mapDispatchToProps = (dispatch) => {
         },
         updateReason(e) {
             dispatch(actionCreators.updateReasonAction(e.target.value));
+        },
+        readInputBudget(data, idx) {
+            dispatch(actionCreators.readIputBudget(data, idx));
+        },
+        readInputAmount(data, idx) {
+            dispatch(actionCreators.readInputAmount(data, idx));
+        },
+        addMoreBudgetNumber() {
+            dispatch(actionCreators.addMoreBudgetNumber());
+        },
+        removeBudgetNumber(idx) {
+            dispatch(actionCreators.removeBudgetNumber(idx));
         },
         submitTravelRequestForm(formToSubmitData) {
             dispatch(actionCreators.submitTravelRequestForm(formToSubmitData))
