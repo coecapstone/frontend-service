@@ -24,8 +24,9 @@ class Content extends Component {
             destination, departing_date, returning_date, updateDestination, updateDepartureDate, updateReturningDate, submitTravelRequestForm, resetFormType,
             formToSubmitType, formToSubmitSubunit, formToSubmitUnit, updateReason, addMoreBudgetNumber, removeBudgetNumber, readInputBudget, readInputAmount, budget_list} = this.props;
         const creatorNetId = creatorEmail.split('@')[0];
+        const budget_list_JS = budget_list.toJS();
         const travelRequestFormData = { creatorNetId, formToSubmitType, formToSubmitSubunit, formToSubmitUnit, legalFirstName, legalLastName, departure, 
-            destination, departing_date, returning_date, reason };
+            destination, departing_date, returning_date, reason, budget_list_JS };
         return (
             <Fragment>
                 <Form className='travelForm'>
