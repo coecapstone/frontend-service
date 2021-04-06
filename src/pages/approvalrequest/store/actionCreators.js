@@ -4,6 +4,7 @@ import { fromJS } from 'immutable';
 
 export const GET_SUBUNIT_REQUESTS = 'content/GET_SUBUNIT_REQUESTS';
 export const SET_REQUEST_DETAIL = 'content/SET_REQUEST_DETAIL';
+export const SET_BUDGET_DETAIL = 'content/SET_BUDGET_DETAIL';
 export const BACK_TO_REQUESTS = 'content/BACK_TO_REQUESTS';
 export const CHANGE_TO_LOGOUT = 'content/CHANGE_TO_LOGOUT';
 export const SHOW_APPROVED_MESSAGE = 'content/SHOW_APPROVED_MESSAGE';
@@ -14,27 +15,26 @@ export const SHOW_DECLINED_TOAST = 'content/SHOW_DECLINED_TOAST';
 export const backToRequests = () => ({
     type: BACK_TO_REQUESTS
 });
-
 export const logout = () => ({
     type: CHANGE_TO_LOGOUT
 })
-
 export const showApprovedMessage = () => ({
     type: SHOW_APPROVED_MESSAGE
 })
-
 export const showDeclinedToast = () => ({
     type: SHOW_DECLINED_TOAST
 })
-
 const getSubunitRequestsAction = (data) => ({
     type: GET_SUBUNIT_REQUESTS,
     data: fromJS(data)
 });
-
 const setRequestDetailAction = (data, id) => ({
     type: SET_REQUEST_DETAIL,
     id, 
+    data: fromJS(data)
+});
+const setBudgetDetailAction = (data) => ({
+    type: SET_BUDGET_DETAIL,
     data: fromJS(data)
 });
 
@@ -53,12 +53,24 @@ export const getSubunitRequests = (unit, subunit) => {
     }
 };
 
-export const changeDetailId = (id) => {
+export const getRequestDetail = (id) => {
     return (dispatch) => {
         axios.get(`http://localhost:8080/api/getRequestDetail/${id}`)
             .then(res => {
-                console.log(res.data)
+                console.log('getRequestDetail', res.data)
                 dispatch(setRequestDetailAction(res.data, id))
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+}
+export const getBudgetDetail = (id) => {
+    return (dispatch) => {
+        axios.get(`http://localhost:8080/api/getBudgetDetail/${id}`)
+            .then(res => {
+                console.log('getBudgetDetail', res.data)
+                dispatch(setBudgetDetailAction(res.data))
             })
             .catch((error) => {
                 console.log(error)

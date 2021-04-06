@@ -18,11 +18,12 @@ class Requests extends Component {
     }
 
     displayDetail() {
-        const { detailRequest, showDetail, backToRequests } = this.props;
+        const { detailRequest, showDetail, backToRequests, budget_list } = this.props;
         if (showDetail) {
+            console.log(detailRequest);
             const detail = Immutable.List(detailRequest).toJS()[0];
             console.log(detail);
-            return (
+            return ( detail === undefined ? null : 
                 <Fragment>
                     <Card className='card'>
                         <Card.Content>
@@ -39,6 +40,15 @@ class Requests extends Component {
                                 <div><b>Departing Date</b>: {detail.departingDate}</div>
                                 <div><b>Returning Date</b>: {detail.returningDate}</div>
                                 <div><b>Reason</b>: {detail.reason}</div>
+                                {
+                                    budget_list.map((item, idx) => {
+                                        return (
+                                            <div key={idx}>
+                                                <b>Budget Number and Amount</b>: {budget_list.toJS()[idx].budget_number}, ${budget_list.toJS()[idx].amount}
+                                            </div>
+                                        );
+                                    })
+                                }
                             </Card.Description>
                         </Card.Content>
                         { detail.declinedReason ? 
@@ -123,6 +133,7 @@ const mapStateToProps = (state) => {
         allUnitList: state.getIn(['content', 'static', 'unit']),
         detailRequest: state.getIn(['request', 'detailRequest']),
         showDetail: state.getIn(['request', 'showDetail']),
+        budget_list: state.getIn(['request', 'budget_list']),
     }
 }
 
@@ -132,7 +143,9 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(actionCreators.getUserRequests(userNetId));
         },
         seeRequestDetail(id) {
-            dispatch(actionCreators.changeDetailId(id));
+            console.log(id)
+            dispatch(actionCreators.getRequestDetail(id));
+            dispatch(actionCreators.getBudgetDetail(id));
         },
         backToRequests() {
             dispatch(actionCreators.backToRequests());
