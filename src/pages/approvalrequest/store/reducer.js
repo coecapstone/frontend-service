@@ -2,13 +2,14 @@ import * as constants from './actionCreators';
 import { fromJS } from 'immutable';
 
 const defaultState = fromJS({
-    requests: { },
-    detailRequest: { },
+    requests: [],
+    detailRequest: [],
     detailId: '',
     showApprovedMessage: false,
     showDeclinedToast: false,
     showDeclineMessageInputBox: false,
-    reason: ''
+    reason: '',
+    budget_list: [],
 });
 
 const reducer = (state = defaultState, action) => {
@@ -18,7 +19,7 @@ const reducer = (state = defaultState, action) => {
         case constants.BACK_TO_REQUESTS:
         case constants.CHANGE_TO_LOGOUT:
             return state.merge({
-                detailRequest: {},
+                detailRequest: [],
                 detailId: '',
                 showApprovedMessage: false,
                 showDeclinedToast: false,
@@ -30,6 +31,8 @@ const reducer = (state = defaultState, action) => {
                 detailRequest: action.data,
                 detailId: action.id
             });
+        case constants.SET_BUDGET_DETAIL: 
+            return state.set('budget_list', action.data);
         case constants.SHOW_APPROVED_MESSAGE:
             return state.merge({
                 showApprovedMessage: true,
