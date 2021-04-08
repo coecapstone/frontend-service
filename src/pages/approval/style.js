@@ -35,15 +35,6 @@ export const ChoooseDropdown = styled.div`
     height: 50px;
 `
 
-export const ApprovalWelcomeWrapper = styled.div`
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 230px;
-    right: 0;
-    background: #fff;
-`
-
 export const Nav = styled.div`
     position: absolute;
     top: 162px;
