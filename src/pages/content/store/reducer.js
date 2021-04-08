@@ -25,6 +25,18 @@ const defaultState = fromJS({
         budget_list: [ 
             { budget_number: '', amount: '' },
         ],
+        whether_pay_flight: '',
+        whether_pay_flight_form: {
+            birthday: '',
+            airline: '',
+            flight_number: '',
+            flight_from: '',
+            going_to: '',
+            departing_date: '',
+            returning_date: '',
+            amount: '',
+            flight_reference: ''
+        }
     }
 });
 
@@ -66,6 +78,14 @@ const reducer = (state = defaultState, action) => {
             return state.updateIn(['tra', 'budget_list'], arr => arr.push(action.value));
         case constants.REMOVE_BUDGET_NUMBER:
             return state.updateIn(['tra', 'budget_list'], arr => remove(arr, action.idx));
+        case constants.READ_PAY_FLIGHT:
+            return state.setIn(['tra', 'whether_pay_flight'], action.data);
+        case constants.UPDATE_BIRTHDAY:
+            return state.setIn(['tra', 'whether_pay_flight_form', 'birthday'], action.data);
+        case constants.UPDATE_AIRLINE:
+            return state.setIn(['tra', 'whether_pay_flight_form', 'airline'], action.data);
+        case constants.UPDATE_FLIGHT_NUMBER:
+            return state.setIn(['tra', 'whether_pay_flight_form', 'flight_number'], action.data);
         case constants.SUBMIT_TRAVEL_REQUEST_FORM:
             return state.merge(fromJS({
                 formToSubmit: { unit: '', subunit: '', formtype: '', budget_numbers:[] },
@@ -80,6 +100,18 @@ const reducer = (state = defaultState, action) => {
                     budget_list: [ 
                         { budget_number: '', amount: '' },
                     ],
+                    whether_pay_flight: '',
+                    whether_pay_flight_form: {
+                        birthday: '',
+                        airline: '',
+                        flight_number: '',
+                        flight_from: '',
+                        going_to: '',
+                        departing_date: '',
+                        returning_date: '',
+                        amount: '',
+                        flight_reference: ''
+                    }
                 },
                 showSuccessToast: true
             }));
@@ -100,6 +132,18 @@ const reducer = (state = defaultState, action) => {
                     budget_list: [ 
                         { budget_number: '', amount: '' },
                     ],
+                    whether_pay_flight: '',
+                    whether_pay_flight_form: {
+                        birthday: '',
+                        airline: '',
+                        flight_number: '',
+                        flight_from: '',
+                        going_to: '',
+                        departing_date: '',
+                        returning_date: '',
+                        amount: '',
+                        flight_reference: ''
+                    }
                 },
                 showSuccessToast: false
             }));

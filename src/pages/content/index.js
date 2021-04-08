@@ -22,7 +22,8 @@ class Content extends Component {
     travelRequestForm() {
         const { creatorEmail, legalFirstName, updateFirstName, legalLastName, updateLastName, departure, reason, updateDeparture, allBudgetNumbers,
             destination, departing_date, returning_date, updateDestination, updateDepartureDate, updateReturningDate, submitTravelRequestForm, resetFormType,
-            formToSubmitType, formToSubmitSubunit, formToSubmitUnit, updateReason, addMoreBudgetNumber, removeBudgetNumber, readInputBudget, readInputAmount, budget_list} = this.props;
+            formToSubmitType, formToSubmitSubunit, formToSubmitUnit, updateReason, addMoreBudgetNumber, removeBudgetNumber, readInputBudget, 
+            readInputAmount, budget_list, readPayFlight, whetherPayFlight } = this.props;
         const creatorNetId = creatorEmail.split('@')[0];
         const budget_list_JS = budget_list.toJS();
         const travelRequestFormData = { creatorNetId, formToSubmitType, formToSubmitSubunit, formToSubmitUnit, legalFirstName, legalLastName, departure, 
@@ -87,24 +88,39 @@ class Content extends Component {
                     }
                     <Form.Group inline>
                         <Form.Field required> <label>Would you like unit to pay the flight</label> </Form.Field>
-                        <Form.Radio
-                            label='Small'
-                            value='sm'
-                        />
-                        <Form.Radio
-                            label='Medium'
-                            value='md'
-                        />
-                        <Form.Radio
-                            label='Large'
-                            value='lg'
-                        />
+                        <Form.Radio label='Yes' value='Yes' onChange={readPayFlight} checked={whetherPayFlight === 'Yes'} />
+                        <Form.Radio label='No' value='No' onChange={readPayFlight} checked={whetherPayFlight === 'No'} />
                     </Form.Group>
                 </Form>
+                {this.whetherPayFlightForm()}
                 <Button content='Submit' className='submitFormBtn' color='violet' onClick={() => submitTravelRequestForm(travelRequestFormData)} />
                 <Button content='Reset FormType' labelPosition='left' icon='backward' color='violet' basic onClick={() => resetFormType()} />
             </Fragment>
         );
+    }
+
+    whetherPayFlightForm() {
+        const { whetherPayFlight, birthday, updateBirthday, airline, updateAirline, flightNumber, updateFlightNumber } = this.props;
+        if (whetherPayFlight === 'Yes') {
+                return (
+                    <div className='whetherPayFlightForm' >
+                        <Form size='tiny'>
+                            <Form.Group widths='equal'>
+                                <Form.Field required> <label>Birthday</label>
+                                    <Input placeholder='MM/DD/YYYY' value={birthday} onChange={updateBirthday} />
+                                </Form.Field>
+                                <Form.Field> <label>Airline</label>
+                                    <Input value={airline} onChange={updateAirline} />
+                                </Form.Field>
+                                <Form.Field> <label>Flight Number</label>
+                                    <Input value={flightNumber} onChange={updateFlightNumber} />
+                                </Form.Field>
+                            </Form.Group>
+                        </Form>
+                    </div>
+                );
+            }
+        
     }
 
     purchaseRequestForm() {
@@ -208,6 +224,10 @@ const mapStateToProps = (state) => {
         reason: state.getIn(['content', 'tra', 'reason']),
         budget_list: state.getIn(['content', 'tra', 'budget_list']),
         showSuccessToast: state.getIn(['content', 'showSuccessToast']),
+        whetherPayFlight: state.getIn(['content', 'tra', 'whether_pay_flight']),
+        birthday: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'birthday']),
+        airline: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'airline']),
+        flightNumber: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'flight_number']),
     }
 }
 
@@ -260,6 +280,18 @@ const mapDispatchToProps = (dispatch) => {
         },
         removeBudgetNumber(idx) {
             dispatch(actionCreators.removeBudgetNumber(idx));
+        },
+        readPayFlight(e, data) {
+            dispatch(actionCreators.readPayFlight(data.value));
+        },
+        updateBirthday(e) {
+            dispatch(actionCreators.updateBirthday(e.target.value))
+        },
+        updateAirline(e) {
+            dispatch(actionCreators.updateAirline(e.target.value))
+        },
+        updateFlightNumber(e) {
+            dispatch(actionCreators.updateFlightNumber(e.target.value))
         },
         submitTravelRequestForm(formToSubmitData) {
             dispatch(actionCreators.submitTravelRequestForm(formToSubmitData))
