@@ -203,7 +203,6 @@ const mapDispatchToProps = (dispatch) => {
         },
         declineRequest() {
             dispatch(actionCreators.showDeclineMessageInputBox());
-            //dispatch(actionCreators.declineRequest(detailId));
         },
         updateReason(e) {
             dispatch(actionCreators.updateReasonAction(e.target.value));

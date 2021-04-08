@@ -5,12 +5,12 @@ export const ChooseWrapper= styled.div`
 `
 
 export const ContentWrapper = styled.div`
-    position: fixed;
+    position: absolute;
     top: 0;
-    bottom: 0;
-    left: 230px;
+    left: 229px;
     right: 0;
     padding: 20px 30px 30px 30px;
+    border-left: 1px solid grey;
 `
 
 
