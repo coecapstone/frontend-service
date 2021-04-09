@@ -63,9 +63,7 @@ class Content extends Component {
                             <SemanticDatepicker onChange={updateReturningDate}/>
                         </Form.Field>
                     </Form.Group>
-                    <Form.TextArea required label='Reason for request this travel' placeholder='No longer than 1000 characters' 
-                        value={reason}
-                        onChange={updateReason}/>
+                    <Form.TextArea required label='Reason for request this travel' placeholder='No longer than 1000 characters' value={reason} onChange={updateReason}/>
                     <Form.Group inline>
                         <Form.Field required> <label>Budget Number</label></Form.Field> <i className='minorText'>click plus icon to split the budget</i>
                     </Form.Group>
@@ -100,7 +98,9 @@ class Content extends Component {
     }
 
     whetherPayFlightForm() {
-        const { whetherPayFlight, birthday, updateBirthday, airline, updateAirline, flightNumber, updateFlightNumber } = this.props;
+        const { whetherPayFlight, birthday, updateBirthday, airline, updateAirline, flightNumber, updateFlightNumber, 
+            flightFrom, updateFlightFrom, goingTo, updateGoingTo, whetherToPayAmount, updateWhetherToPayAmount,
+            updateWhetherToPayDepartingDate, updateWhetherToPayReturningDate, flightReference, updateFlightReference } = this.props;
         if (whetherPayFlight === 'Yes') {
                 return (
                     <div className='whetherPayFlightForm' >
@@ -116,6 +116,26 @@ class Content extends Component {
                                     <Input value={flightNumber} onChange={updateFlightNumber} />
                                 </Form.Field>
                             </Form.Group>
+                            <Form.Group widths='equal'>
+                                <Form.Field> <label>Flight From</label>
+                                    <Input value={flightFrom} onChange={updateFlightFrom} />
+                                </Form.Field>
+                                <Form.Field> <label>Going To</label>
+                                    <Input value={goingTo} onChange={updateGoingTo} />
+                                </Form.Field>
+                                <Form.Field> <label>Amount</label>
+                                    <Input value={whetherToPayAmount} onChange={updateWhetherToPayAmount} placeholder='0.00' label='$' />
+                                </Form.Field>
+                            </Form.Group>
+                            <Form.Group widths='equal'>
+                                <Form.Field required> <label>Departing Date</label>
+                                    <SemanticDatepicker onChange={updateWhetherToPayDepartingDate}/>
+                                </Form.Field>
+                                <Form.Field required> <label>Returning Date</label>
+                                    <SemanticDatepicker onChange={updateWhetherToPayReturningDate}/>
+                                </Form.Field>
+                            </Form.Group>
+                            <Form.TextArea label='Flight Reference' placeholder='Window seat, flight in the morning...' value={flightReference} onChange={updateFlightReference} />
                         </Form>
                     </div>
                 );
@@ -228,6 +248,10 @@ const mapStateToProps = (state) => {
         birthday: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'birthday']),
         airline: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'airline']),
         flightNumber: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'flight_number']),
+        flightFrom: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'flight_from']),
+        goingTo: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'going_to']),
+        whetherToPayAmount: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'whether_to_pay_amount']),
+        flightReference: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'flight_reference']),
     }
 }
 
@@ -292,6 +316,24 @@ const mapDispatchToProps = (dispatch) => {
         },
         updateFlightNumber(e) {
             dispatch(actionCreators.updateFlightNumber(e.target.value))
+        },
+        updateFlightFrom(e) {
+            dispatch(actionCreators.updateFlightFrom(e.target.value))
+        },
+        updateGoingTo(e) {
+            dispatch(actionCreators.updateGoingTo(e.target.value))
+        }, 
+        updateWhetherToPayAmount(e) {
+            dispatch(actionCreators.updateWhetherToPayAmount(e.target.value))
+        },
+        updateWhetherToPayDepartingDate(e, data) {
+            dispatch(actionCreators.updateWhetherToPayDepartingDate(JSON.stringify(data.value).split('T')[0].substring(1)));
+        },
+        updateWhetherToPayReturningDate(e, data) {
+            dispatch(actionCreators.updateWhetherToPayReturningDate(JSON.stringify(data.value).split('T')[0].substring(1)));
+        },
+        updateFlightReference(e) {
+            dispatch(actionCreators.updateFlightReference(e.target.value));
         },
         submitTravelRequestForm(formToSubmitData) {
             dispatch(actionCreators.submitTravelRequestForm(formToSubmitData))

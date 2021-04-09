@@ -32,9 +32,9 @@ const defaultState = fromJS({
             flight_number: '',
             flight_from: '',
             going_to: '',
-            departing_date: '',
-            returning_date: '',
-            amount: '',
+            whether_to_pay_departing_date: '',
+            whether_to_pay_returning_date: '',
+            whether_to_pay_amount: '',
             flight_reference: ''
         }
     }
@@ -86,6 +86,18 @@ const reducer = (state = defaultState, action) => {
             return state.setIn(['tra', 'whether_pay_flight_form', 'airline'], action.data);
         case constants.UPDATE_FLIGHT_NUMBER:
             return state.setIn(['tra', 'whether_pay_flight_form', 'flight_number'], action.data);
+        case constants.UPDATE_FLIGHT_FROM:
+            return state.setIn(['tra', 'whether_pay_flight_form', 'flight_from'], action.data);
+        case constants.UPDATE_GOING_TO:
+            return state.setIn(['tra', 'whether_pay_flight_form', 'going_to'], action.data);
+        case constants.UPDATE_WHETHER_TO_PAY_AMOUNT:
+            return state.setIn(['tra', 'whether_pay_flight_form', 'whether_to_pay_amount'], action.data);
+        case constants.UPDATE_WHETHER_TO_PAY_DEPARTING_DATE: 
+            return state.setIn(['tra', 'whether_pay_flight_form', 'whether_to_pay_departing_date'], action.value);
+        case constants.UPDATE_WHETHER_TO_PAY_RETURNING_DATE: 
+            return state.setIn(['tra', 'whether_pay_flight_form', 'whether_to_pay_returning_date'], action.value);
+        case constants.UPDATE_FLIGHT_REFERENCE:
+            return state.setIn(['tra', 'whether_pay_flight_form', 'flight_reference'], action.value);
         case constants.SUBMIT_TRAVEL_REQUEST_FORM:
             return state.merge(fromJS({
                 formToSubmit: { unit: '', subunit: '', formtype: '', budget_numbers:[] },
@@ -107,9 +119,9 @@ const reducer = (state = defaultState, action) => {
                         flight_number: '',
                         flight_from: '',
                         going_to: '',
-                        departing_date: '',
-                        returning_date: '',
-                        amount: '',
+                        whether_to_pay_departing_date: '',
+                        whether_to_pay_returning_date: '',
+                        whether_to_pay_amount: '',
                         flight_reference: ''
                     }
                 },
@@ -139,9 +151,9 @@ const reducer = (state = defaultState, action) => {
                         flight_number: '',
                         flight_from: '',
                         going_to: '',
-                        departing_date: '',
-                        returning_date: '',
-                        amount: '',
+                        whether_to_pay_departing_date: '',
+                        whether_to_pay_returning_date: '',
+                        whether_to_pay_amount: '',
                         flight_reference: ''
                     }
                 },

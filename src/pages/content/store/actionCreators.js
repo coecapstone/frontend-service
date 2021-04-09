@@ -145,6 +145,12 @@ export const READ_PAY_FLIGHT = 'content/READ_PAY_FLIGHT';
 export const UPDATE_BIRTHDAY = 'content/UPDATE_BIRTHDAY';
 export const UPDATE_AIRLINE = 'content/UPDATE_AIRLINE';
 export const UPDATE_FLIGHT_NUMBER = 'content/UPDATE_FLIGHT_NUMBER';
+export const UPDATE_FLIGHT_FROM = 'content/UPDATE_FLIGHT_FROM';
+export const UPDATE_GOING_TO = 'content/UPDATE_GOING_TO';
+export const UPDATE_WHETHER_TO_PAY_AMOUNT = 'content/UPDATE_WHETHER_TO_PAY_AMOUNT';
+export const UPDATE_WHETHER_TO_PAY_DEPARTING_DATE = 'content/UPDATE_WHETHER_TO_PAY_DEPARTING_DATE';
+export const UPDATE_WHETHER_TO_PAY_RETURNING_DATE = 'content/UPDATE_WHETHER_TO_PAY_RETURNING_DATE';
+export const UPDATE_FLIGHT_REFERENCE = 'content/UPDATE_FLIGHT_REFERENCE';
 export const SUBMIT_TRAVEL_REQUEST_FORM = 'content/SUBMIT_TRAVEL_REQUEST_FORM';
 
 export const updateFirstNameAction = (value) => ({
@@ -208,6 +214,30 @@ export const updateAirline = (data) => ({
 export const updateFlightNumber = (data) => ({
     type: UPDATE_FLIGHT_NUMBER,
     data
+})
+export const updateFlightFrom = (data) => ({
+    type: UPDATE_FLIGHT_FROM,
+    data
+}) 
+export const updateGoingTo = (data) => ({
+    type: UPDATE_GOING_TO,
+    data
+}) 
+export const updateWhetherToPayAmount = (data) => ({
+    type: UPDATE_WHETHER_TO_PAY_AMOUNT,
+    data
+})
+export const updateWhetherToPayDepartingDate = (value) => ({
+    type: UPDATE_WHETHER_TO_PAY_DEPARTING_DATE,
+    value
+})
+export const updateWhetherToPayReturningDate = (value) => ({
+    type: UPDATE_WHETHER_TO_PAY_RETURNING_DATE,
+    value
+})
+export const updateFlightReference = (value) => ({
+    type: UPDATE_FLIGHT_REFERENCE,
+    value
 })
 const submitTravelRequestFormAction = () => ({
     type: SUBMIT_TRAVEL_REQUEST_FORM
