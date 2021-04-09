@@ -23,7 +23,10 @@ class Content extends Component {
         const { creatorEmail, legalFirstName, updateFirstName, legalLastName, updateLastName, departure, reason, updateDeparture, allBudgetNumbers,
             destination, departing_date, returning_date, updateDestination, updateDepartureDate, updateReturningDate, submitTravelRequestForm, resetFormType,
             formToSubmitType, formToSubmitSubunit, formToSubmitUnit, updateReason, addMoreBudgetNumber, removeBudgetNumber, readInputBudget, 
-            readInputAmount, budget_list, readPayFlight, whetherPayFlight } = this.props;
+            readInputAmount, budget_list, readPayFlight } = this.props;
+        const { whetherPayFlight, birthday, updateBirthday, airline, updateAirline, flightNumber, updateFlightNumber, 
+            flightFrom, updateFlightFrom, goingTo, updateGoingTo, whetherToPayAmount, updateWhetherToPayAmount,
+            updateWhetherToPayDepartingDate, updateWhetherToPayReturningDate, flightReference, updateFlightReference } = this.props;
         const creatorNetId = creatorEmail.split('@')[0];
         const budget_list_JS = budget_list.toJS();
         const travelRequestFormData = { creatorNetId, formToSubmitType, formToSubmitSubunit, formToSubmitUnit, legalFirstName, legalLastName, departure, 
@@ -90,57 +93,48 @@ class Content extends Component {
                         <Form.Radio label='No' value='No' onChange={readPayFlight} checked={whetherPayFlight === 'No'} />
                     </Form.Group>
                 </Form>
-                {this.whetherPayFlightForm()}
+                { 
+                    whetherPayFlight === 'Yes' ? 
+                        <div className='whetherPayFlightForm' >
+                            <Form size='tiny'>
+                                <Form.Group widths='equal'>
+                                    <Form.Field required> <label>Birthday</label>
+                                        <Input placeholder='MM/DD/YYYY' value={birthday} onChange={updateBirthday} />
+                                    </Form.Field>
+                                    <Form.Field> <label>Airline</label>
+                                        <Input value={airline} onChange={updateAirline} />
+                                    </Form.Field>
+                                    <Form.Field> <label>Flight Number</label>
+                                        <Input value={flightNumber} onChange={updateFlightNumber} />
+                                    </Form.Field>
+                                </Form.Group>
+                                <Form.Group widths='equal'>
+                                    <Form.Field> <label>Flight From</label>
+                                        <Input value={flightFrom} onChange={updateFlightFrom} />
+                                    </Form.Field>
+                                    <Form.Field> <label>Going To</label>
+                                        <Input value={goingTo} onChange={updateGoingTo} />
+                                    </Form.Field>
+                                    <Form.Field> <label>Amount</label>
+                                        <Input value={whetherToPayAmount} onChange={updateWhetherToPayAmount} placeholder='0.00' label='$' />
+                                    </Form.Field>
+                                </Form.Group>
+                                <Form.Group widths='equal'>
+                                    <Form.Field required> <label>Departing Date</label>
+                                        <SemanticDatepicker onChange={updateWhetherToPayDepartingDate}/>
+                                    </Form.Field>
+                                    <Form.Field required> <label>Returning Date</label>
+                                        <SemanticDatepicker onChange={updateWhetherToPayReturningDate}/>
+                                    </Form.Field>
+                                </Form.Group>
+                                <Form.TextArea label='Flight Reference' placeholder='Window seat, flight in the morning...' value={flightReference} onChange={updateFlightReference} />
+                            </Form>
+                        </div> : null
+                }
                 <Button content='Submit' className='submitFormBtn' color='violet' onClick={() => submitTravelRequestForm(travelRequestFormData)} />
                 <Button content='Reset FormType' labelPosition='left' icon='backward' color='violet' basic onClick={() => resetFormType()} />
             </Fragment>
         );
-    }
-
-    whetherPayFlightForm() {
-        const { whetherPayFlight, birthday, updateBirthday, airline, updateAirline, flightNumber, updateFlightNumber, 
-            flightFrom, updateFlightFrom, goingTo, updateGoingTo, whetherToPayAmount, updateWhetherToPayAmount,
-            updateWhetherToPayDepartingDate, updateWhetherToPayReturningDate, flightReference, updateFlightReference } = this.props;
-        if (whetherPayFlight === 'Yes') {
-                return (
-                    <div className='whetherPayFlightForm' >
-                        <Form size='tiny'>
-                            <Form.Group widths='equal'>
-                                <Form.Field required> <label>Birthday</label>
-                                    <Input placeholder='MM/DD/YYYY' value={birthday} onChange={updateBirthday} />
-                                </Form.Field>
-                                <Form.Field> <label>Airline</label>
-                                    <Input value={airline} onChange={updateAirline} />
-                                </Form.Field>
-                                <Form.Field> <label>Flight Number</label>
-                                    <Input value={flightNumber} onChange={updateFlightNumber} />
-                                </Form.Field>
-                            </Form.Group>
-                            <Form.Group widths='equal'>
-                                <Form.Field> <label>Flight From</label>
-                                    <Input value={flightFrom} onChange={updateFlightFrom} />
-                                </Form.Field>
-                                <Form.Field> <label>Going To</label>
-                                    <Input value={goingTo} onChange={updateGoingTo} />
-                                </Form.Field>
-                                <Form.Field> <label>Amount</label>
-                                    <Input value={whetherToPayAmount} onChange={updateWhetherToPayAmount} placeholder='0.00' label='$' />
-                                </Form.Field>
-                            </Form.Group>
-                            <Form.Group widths='equal'>
-                                <Form.Field required> <label>Departing Date</label>
-                                    <SemanticDatepicker onChange={updateWhetherToPayDepartingDate}/>
-                                </Form.Field>
-                                <Form.Field required> <label>Returning Date</label>
-                                    <SemanticDatepicker onChange={updateWhetherToPayReturningDate}/>
-                                </Form.Field>
-                            </Form.Group>
-                            <Form.TextArea label='Flight Reference' placeholder='Window seat, flight in the morning...' value={flightReference} onChange={updateFlightReference} />
-                        </Form>
-                    </div>
-                );
-            }
-        
     }
 
     purchaseRequestForm() {
