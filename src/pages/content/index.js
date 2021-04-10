@@ -23,14 +23,14 @@ class Content extends Component {
         const { creatorEmail, legalFirstName, updateFirstName, legalLastName, updateLastName, departure, reason, updateDeparture, allBudgetNumbers,
             destination, departing_date, returning_date, updateDestination, updateDepartureDate, updateReturningDate, submitTravelRequestForm, resetFormType,
             formToSubmitType, formToSubmitSubunit, formToSubmitUnit, updateReason, addMoreBudgetNumber, removeBudgetNumber, readInputBudget, 
-            readInputAmount, budget_list, readPayFlight } = this.props;
-        const { whetherPayFlight, birthday, updateBirthday, airline, updateAirline, flightNumber, updateFlightNumber, 
-            flightFrom, updateFlightFrom, goingTo, updateGoingTo, whetherToPayAmount, updateWhetherToPayAmount,
-            updateWhetherToPayDepartingDate, updateWhetherToPayReturningDate, flightReference, updateFlightReference } = this.props;
+            readInputAmount, budget_list, readPayFlight, whetherPayFlight, whetherToPayReturningDate, whetherToPayDepartingDate } = this.props;
+        const { birthday, updateBirthday, airline, updateAirline, flightNumber, updateFlightNumber, flightFrom, updateFlightFrom, goingTo, updateGoingTo, 
+            whetherToPayAmount, updateWhetherToPayAmount, updateWhetherToPayDepartingDate, updateWhetherToPayReturningDate, flightReference, updateFlightReference } = this.props;
         const creatorNetId = creatorEmail.split('@')[0];
         const budget_list_JS = budget_list.toJS();
+        const whetherPayFlightFormData = { goingTo, whetherToPayAmount, whetherToPayReturningDate, whetherToPayDepartingDate, flightNumber, flightFrom, flightReference, birthday, airline }
         const travelRequestFormData = { creatorNetId, formToSubmitType, formToSubmitSubunit, formToSubmitUnit, legalFirstName, legalLastName, departure, 
-            destination, departing_date, returning_date, reason, budget_list_JS };
+            destination, departing_date, returning_date, reason, budget_list_JS, whetherPayFlight, whetherPayFlightFormData };
         return (
             <Fragment>
                 <Form className='travelForm'>
@@ -246,6 +246,8 @@ const mapStateToProps = (state) => {
         goingTo: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'going_to']),
         whetherToPayAmount: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'whether_to_pay_amount']),
         flightReference: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'flight_reference']),
+        whetherToPayReturningDate: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'whether_to_pay_returning_date']),
+        whetherToPayDepartingDate: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'whether_to_pay_departing_date']),
     }
 }
 

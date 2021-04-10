@@ -18,11 +18,12 @@ class Requests extends Component {
     }
 
     displayDetail() {
-        const { detailRequest, showDetail, backToRequests, budget_list } = this.props;
+        const { detailRequest, showDetail, backToRequests, budget_list, whether_pay_flight } = this.props;
         if (showDetail) {
             console.log(detailRequest);
             const detail = Immutable.List(detailRequest).toJS()[0];
             console.log(detail);
+            const whether_pay_flightJS = whether_pay_flight.toJS()
             return ( detail === undefined ? null : 
                 <Fragment>
                     <Card className='card'>
@@ -48,6 +49,22 @@ class Requests extends Component {
                                             </div>
                                         );
                                     })
+                                }
+                                {
+                                    whether_pay_flightJS.length === 0 ? <div><b>Would you like unit to pay the flight</b>: No </div> : 
+                                    <Fragment>
+                                        <div><b>Would you like unit to pay the flight</b>: Yes </div>
+                                        <div className='whetherPayFlightCard'>
+                                            <div><b>Birthday</b>: {whether_pay_flightJS.birthday} </div>
+                                            <div><b>Airline</b>: {whether_pay_flightJS.airline} </div>
+                                            <div><b>Flight From</b>: {whether_pay_flightJS.flightFrom} </div>
+                                            <div><b>Going To</b>: {whether_pay_flightJS.goingTo} </div>
+                                            <div><b>Amount</b>: {whether_pay_flightJS.whetherToPayAmount} </div>
+                                            <div><b>Departing Date</b>: {whether_pay_flightJS.whetherToPayDepartingDate} </div>
+                                            <div><b>Returning Date</b>: {whether_pay_flightJS.whetherToPayReturningDate} </div>
+                                            <div><b>Flight Reference</b>: {whether_pay_flightJS.flightReference} </div>
+                                        </div>
+                                    </Fragment>
                                 }
                             </Card.Description>
                         </Card.Content>
@@ -134,6 +151,7 @@ const mapStateToProps = (state) => {
         detailRequest: state.getIn(['request', 'detailRequest']),
         showDetail: state.getIn(['request', 'showDetail']),
         budget_list: state.getIn(['request', 'budget_list']),
+        whether_pay_flight: state.getIn(['request', 'whether_pay_flight']),
     }
 }
 
@@ -146,6 +164,7 @@ const mapDispatchToProps = (dispatch) => {
             console.log(id)
             dispatch(actionCreators.getRequestDetail(id));
             dispatch(actionCreators.getBudgetDetail(id));
+            dispatch(actionCreators.getWhetherPayFlight(id));
         },
         backToRequests() {
             dispatch(actionCreators.backToRequests());

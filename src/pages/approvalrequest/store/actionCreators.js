@@ -5,6 +5,7 @@ import { fromJS } from 'immutable';
 export const GET_SUBUNIT_REQUESTS = 'content/GET_SUBUNIT_REQUESTS';
 export const SET_REQUEST_DETAIL = 'content/SET_REQUEST_DETAIL';
 export const SET_BUDGET_DETAIL = 'content/SET_BUDGET_DETAIL';
+export const SET_WHETHER_PAY_FLIGHT = 'content/SET_WHETHER_PAY_FLIGHT';
 export const BACK_TO_REQUESTS = 'content/BACK_TO_REQUESTS';
 export const CHANGE_TO_LOGOUT = 'content/CHANGE_TO_LOGOUT';
 export const SHOW_APPROVED_MESSAGE = 'content/SHOW_APPROVED_MESSAGE';
@@ -37,7 +38,10 @@ const setBudgetDetailAction = (data) => ({
     type: SET_BUDGET_DETAIL,
     data: fromJS(data)
 });
-
+const setWhetherPayFlightAction = (data) => ({
+    type: SET_WHETHER_PAY_FLIGHT,
+    data: fromJS(data)
+});
 export const getSubunitRequests = (unit, subunit) => {
     return (dispatch) => {
         const unitWithoutSpace = unit.replaceAll(' ', '-');
@@ -77,7 +81,18 @@ export const getBudgetDetail = (id) => {
             })
     }
 }
-
+export const getWhetherPayFlight = (id) => {
+    return (dispatch) => {
+        axios.get(`http://localhost:8080/api/getWhetherPayFlight/${id}`)
+            .then(res => {
+                console.log('getWhetherToPayFlight', res.data)
+                dispatch(setWhetherPayFlightAction(res.data))
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+}
 export const approvalRequest = (id) => {
     return (dispatch) => {
         const options = {
