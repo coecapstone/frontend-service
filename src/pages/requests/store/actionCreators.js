@@ -4,6 +4,7 @@ import { fromJS } from 'immutable';
 export const GET_USER_REQUESTS = 'content/GET_USER_REQUESTS';
 export const SET_REQUEST_DETAIL = 'content/SET_REQUEST_DETAIL';
 export const SET_BUDGET_DETAIL = 'content/SET_BUDGET_DETAIL';
+export const SET_WHETHER_PAY_FLIGHT = 'content/SET_WHETHER_PAY_FLIGHT';
 export const BACK_TO_REQUESTS = 'content/BACK_TO_REQUESTS';
 export const CHANGE_TO_LOGOUT = 'content/CHANGE_TO_LOGOUT';
 
@@ -25,7 +26,10 @@ const setBudgetDetailAction = (data) => ({
     type: SET_BUDGET_DETAIL,
     data: fromJS(data)
 });
-
+const setWhetherPayFlightAction = (data) => ({
+    type: SET_WHETHER_PAY_FLIGHT,
+    data: fromJS(data)
+});
 export const getUserRequests = (userNetId) => {
     return (dispatch) => {
         axios.get(`http://localhost:8080/api/getUserRequests/${userNetId}`)
@@ -58,6 +62,18 @@ export const getBudgetDetail = (id) => {
             .then(res => {
                 console.log('getBudgetDetail', res.data)
                 dispatch(setBudgetDetailAction(res.data))
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+}
+export const getWhetherPayFlight = (id) => {
+    return (dispatch) => {
+        axios.get(`http://localhost:8080/api/getWhetherPayFlight/${id}`)
+            .then(res => {
+                console.log('getWhetherToPayFlight', res.data)
+                dispatch(setWhetherPayFlightAction(res.data))
             })
             .catch((error) => {
                 console.log(error)

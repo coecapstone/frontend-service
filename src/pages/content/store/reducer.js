@@ -25,6 +25,18 @@ const defaultState = fromJS({
         budget_list: [ 
             { budget_number: '', amount: '' },
         ],
+        whether_pay_flight: '',
+        whether_pay_flight_form: {
+            birthday: '',
+            airline: '',
+            flight_number: '',
+            flight_from: '',
+            going_to: '',
+            whether_to_pay_departing_date: '',
+            whether_to_pay_returning_date: '',
+            whether_to_pay_amount: '',
+            flight_reference: ''
+        }
     }
 });
 
@@ -66,6 +78,26 @@ const reducer = (state = defaultState, action) => {
             return state.updateIn(['tra', 'budget_list'], arr => arr.push(action.value));
         case constants.REMOVE_BUDGET_NUMBER:
             return state.updateIn(['tra', 'budget_list'], arr => remove(arr, action.idx));
+        case constants.READ_PAY_FLIGHT:
+            return state.setIn(['tra', 'whether_pay_flight'], action.data);
+        case constants.UPDATE_BIRTHDAY:
+            return state.setIn(['tra', 'whether_pay_flight_form', 'birthday'], action.data);
+        case constants.UPDATE_AIRLINE:
+            return state.setIn(['tra', 'whether_pay_flight_form', 'airline'], action.data);
+        case constants.UPDATE_FLIGHT_NUMBER:
+            return state.setIn(['tra', 'whether_pay_flight_form', 'flight_number'], action.data);
+        case constants.UPDATE_FLIGHT_FROM:
+            return state.setIn(['tra', 'whether_pay_flight_form', 'flight_from'], action.data);
+        case constants.UPDATE_GOING_TO:
+            return state.setIn(['tra', 'whether_pay_flight_form', 'going_to'], action.data);
+        case constants.UPDATE_WHETHER_TO_PAY_AMOUNT:
+            return state.setIn(['tra', 'whether_pay_flight_form', 'whether_to_pay_amount'], action.data);
+        case constants.UPDATE_WHETHER_TO_PAY_DEPARTING_DATE: 
+            return state.setIn(['tra', 'whether_pay_flight_form', 'whether_to_pay_departing_date'], action.value);
+        case constants.UPDATE_WHETHER_TO_PAY_RETURNING_DATE: 
+            return state.setIn(['tra', 'whether_pay_flight_form', 'whether_to_pay_returning_date'], action.value);
+        case constants.UPDATE_FLIGHT_REFERENCE:
+            return state.setIn(['tra', 'whether_pay_flight_form', 'flight_reference'], action.value);
         case constants.SUBMIT_TRAVEL_REQUEST_FORM:
             return state.merge(fromJS({
                 formToSubmit: { unit: '', subunit: '', formtype: '', budget_numbers:[] },
@@ -80,6 +112,18 @@ const reducer = (state = defaultState, action) => {
                     budget_list: [ 
                         { budget_number: '', amount: '' },
                     ],
+                    whether_pay_flight: '',
+                    whether_pay_flight_form: {
+                        birthday: '',
+                        airline: '',
+                        flight_number: '',
+                        flight_from: '',
+                        going_to: '',
+                        whether_to_pay_departing_date: '',
+                        whether_to_pay_returning_date: '',
+                        whether_to_pay_amount: '',
+                        flight_reference: ''
+                    }
                 },
                 showSuccessToast: true
             }));
@@ -100,6 +144,18 @@ const reducer = (state = defaultState, action) => {
                     budget_list: [ 
                         { budget_number: '', amount: '' },
                     ],
+                    whether_pay_flight: '',
+                    whether_pay_flight_form: {
+                        birthday: '',
+                        airline: '',
+                        flight_number: '',
+                        flight_from: '',
+                        going_to: '',
+                        whether_to_pay_departing_date: '',
+                        whether_to_pay_returning_date: '',
+                        whether_to_pay_amount: '',
+                        flight_reference: ''
+                    }
                 },
                 showSuccessToast: false
             }));

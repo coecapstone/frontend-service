@@ -22,11 +22,15 @@ class Content extends Component {
     travelRequestForm() {
         const { creatorEmail, legalFirstName, updateFirstName, legalLastName, updateLastName, departure, reason, updateDeparture, allBudgetNumbers,
             destination, departing_date, returning_date, updateDestination, updateDepartureDate, updateReturningDate, submitTravelRequestForm, resetFormType,
-            formToSubmitType, formToSubmitSubunit, formToSubmitUnit, updateReason, addMoreBudgetNumber, removeBudgetNumber, readInputBudget, readInputAmount, budget_list} = this.props;
+            formToSubmitType, formToSubmitSubunit, formToSubmitUnit, updateReason, addMoreBudgetNumber, removeBudgetNumber, readInputBudget, 
+            readInputAmount, budget_list, readPayFlight, whetherPayFlight, whetherToPayReturningDate, whetherToPayDepartingDate } = this.props;
+        const { birthday, updateBirthday, airline, updateAirline, flightNumber, updateFlightNumber, flightFrom, updateFlightFrom, goingTo, updateGoingTo, 
+            whetherToPayAmount, updateWhetherToPayAmount, updateWhetherToPayDepartingDate, updateWhetherToPayReturningDate, flightReference, updateFlightReference } = this.props;
         const creatorNetId = creatorEmail.split('@')[0];
         const budget_list_JS = budget_list.toJS();
+        const whetherPayFlightFormData = { goingTo, whetherToPayAmount, whetherToPayReturningDate, whetherToPayDepartingDate, flightNumber, flightFrom, flightReference, birthday, airline }
         const travelRequestFormData = { creatorNetId, formToSubmitType, formToSubmitSubunit, formToSubmitUnit, legalFirstName, legalLastName, departure, 
-            destination, departing_date, returning_date, reason, budget_list_JS };
+            destination, departing_date, returning_date, reason, budget_list_JS, whetherPayFlight, whetherPayFlightFormData };
         return (
             <Fragment>
                 <Form className='travelForm'>
@@ -62,9 +66,7 @@ class Content extends Component {
                             <SemanticDatepicker onChange={updateReturningDate}/>
                         </Form.Field>
                     </Form.Group>
-                    <Form.TextArea required label='Reason for request this travel' placeholder='No longer than 1000 characters' 
-                        value={reason}
-                        onChange={updateReason}/>
+                    <Form.TextArea required label='Reason for request this travel' placeholder='No longer than 1000 characters' value={reason} onChange={updateReason}/>
                     <Form.Group inline>
                         <Form.Field required> <label>Budget Number</label></Form.Field> <i className='minorText'>click plus icon to split the budget</i>
                     </Form.Group>
@@ -87,20 +89,48 @@ class Content extends Component {
                     }
                     <Form.Group inline>
                         <Form.Field required> <label>Would you like unit to pay the flight</label> </Form.Field>
-                        <Form.Radio
-                            label='Small'
-                            value='sm'
-                        />
-                        <Form.Radio
-                            label='Medium'
-                            value='md'
-                        />
-                        <Form.Radio
-                            label='Large'
-                            value='lg'
-                        />
+                        <Form.Radio label='Yes' value='Yes' onChange={readPayFlight} checked={whetherPayFlight === 'Yes'} />
+                        <Form.Radio label='No' value='No' onChange={readPayFlight} checked={whetherPayFlight === 'No'} />
                     </Form.Group>
                 </Form>
+                { 
+                    whetherPayFlight === 'Yes' ? 
+                        <div className='whetherPayFlightForm' >
+                            <Form size='tiny'>
+                                <Form.Group widths='equal'>
+                                    <Form.Field required> <label>Birthday</label>
+                                        <Input placeholder='MM/DD/YYYY' value={birthday} onChange={updateBirthday} />
+                                    </Form.Field>
+                                    <Form.Field> <label>Airline</label>
+                                        <Input value={airline} onChange={updateAirline} />
+                                    </Form.Field>
+                                    <Form.Field> <label>Flight Number</label>
+                                        <Input value={flightNumber} onChange={updateFlightNumber} />
+                                    </Form.Field>
+                                </Form.Group>
+                                <Form.Group widths='equal'>
+                                    <Form.Field> <label>Flight From</label>
+                                        <Input value={flightFrom} onChange={updateFlightFrom} />
+                                    </Form.Field>
+                                    <Form.Field> <label>Going To</label>
+                                        <Input value={goingTo} onChange={updateGoingTo} />
+                                    </Form.Field>
+                                    <Form.Field> <label>Amount</label>
+                                        <Input value={whetherToPayAmount} onChange={updateWhetherToPayAmount} placeholder='0.00' label='$' />
+                                    </Form.Field>
+                                </Form.Group>
+                                <Form.Group widths='equal'>
+                                    <Form.Field required> <label>Departing Date</label>
+                                        <SemanticDatepicker onChange={updateWhetherToPayDepartingDate}/>
+                                    </Form.Field>
+                                    <Form.Field required> <label>Returning Date</label>
+                                        <SemanticDatepicker onChange={updateWhetherToPayReturningDate}/>
+                                    </Form.Field>
+                                </Form.Group>
+                                <Form.TextArea label='Flight Reference' placeholder='Window seat, flight in the morning...' value={flightReference} onChange={updateFlightReference} />
+                            </Form>
+                        </div> : null
+                }
                 <Button content='Submit' className='submitFormBtn' color='violet' onClick={() => submitTravelRequestForm(travelRequestFormData)} />
                 <Button content='Reset FormType' labelPosition='left' icon='backward' color='violet' basic onClick={() => resetFormType()} />
             </Fragment>
@@ -208,6 +238,16 @@ const mapStateToProps = (state) => {
         reason: state.getIn(['content', 'tra', 'reason']),
         budget_list: state.getIn(['content', 'tra', 'budget_list']),
         showSuccessToast: state.getIn(['content', 'showSuccessToast']),
+        whetherPayFlight: state.getIn(['content', 'tra', 'whether_pay_flight']),
+        birthday: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'birthday']),
+        airline: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'airline']),
+        flightNumber: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'flight_number']),
+        flightFrom: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'flight_from']),
+        goingTo: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'going_to']),
+        whetherToPayAmount: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'whether_to_pay_amount']),
+        flightReference: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'flight_reference']),
+        whetherToPayReturningDate: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'whether_to_pay_returning_date']),
+        whetherToPayDepartingDate: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'whether_to_pay_departing_date']),
     }
 }
 
@@ -260,6 +300,36 @@ const mapDispatchToProps = (dispatch) => {
         },
         removeBudgetNumber(idx) {
             dispatch(actionCreators.removeBudgetNumber(idx));
+        },
+        readPayFlight(e, data) {
+            dispatch(actionCreators.readPayFlight(data.value));
+        },
+        updateBirthday(e) {
+            dispatch(actionCreators.updateBirthday(e.target.value))
+        },
+        updateAirline(e) {
+            dispatch(actionCreators.updateAirline(e.target.value))
+        },
+        updateFlightNumber(e) {
+            dispatch(actionCreators.updateFlightNumber(e.target.value))
+        },
+        updateFlightFrom(e) {
+            dispatch(actionCreators.updateFlightFrom(e.target.value))
+        },
+        updateGoingTo(e) {
+            dispatch(actionCreators.updateGoingTo(e.target.value))
+        }, 
+        updateWhetherToPayAmount(e) {
+            dispatch(actionCreators.updateWhetherToPayAmount(e.target.value))
+        },
+        updateWhetherToPayDepartingDate(e, data) {
+            dispatch(actionCreators.updateWhetherToPayDepartingDate(JSON.stringify(data.value).split('T')[0].substring(1)));
+        },
+        updateWhetherToPayReturningDate(e, data) {
+            dispatch(actionCreators.updateWhetherToPayReturningDate(JSON.stringify(data.value).split('T')[0].substring(1)));
+        },
+        updateFlightReference(e) {
+            dispatch(actionCreators.updateFlightReference(e.target.value));
         },
         submitTravelRequestForm(formToSubmitData) {
             dispatch(actionCreators.submitTravelRequestForm(formToSubmitData))

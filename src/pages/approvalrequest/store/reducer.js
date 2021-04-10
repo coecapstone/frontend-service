@@ -10,6 +10,7 @@ const defaultState = fromJS({
     showDeclineMessageInputBox: false,
     reason: '',
     budget_list: [],
+    whether_pay_flight: [],
 });
 
 const reducer = (state = defaultState, action) => {
@@ -24,13 +25,17 @@ const reducer = (state = defaultState, action) => {
                 showApprovedMessage: false,
                 showDeclinedToast: false,
                 showDeclineMessageInputBox: false,
-                reason: ''
+                reason: '',
+                budget_list: [],
+                whether_pay_flight: [],
             });
         case constants.SET_REQUEST_DETAIL:
             return state.merge({
                 detailRequest: action.data,
                 detailId: action.id
             });
+        case constants.SET_WHETHER_PAY_FLIGHT: 
+            return state.set('whether_pay_flight', action.data);
         case constants.SET_BUDGET_DETAIL: 
             return state.set('budget_list', action.data);
         case constants.SHOW_APPROVED_MESSAGE:
