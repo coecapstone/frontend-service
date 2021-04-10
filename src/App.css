@@ -1,28 +1,19 @@
 .googleLogin {
     width: 250px;
-    margin-left: 120px;
-    display: block;
     font-size: 1.2rem !important;
-}
-
-.chooseSubmitter {
-    height: 50px;
-}
-
-.text {
-    color:#95949c !important;
-    font-weight: normal !important;
+    margin-top: 100px !important;
 }
 
 .textButtom {
-    margin-top: 60px !important;
     color:#95949c !important;
     font-weight: normal !important;
+    margin-top: 15px !important;
 }
 
 .importantText {
     font-weight: bold;
     text-decoration: underline;
+    color: #626262 !important;
 }
 
 .ui.selection.dropdown .menu {
@@ -30,7 +21,7 @@
 }
 
 .card {
-    width: 80% !important;
+    width: 100% !important;
     font-size: 1.2rem !important;
     line-height: 160% !important;
 }

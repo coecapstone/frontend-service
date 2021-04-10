@@ -9,7 +9,7 @@ import {
     ApprovalWrapper,
     DivideBox,
     ChooseTitle,
-    ChoooseDropdown,
+    SelectBlock,
     Nav,
     GroupHeader,
     NavItem,
@@ -23,13 +23,17 @@ class Approval extends Component {
             return (
                 <ApprovalWrapper>
                     <DivideBox>
-                        <ChooseTitle> Here to Approve Requests? 
-                            <Header className='text' as='h3'>If <span className="importantText">Yes</span>, please select your subunit info</Header>
-                            <ChoooseDropdown>
-                                <Dropdown placeholder='choose Unit Subunit' options={Immutable.List(list).toJS()} selection
-                                    onChange={(e, data) => readSubunit(data.value)} />
-                            </ChoooseDropdown>
-                            <Header className='textButtom' as='h3'>If <span className="importantText">No</span>, click <Link to={'/'}><DirectText onClick={() => changeRoleToSubmitter()}>here</DirectText></Link> to submit requests</Header>
+                        <ChooseTitle> 
+                            <SelectBlock>
+                                Continue as <span className="importantText">Approver</span>
+                                <Header className='textButtom' as='h5'>
+                                    <Dropdown placeholder='choose Unit Subunit' options={Immutable.List(list).toJS()} selection onChange={(e, data) => readSubunit(data.value)} />
+                                </Header>
+                            </SelectBlock>
+                            <SelectBlock>
+                                Continue as <span className="importantText">Submitter</span>
+                                <Header className='textButtom' as='h5'>click <Link to={'/'}><DirectText onClick={() => changeRoleToSubmitter()}>here</DirectText></Link> to submit requests</Header>
+                            </SelectBlock>
                         </ChooseTitle>
                     </DivideBox>
                 </ApprovalWrapper>
@@ -38,7 +42,8 @@ class Approval extends Component {
             return null;
         }
     }
-
+    
+   
     displayApprovalWelcome() {
         if (this.props.subunit !== '') {
             return (

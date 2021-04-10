@@ -3,20 +3,10 @@ import { fromJS } from 'immutable';
 
 export const CHANGE_TO_LOGIN = 'login/CHANGE_TO_LOGIN';
 export const CHANGE_TO_LOGOUT = 'login/CHANGE_TO_LOGOUT';
-export const CHANGE_APPROVAL_SUBUNIT_LIST = 'login/CHANGE_APPROVAL_SUBUNIT_LIST';
+export const CHANGE_APPROVER_SUBUNIT_LIST = 'login/CHANGE_APPROVER_SUBUNIT_LIST';
+export const CHANGE_FISCAL_STAFF_SUBUNIT_LIST = 'login/CHANGE_FISCAL_STAFF_SUBUNIT_LIST';
 export const CHANGE_APPROVAL_INFO = 'login/CHANGE_APPROVAL_INFO';
-export const CHANGE_ROLE_TO_APPROVER = 'login/CHANGE_ROLE_TO_APPROVER';
-export const CHANGE_ROLE_TO_SUBMITTER = 'login/CHANGE_ROLE_TO_SUBMITTER';
-
-const changeLogin = (profile) => ({
-    type: CHANGE_TO_LOGIN,
-    profile: fromJS(profile)
-})
-
-const changeApprovalSubunitList = (approvalSubunitList) => ({
-    type: CHANGE_APPROVAL_SUBUNIT_LIST,
-    approvalSubunitList: fromJS(approvalSubunitList)
-})
+export const CHANGE_ROLE = 'login/CHANGE_ROLE';
 
 export const logout = () => ({
     type: CHANGE_TO_LOGOUT
@@ -30,52 +20,105 @@ export const changeApprovalInfo = (unitSubunitInfo) => {
         subunit: split[0]
     }
 }
-
-export const changeRoleToSubmitter = () => ({
-    type: CHANGE_ROLE_TO_SUBMITTER
+export const changeLogin = (profile) => ({
+    type: CHANGE_TO_LOGIN,
+    profile: fromJS(profile)
+})
+const changeRole = (role) => ({
+    type: CHANGE_ROLE,
+    role
 })
 
-export const changeRoleToApprover = () => ({
-    type: CHANGE_ROLE_TO_APPROVER
+var fiscalStaffSubunitList = [];
+var approverSubunitList = [];
+const changeFiscalStaffSubunitList = (fiscalStaffSubunitList) => ({
+    type: CHANGE_FISCAL_STAFF_SUBUNIT_LIST,
+    fiscalStaffSubunitList: fromJS(fiscalStaffSubunitList)
 })
-
-export const login = (profile) => {
+const changeApproverSubunitList = (approverSubunitList) => ({
+    type: CHANGE_APPROVER_SUBUNIT_LIST,
+    approverSubunitList: fromJS(approverSubunitList)
+})
+export const initializeUserData = (netId) => {
+    var role = '';
     return (dispatch) => {
-        const netId = profile.email.split('@')[0];
-        const url = `http://localhost:8080/api/getUserRole/${netId}`;
-        console.log(url)
-        console.log('url')
-        axios.get(url)
+        return checkWhetherUserIsSystemAdministrator(netId)
             .then(res => {
-                console.log(res.data);
-                const approvalSubunitList = [];
-                const data = res.data;
-                for(const val in data) {
-                    const unit = data[val].unitName;
-                    const subUnit = data[val].subUnitName;
-                    const text = `${unit}, ${subUnit}`;
-                    const subunit = {};
-                    subunit.key = subUnit;
-                    subunit.text = text;
-                    subunit.value = `${subUnit}@${unit}`;
-                    approvalSubunitList.push(subunit);
-                }
-                console.log(approvalSubunitList);
-                if (approvalSubunitList.length > 0) {
-                    dispatch(changeRoleToApprover());
-                }
-                dispatch(changeApprovalSubunitList(approvalSubunitList));
-                dispatch(changeLogin(profile));
-                // save to session story?
-                //dispatch(submitFormAction())
+                console.log('1 -- checkWhetherUserIsSystemAdministrator', res) 
+                if (res === 1) role = 'system administrator';
+            })
+            .then(getSubunitListAsFiscalStaff(netId))
+            .then(getSubunitListAsApprover(netId))
+            .then(res => {
+                console.log('2 -- fiscalStaffSubunitList')
+                if (fiscalStaffSubunitList.length > 0 && role === '') role = 'fiscal staff';
+            })
+            .then(res => {
+                console.log('3 -- approverSubunitList')
+                if (approverSubunitList.length > 0 && role === '') role = 'approver';
+            })
+            .then(res => {
+                console.log('4 -- role', role)
+                dispatch(changeRole(role))
+                dispatch(changeFiscalStaffSubunitList(fiscalStaffSubunitList))
+                dispatch(changeApproverSubunitList(approverSubunitList))
             })
             .catch(error => {
                 console.log(error)
             })
     }
 }
-
-// const getFormListAction = (data) => ({
-//     type: GET_FORMLIST,
-//     data: fromJS(data)
-// });
+const checkWhetherUserIsSystemAdministrator = (netId) => {
+    return axios.get(`http://localhost:8080/api/checkWhetherUserIsSystemAdministrator/${netId}`)
+        .then(res => {
+            return res.data;
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}
+const getSubunitListAsFiscalStaff = (netId) => {
+    axios.get(`http://localhost:8080/api/getSubunitListAsFiscalStaff/${netId}`)
+        .then(res => {
+            fiscalStaffSubunitList = [];
+            const data = res.data;
+            for(const val in data) {
+                const unit = data[val].unitName;
+                const subUnit = data[val].subUnitName;
+                const text = `${unit}, ${subUnit}`;
+                const subunit = {};
+                subunit.key = subUnit;
+                subunit.text = text;
+                subunit.value = `${subUnit}@${unit}`;
+                fiscalStaffSubunitList.push(subunit);
+            }
+            console.log('fiscalStaffSubunitListData', data)
+            console.log('fiscalStaffSubunitList', fiscalStaffSubunitList)
+            return fiscalStaffSubunitList;
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}
+const getSubunitListAsApprover = (netId) => {
+    axios.get(`http://localhost:8080/api/getSubunitListAsApprover/${netId}`)
+        .then(res => {
+            approverSubunitList = [];
+            const data = res.data;
+            for(const val in data) {
+                const unit = data[val].unitName;
+                const subUnit = data[val].subUnitName;
+                const text = `${unit}, ${subUnit}`;
+                const subunit = {};
+                subunit.key = subUnit;
+                subunit.text = text;
+                subunit.value = `${subUnit}@${unit}`;
+                approverSubunitList.push(subunit);
+            }
+            console.log('approverSubunitList', approverSubunitList)
+            return approverSubunitList;
+        })
+        .catch(error => {
+            console.log(error)
+        })
+}
