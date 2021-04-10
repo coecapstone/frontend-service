@@ -26,7 +26,7 @@ class ApprovalRequests extends Component {
         if (detailId !== '') {
             const detail = Immutable.List(detailRequest).toJS()[0];
             console.log(detail);
-            const whether_pay_flightJS = whether_pay_flight.toJS()
+            const whether_pay_flightJS = whether_pay_flight.toJS();
             return ( detail === undefined ? null : 
                 <Fragment>
                     <Card className='card'>
@@ -58,14 +58,15 @@ class ApprovalRequests extends Component {
                                     <Fragment>
                                         <div><b>Would you like unit to pay the flight</b>: Yes </div>
                                         <div className='whetherPayFlightCard'>
-                                            <div><b>Birthday</b>: {whether_pay_flightJS.birthday} </div>
-                                            <div><b>Airline</b>: {whether_pay_flightJS.airline} </div>
-                                            <div><b>Flight From</b>: {whether_pay_flightJS.flightFrom} </div>
-                                            <div><b>Going To</b>: {whether_pay_flightJS.goingTo} </div>
-                                            <div><b>Amount</b>: {whether_pay_flightJS.whetherToPayAmount} </div>
-                                            <div><b>Departing Date</b>: {whether_pay_flightJS.whetherToPayDepartingDate} </div>
-                                            <div><b>Returning Date</b>: {whether_pay_flightJS.whetherToPayReturningDate} </div>
-                                            <div><b>Flight Reference</b>: {whether_pay_flightJS.flightReference} </div>
+                                            <div><b>Birthday</b>: {whether_pay_flightJS[0].birthday} </div>
+                                            <div><b>Airline</b>: {whether_pay_flightJS[0].airline} </div>
+                                            <div><b>Flight Number</b>: {whether_pay_flightJS[0].flightNumber} </div>
+                                            <div><b>Flight From</b>: {whether_pay_flightJS[0].flightFrom} </div>
+                                            <div><b>Going To</b>: {whether_pay_flightJS[0].goingTo} </div>
+                                            <div><b>Amount</b>: {whether_pay_flightJS[0].whetherToPayAmount} </div>
+                                            <div><b>Departing Date</b>: {whether_pay_flightJS[0].whetherToPayDepartingDate} </div>
+                                            <div><b>Returning Date</b>: {whether_pay_flightJS[0].whetherToPayReturningDate} </div>
+                                            <div><b>Flight Reference</b>: {whether_pay_flightJS[0].flightReference} </div>
                                         </div>
                                     </Fragment>
                                 }
