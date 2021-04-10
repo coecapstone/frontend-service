@@ -57,8 +57,11 @@ const mapDispatchToProps = (dispatch) => {
         onSuccess(res) {
             console.log(res.profileObj);
             const profile = res.profileObj;
+            const netId = profile.email.split('@')[0];
             // 这个请求如果 login是true就不需要
-            dispatch(actionCreators.login(profile));
+            dispatch(actionCreators.changeLogin(profile));
+            dispatch(actionCreators.initializeUserData(netId));
+            // dispatch(actionCreators.checkWhetherApprover(netId));
         },
         onFailure(error) {
             console.log(error);

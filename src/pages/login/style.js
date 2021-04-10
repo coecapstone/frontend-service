@@ -21,7 +21,7 @@ export const LoginBox = styled.div`
 export const ChooseTitle = styled.div`
     width: 400px;
     margin: auto;
-    margin-top: 130px;
+    margin-top: 100px;
     height: 200px;
     font-weight: 400;
     font-size: 1.5rem;
