@@ -28,7 +28,7 @@ const changeRole = (role) => ({
     type: CHANGE_ROLE,
     role
 })
-
+var role = '';
 var fiscalStaffSubunitList = [];
 var approverSubunitList = [];
 const changeFiscalStaffSubunitList = (fiscalStaffSubunitList) => ({
@@ -39,24 +39,19 @@ const changeApproverSubunitList = (approverSubunitList) => ({
     type: CHANGE_APPROVER_SUBUNIT_LIST,
     approverSubunitList: fromJS(approverSubunitList)
 })
+// .then() 
+// 如果返回新的Promise, 那么下一级.then()会在新的Promise状态改变之后执行
+// 如果返回其他任何值, 则会立即执行下一级.then()
 export const initializeUserData = (netId) => {
-    var role = '';
     return (dispatch) => {
         return checkWhetherUserIsSystemAdministrator(netId)
             .then(res => {
+                role = '';
                 console.log('1 -- checkWhetherUserIsSystemAdministrator', res) 
                 if (res === 1) role = 'system administrator';
             })
-            .then(getSubunitListAsFiscalStaff(netId))
-            .then(getSubunitListAsApprover(netId))
-            .then(res => {
-                console.log('2 -- fiscalStaffSubunitList')
-                if (fiscalStaffSubunitList.length > 0 && role === '') role = 'fiscal staff';
-            })
-            .then(res => {
-                console.log('3 -- approverSubunitList')
-                if (approverSubunitList.length > 0 && role === '') role = 'approver';
-            })
+            .then(res => getSubunitListAsFiscalStaff(netId))
+            .then(res => getSubunitListAsApprover(netId))
             .then(res => {
                 console.log('4 -- role', role)
                 dispatch(changeRole(role))
@@ -78,7 +73,7 @@ const checkWhetherUserIsSystemAdministrator = (netId) => {
         })
 }
 const getSubunitListAsFiscalStaff = (netId) => {
-    axios.get(`http://localhost:8080/api/getSubunitListAsFiscalStaff/${netId}`)
+    return axios.get(`http://localhost:8080/api/getSubunitListAsFiscalStaff/${netId}`)
         .then(res => {
             fiscalStaffSubunitList = [];
             const data = res.data;
@@ -92,16 +87,17 @@ const getSubunitListAsFiscalStaff = (netId) => {
                 subunit.value = `${subUnit}@${unit}`;
                 fiscalStaffSubunitList.push(subunit);
             }
-            console.log('fiscalStaffSubunitListData', data)
-            console.log('fiscalStaffSubunitList', fiscalStaffSubunitList)
-            return fiscalStaffSubunitList;
+            console.log('2 -- fiscalStaffSubunitList')
+            console.log(fiscalStaffSubunitList.length)
+            if (fiscalStaffSubunitList.length > 0 && role === '') role = 'fiscal staff';
+            console.log(role)
         })
         .catch(error => {
             console.log(error)
         })
 }
 const getSubunitListAsApprover = (netId) => {
-    axios.get(`http://localhost:8080/api/getSubunitListAsApprover/${netId}`)
+    return axios.get(`http://localhost:8080/api/getSubunitListAsApprover/${netId}`)
         .then(res => {
             approverSubunitList = [];
             const data = res.data;
@@ -115,8 +111,10 @@ const getSubunitListAsApprover = (netId) => {
                 subunit.value = `${subUnit}@${unit}`;
                 approverSubunitList.push(subunit);
             }
-            console.log('approverSubunitList', approverSubunitList)
-            return approverSubunitList;
+            console.log('3 -- approverSubunitList')
+            console.log(approverSubunitList.length)
+            if (approverSubunitList.length > 0 && role === '') role = 'approver';
+            console.log(role)
         })
         .catch(error => {
             console.log(error)
