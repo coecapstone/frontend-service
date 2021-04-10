@@ -7,7 +7,7 @@ import { actionCreators } from './store';
 import {
     LoginWrapper,
     LoginBox,
-    LoginText,
+    ChooseTitle,
 } from './style';
 
 class Login extends Component {
@@ -20,22 +20,23 @@ class Login extends Component {
             return (
                 <LoginWrapper>
                     <LoginBox>
-                        <LoginText>Please Login via UW Email</LoginText>
-                        <GoogleLogin
-                            className="googleLogin"
-                            clientId={clientId}
-                            buttonText="Sign in with UW Email"
-                            onSuccess={(res) => this.props.onSuccess(res)}
-                            onFailure={(error) => this.props.onFailure(error)}
-                            cookiePolicy={'single_host_origin'}
-                            isSignedIn={true}
-                        />
+                        <ChooseTitle>
+                            Please Login via <span className="importantText">UW Email</span>
+                            <GoogleLogin
+                                className="googleLogin"
+                                clientId={clientId}
+                                buttonText="Sign in with UW Email"
+                                onSuccess={(res) => this.props.onSuccess(res)}
+                                onFailure={(error) => this.props.onFailure(error)}
+                                cookiePolicy={'single_host_origin'}
+                                isSignedIn={true} />
+                        </ChooseTitle>
                     </LoginBox>
                 </LoginWrapper>
             );
         } else {
             if (role === 'approver') {
-                return <Redirect to='/approval-welcome' />
+                return <Redirect to='/choose-role-approver' />
             }
             else {
                 return <Redirect to='/' />

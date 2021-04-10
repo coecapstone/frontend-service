@@ -26,7 +26,7 @@ export const ChooseTitle = styled.div`
     height: 400px;
     font-weight: 400;
     font-size: 1.5rem;
-    color: #626262;
+    color: #95949c;
 `
 export const SelectBlock = styled.div`
     height: 100px;
