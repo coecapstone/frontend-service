@@ -11,7 +11,7 @@ export const ApprovalWrapper = styled.div`
 
 export const DivideBox = styled.div`
     width: 500px;
-    height: 350px;
+    height: 450px;
     margin: 100px auto;
     background: #f6f5ff;
     padding-top: 20px;
@@ -19,20 +19,19 @@ export const DivideBox = styled.div`
     font-size: 1.2rem;
     box-shadow: 0 0 8px rgba(0, 0, 0, .1);
 `
+
 export const ChooseTitle = styled.div`
-    margin-left: 95px;
-    margin-top: 30px;
-    height: 200px;
-    line-height: 50px;
+    width: 400px;
+    margin: auto;
+    height: 400px;
     font-weight: 400;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     color: #626262;
 `
-
-export const ChoooseDropdown = styled.div`
-    margin-left: 0;
-    margin-top: 0px;
-    height: 50px;
+export const SelectBlock = styled.div`
+    height: 100px;
+    text-align: center;
+    padding: 10px;
 `
 
 export const Nav = styled.div`
