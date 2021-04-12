@@ -83,3 +83,13 @@
 .removeBtn {
     float: right !important;
 }
+
+.systemAdminTable {
+    width: 35% !important;
+}
+
+.systemAdminInput {
+    width: 35% !important;
+    margin-top: -5px !important;
+    margin-bottom: 20px !important;
+}

@@ -18,9 +18,6 @@ const reducer = (state = defaultState, action) => {
         case constants.INSERT_UNIT:
             return state.update('unit', arr => arr.push(action.data));
         case constants.REMOVE_UNIT:
-            // var newList = fruitList.get('fruits').delete(fruitList.get('fruits').findIndex(fruit => fruit === 'mangoes'))
-            // const temp = unit.findIndex(data => data === action.data)
-            // console.log(temp)
             return state.update('unit', arr => arr.filter(data => data.get('key') !== action.data));
         case constants.CLEAR_INPUT_AND_SUBUNIT:
             return state.merge({
