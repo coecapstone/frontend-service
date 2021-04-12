@@ -22,7 +22,7 @@ class SystemAdministratorSystemAdministrator extends Component {
         if (this.props.login) {
             return (
                 <ContentWrapper>
-                    <Header as='h2'>System Administrator Overview</Header>
+                    <Header as='h3'>System Administrator Overview</Header>
                     <Table celled selectable className='systemAdminTable'>
                         <Table.Header>
                             <Table.Row>

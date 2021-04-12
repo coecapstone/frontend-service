@@ -27,7 +27,7 @@ class SystemAdministratorUnitAndSubunit extends Component {
             return (
                 <ContentWrapper>
                     <LeftHalfWrapper>
-                        <Header as='h2'>Units Overview</Header>
+                        <Header as='h3'>Units Overview</Header>
                         <Table celled selectable>
                             <Table.Header>
                                 <Table.Row>
@@ -48,7 +48,7 @@ class SystemAdministratorUnitAndSubunit extends Component {
                         <Button className='removeBtn systemAdminBtn' color='red' content='Remove' onClick={() => removeUnitName(unitName)}></Button>
                     </LeftHalfWrapper>
                     <RightHalfWrapper>
-                        <Header as='h2'>Subunits for the Unit</Header>
+                        <Header as='h3'>Subunits for <span className="unitTitle">{unitName}</span></Header>
                         <Table celled selectable>
                             <Table.Header>
                                 <Table.Row>
