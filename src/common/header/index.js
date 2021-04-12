@@ -6,6 +6,7 @@ import { actionCreators as contentActionCreators } from '../../pages/content/sto
 import { actionCreators as requestsActionCreators } from '../../pages/requests/store';
 import { actionCreators as approvalRequestsActionCreators } from '../../pages/approvalrequest/store';
 import { actionCreators as SystemAdministratorUnitAndSubunitActionCreators } from '../../pages/systemadministratorunitandsubunit/store';
+import { actionCreators as SystemAdministratorSystemAdministratorActionCreators } from '../../pages/systemadministratorsystemadministrator/store';
 
 import {
     HeaderWrapper,
@@ -44,7 +45,7 @@ class Header extends Component {
                             </NavItem>
                         </Link>
                         <GroupHeader>MANAGE PEOPLE</GroupHeader>
-                        <Link to={'/system-administrator-add-system-administrator'}>
+                        <Link to={'/system-administrator-manage-system-administrator'}>
                             <NavItem>
                                 <i className="iconfont iconfontSystemAdministrator">&#xe664;</i>Administrator
                             </NavItem>
@@ -105,6 +106,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(requestsActionCreators.logout());
             dispatch(approvalRequestsActionCreators.logout());
             dispatch(SystemAdministratorUnitAndSubunitActionCreators.logout())
+            dispatch(SystemAdministratorSystemAdministratorActionCreators.logout())
         }
     }
 }
