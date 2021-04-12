@@ -40,8 +40,8 @@ class SystemAdministratorSystemAdministrator extends Component {
                     <Header as='h4'>System Administrator NetID</Header>
                     <Input className='systemAdminInput' placeholder='UW NetID' value={systemAdministratorNetID} onChange={(e, data) => readInputSystemAdmin(data.value)}/>
                     <div className='systemAdminTable'>
-                        <Button color='violet' content='Add' onClick={() => appendSystemAdministrator(systemAdministratorNetID)}></Button>
-                        <Button className='removeBtn' color='red' content='Remove' onClick={() => removeSystemAdministrator(systemAdministratorNetID)}></Button> 
+                        <Button className='systemAdminBtn' color='violet' content='Add' onClick={() => appendSystemAdministrator(systemAdministratorNetID)}></Button>
+                        <Button className='removeBtn systemAdminBtn' color='red' content='Remove' onClick={() => removeSystemAdministrator(systemAdministratorNetID)}></Button> 
                     </div>
                 </ContentWrapper>
             );

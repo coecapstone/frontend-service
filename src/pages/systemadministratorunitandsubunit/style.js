@@ -11,15 +11,13 @@ export const ContentWrapper = styled.div`
 `
 
 export const LeftHalfWrapper = styled.div`
-    width: 45%;
+    width: 47%;
     display: inline;
     float: left;
-    background-color: yellow;
 `
 
 export const RightHalfWrapper = styled.div`
-    width: 45%;
+    width: 47%;
     display: inline;
     float: right;
-    background-color: green;
 `

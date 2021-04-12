@@ -19,7 +19,8 @@ class SystemAdministratorUnitAndSubunit extends Component {
     }
 
     render() {
-        const { readInputUnit, inputUnitName, unitName, appendUnitName, removeUnitName } = this.props;
+        const { readInputUnit, readInputSubunit, inputUnitName, unitName, subunitName, appendUnitName, removeUnitName,
+            appendSubunitName, removeSubunitName } = this.props;
         const allUnitListJS = Immutable.List(this.props.allUnitList).toJS();
         const allSubunitListJS = Immutable.List(this.props.allSubunitList).toJS();
         if (this.props.login) {
@@ -43,8 +44,8 @@ class SystemAdministratorUnitAndSubunit extends Component {
                         </Table>
                         <Header as='h4'>Unit Name</Header>
                         <Input className='unitName' placeholder='Unit Name' value={unitName} onChange={(e, data) => inputUnitName(data.value)}/>
-                        <Button color='violet' content='Add' onClick={() => appendUnitName(unitName)}></Button>
-                        <Button className='removeBtn' color='red' content='Remove' onClick={() => removeUnitName(unitName)}></Button>
+                        <Button color='violet' className='systemAdminBtn' content='Add' onClick={() => appendUnitName(unitName)}></Button>
+                        <Button className='removeBtn systemAdminBtn' color='red' content='Remove' onClick={() => removeUnitName(unitName)}></Button>
                     </LeftHalfWrapper>
                     <RightHalfWrapper>
                         <Header as='h2'>Subunits for the Unit</Header>
@@ -56,12 +57,16 @@ class SystemAdministratorUnitAndSubunit extends Component {
                             </Table.Header>
                             <Table.Body>
                                 {allSubunitListJS.map(({ text }) => (
-                                    <Table.Row key={text}>
+                                    <Table.Row key={text} onClick={() => readInputSubunit(text)}>
                                         <Table.Cell>{text}</Table.Cell>
                                     </Table.Row>
                                 ))}
                             </Table.Body>
                         </Table>
+                        <Header as='h4'>Subunit Name</Header>
+                        <Input className='unitName' placeholder='Subunit Name' value={subunitName} onChange={(e, data) => readInputSubunit(data.value)}/>
+                        <Button color='violet' className='systemAdminBtn' content='Add' onClick={() => appendSubunitName(unitName, subunitName)}></Button>
+                        <Button className='removeBtn systemAdminBtn' color='red' content='Remove' onClick={() => removeSubunitName(unitName, subunitName)}></Button>
                     </RightHalfWrapper>
                 </ContentWrapper>
             );
@@ -77,6 +82,7 @@ const mapStateToProps = (state) => {
         allUnitList: state.getIn(['systemadministratorunitandsubunit', 'unit']),
         allSubunitList: state.getIn(['systemadministratorunitandsubunit', 'subunit']),
         unitName: state.getIn(['systemadministratorunitandsubunit', 'unitChosen']),
+        subunitName: state.getIn(['systemadministratorunitandsubunit', 'subunitChosen']),
     }
 }
 
@@ -89,6 +95,10 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(actionCreators.readInputUnit(unit));
             dispatch(actionCreators.inputUnitName(unit));
         },
+        readInputSubunit(subunit) {
+            //dispatch(actionCreators.readInputSubunit(subunit));
+            dispatch(actionCreators.inputSubunitName(subunit));
+        },
         inputUnitName(data) {
             dispatch(actionCreators.inputUnitName(data));
         },
@@ -97,7 +107,13 @@ const mapDispatchToProps = (dispatch) => {
         },
         removeUnitName(unitName) {
             dispatch(actionCreators.removeUnitName(unitName))
-        }
+        },
+        appendSubunitName(unitName, subunitName) {
+            dispatch(actionCreators.appendSubunitName(unitName, subunitName))
+        },
+        removeSubunitName(unitName, subunitName) {
+            dispatch(actionCreators.removeSubunitName(unitName, subunitName))
+        },
     }
 }
 
