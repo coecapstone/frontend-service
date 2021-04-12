@@ -10,20 +10,29 @@ import {
     DivideBox,
     ChooseTitle,
     SelectBlock,
-    Nav,
-    GroupHeader,
-    NavItem,
+    SelectBlockSystemAdministrator,
     DirectText,
 } from './style';
 
-class Approval extends Component {
-    chooseUnitSubunit() {
-        const { login, subunit, list, readSubunit, changeRoleToSubmitter } = this.props;
-        if (login && subunit === '') {
+class SystemAdministrator extends Component {
+
+    render() {
+        const { login, list, readSubunit, changeRole, chooseRole, changeChooseRole } = this.props;
+        if (login && !chooseRole) {
             return (
                 <ApprovalWrapper>
                     <DivideBox>
                         <ChooseTitle> 
+                            <SelectBlockSystemAdministrator>
+                                Continue as <span className="importantText">System Administrator</span>
+                                <Header className='textButtom' as='h4'>click <Link to={'/system-administrator-mainpage'}><DirectText onClick={() => changeChooseRole(true)}>here</DirectText></Link> to manage system</Header>
+                            </SelectBlockSystemAdministrator>
+                            <SelectBlock>
+                                Continue as <span className="importantText">Fiscal Staff</span>
+                                <Header className='textButtom' as='h5'>
+                                    <Dropdown placeholder='choose Unit Subunit' options={Immutable.List(list).toJS()} selection onChange={(e, data) => readSubunit(data.value)} />
+                                </Header>
+                            </SelectBlock>
                             <SelectBlock>
                                 Continue as <span className="importantText">Approver</span>
                                 <Header className='textButtom' as='h5'>
@@ -32,7 +41,7 @@ class Approval extends Component {
                             </SelectBlock>
                             <SelectBlock>
                                 Continue as <span className="importantText">Submitter</span>
-                                <Header className='textButtom' as='h4'>click <Link to={'/'}><DirectText onClick={() => changeRoleToSubmitter()}>here</DirectText></Link> to submit requests</Header>
+                                <Header className='textButtom' as='h4'>click <Link to={'/'}><DirectText onClick={() => changeRole('submitter')}>here</DirectText></Link> to submit requests</Header>
                             </SelectBlock>
                         </ChooseTitle>
                     </DivideBox>
@@ -42,37 +51,13 @@ class Approval extends Component {
             return null;
         }
     }
-    
-   
-    // displayApprovalWelcome() {
-    //     if (this.props.subunit !== '') {
-    //         return (
-    //             <Nav>
-    //                 <GroupHeader>GENERAL USER</GroupHeader>
-    //                 <Link to={'/requests-to-approve'}>
-    //                     <NavItem>
-    //                         <i className="iconfont">&#xe638;</i>To Be Approved
-    //                     </NavItem>
-    //                 </Link>
-    //             </Nav>
-    //         );
-    //     }
-    // }
-
-    render() {
-        return (
-            <Fragment>
-                {this.chooseUnitSubunit()}
-                {/* {this.displayApprovalWelcome()} */}
-            </Fragment>
-        );
-    }
 }
 
 const mapStateToProps = (state) => {
     return {
         list: state.getIn(['login', 'approverSubunitList']),
         login: state.getIn(['login', 'login']),
+        chooseRole: state.getIn(['login', 'chooseRole']),
         unit: state.getIn(['login', 'user', 'unit']),
         subunit: state.getIn(['login', 'user', 'subunit']),
     }
@@ -84,10 +69,13 @@ const mapDispatchToProps = (dispatch) => {
             console.log(unitSubunitInfo);
             dispatch(loginActionCreators.changeApprovalInfo(unitSubunitInfo));
         },
-        changeRoleToSubmitter() {
-            dispatch(loginActionCreators.changeRoleToSubmitter());
+        changeRole(role) {
+            dispatch(loginActionCreators.changeRole(role));
+        },
+        changeChooseRole(hasChoseRole) {
+            dispatch(loginActionCreators.changeChooseRole(hasChoseRole));
         }
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Approval);
+export default connect(mapStateToProps, mapDispatchToProps)(SystemAdministrator);

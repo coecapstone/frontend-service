@@ -3,6 +3,7 @@ import { fromJS } from 'immutable';
 
 const defaultState = fromJS({
     login: false,
+    chooseRole: false,
     user: {
         role: '',
         unit: '',
@@ -27,6 +28,7 @@ const reducer = (state = defaultState, action) => {
         case constants.CHANGE_TO_LOGOUT: 
             return state.merge({
                 login: false,
+                chooseRole: false,
                 user: {
                     role: '',
                     unit: '',
@@ -36,8 +38,10 @@ const reducer = (state = defaultState, action) => {
                 fiscalStaffSubunitList: [],
                 approverSubunitList: []
             })
-        case constants.CHANGE_ROLE: 
+        case constants.CHANGE_ROLE:
             return state.setIn(['user', 'role'], action.role);
+        case constants.CHANGE_CHOOSE_ROLE:
+            return state.set('chooseRole', action.hasChoseRole);
         case constants.CHANGE_APPROVAL_INFO:
             return state.merge({
                 user: {

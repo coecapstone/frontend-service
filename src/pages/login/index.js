@@ -11,36 +11,38 @@ import {
 } from './style';
 
 class Login extends Component {
+    getLoginBox() {
+        // https://dev.to/sivaneshs/add-google-login-to-your-react-apps-in-10-mins-4del
+        const clientId = '767966548929-ghusim71l8qt3jv5ub8bhomtfg8t7787.apps.googleusercontent.com';
+        return (
+            <LoginWrapper>
+                <LoginBox>
+                    <ChooseTitle>
+                        Please Login via <span className="importantText">UW Email</span>
+                        <GoogleLogin
+                            className="googleLogin"
+                            clientId={clientId}
+                            buttonText="Sign in with UW Email"
+                            onSuccess={(res) => this.props.onSuccess(res)}
+                            onFailure={(error) => this.props.onFailure(error)}
+                            cookiePolicy={'single_host_origin'}
+                            isSignedIn={true} />
+                    </ChooseTitle>
+                </LoginBox>
+            </LoginWrapper>
+        );
+    }
+
     render() {
         const { login, role } = this.props;
-        const clientId = '767966548929-ghusim71l8qt3jv5ub8bhomtfg8t7787.apps.googleusercontent.com';
-        // https://dev.to/sivaneshs/add-google-login-to-your-react-apps-in-10-mins-4del
-
         if (!login) {
-            return (
-                <LoginWrapper>
-                    <LoginBox>
-                        <ChooseTitle>
-                            Please Login via <span className="importantText">UW Email</span>
-                            <GoogleLogin
-                                className="googleLogin"
-                                clientId={clientId}
-                                buttonText="Sign in with UW Email"
-                                onSuccess={(res) => this.props.onSuccess(res)}
-                                onFailure={(error) => this.props.onFailure(error)}
-                                cookiePolicy={'single_host_origin'}
-                                isSignedIn={true} />
-                        </ChooseTitle>
-                    </LoginBox>
-                </LoginWrapper>
-            );
+            return this.getLoginBox();
         } else {
-            if (role === 'approver') {
-                return <Redirect to='/choose-role-approver' />
-            }
-            else {
-                return <Redirect to='/' />
-            }
+            if (role === '') return this.getLoginBox();
+            else if (role === 'approver') return <Redirect to='/choose-role-approver' />
+            else if (role === 'fiscal staff') return <Redirect to='/choose-role-fiscal-staff' />
+            else if (role === 'system administrator') return <Redirect to='/choose-role-system-administrator' />
+            else return <Redirect to='/' />
         }
     }
 }

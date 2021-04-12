@@ -7,6 +7,7 @@ export const CHANGE_APPROVER_SUBUNIT_LIST = 'login/CHANGE_APPROVER_SUBUNIT_LIST'
 export const CHANGE_FISCAL_STAFF_SUBUNIT_LIST = 'login/CHANGE_FISCAL_STAFF_SUBUNIT_LIST';
 export const CHANGE_APPROVAL_INFO = 'login/CHANGE_APPROVAL_INFO';
 export const CHANGE_ROLE = 'login/CHANGE_ROLE';
+export const CHANGE_CHOOSE_ROLE = 'login/CHANGE_CHOOSE_ROLE';
 
 export const logout = () => ({
     type: CHANGE_TO_LOGOUT
@@ -27,6 +28,10 @@ export const changeLogin = (profile) => ({
 const changeRole = (role) => ({
     type: CHANGE_ROLE,
     role
+})
+export const changeChooseRole = (hasChoseRole) => ({
+    type: CHANGE_CHOOSE_ROLE,
+    hasChoseRole
 })
 var role = '';
 var fiscalStaffSubunitList = [];
