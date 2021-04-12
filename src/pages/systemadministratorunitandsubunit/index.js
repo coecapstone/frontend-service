@@ -3,7 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actionCreators } from './store';
 import Immutable from 'immutable';
-import { Table, Card, Header, Button, Message, Form } from 'semantic-ui-react';
+import { Table, Input, Card, Header, Button, Confirm, Message, Form } from 'semantic-ui-react';
 
 import {
     ContentWrapper,
@@ -19,7 +19,7 @@ class SystemAdministratorUnitAndSubunit extends Component {
     }
 
     render() {
-        const { readInputUnit } = this.props;
+        const { readInputUnit, inputUnitName, unitName, appendUnitName, removeUnitName } = this.props;
         const allUnitListJS = Immutable.List(this.props.allUnitList).toJS();
         const allSubunitListJS = Immutable.List(this.props.allSubunitList).toJS();
         if (this.props.login) {
@@ -41,6 +41,10 @@ class SystemAdministratorUnitAndSubunit extends Component {
                                 ))}
                             </Table.Body>
                         </Table>
+                        <Header as='h4'>Unit Name</Header>
+                        <Input className='unitName' placeholder='Unit Name' value={unitName} onChange={(e, data) => inputUnitName(data.value)}/>
+                        <Button color='violet' content='Add' onClick={() => appendUnitName(unitName)}></Button>
+                        <Button className='removeBtn' color='red' content='Remove' onClick={() => removeUnitName(unitName)}></Button>
                     </LeftHalfWrapper>
                     <RightHalfWrapper>
                         <Header as='h2'>Subunits for the Unit</Header>
@@ -72,6 +76,7 @@ const mapStateToProps = (state) => {
         login: state.getIn(['login', 'login']),
         allUnitList: state.getIn(['systemadministratorunitandsubunit', 'unit']),
         allSubunitList: state.getIn(['systemadministratorunitandsubunit', 'subunit']),
+        unitName: state.getIn(['systemadministratorunitandsubunit', 'unitChosen']),
     }
 }
 
@@ -80,9 +85,19 @@ const mapDispatchToProps = (dispatch) => {
         getAllUnitsList() {
             dispatch(actionCreators.getAllUnitsList());
         },
-        readInputUnit(data) {
-            dispatch(actionCreators.readInputUnit(data));
+        readInputUnit(unit) {
+            dispatch(actionCreators.readInputUnit(unit));
+            dispatch(actionCreators.inputUnitName(unit));
         },
+        inputUnitName(data) {
+            dispatch(actionCreators.inputUnitName(data));
+        },
+        appendUnitName(unitName) {
+            dispatch(actionCreators.appendUnitName(unitName))
+        },
+        removeUnitName(unitName) {
+            dispatch(actionCreators.removeUnitName(unitName))
+        }
     }
 }
 
