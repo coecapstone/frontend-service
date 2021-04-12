@@ -120,21 +120,11 @@ class ApprovalRequests extends Component {
                     <Table sortable celled fixed>
                         <Table.Header>
                             <Table.Row>
-                                <Table.HeaderCell>
-                                    Form Creator
-                                </Table.HeaderCell>
-                                <Table.HeaderCell>
-                                    Form Type
-                                </Table.HeaderCell>
-                                <Table.HeaderCell>
-                                    Created Time
-                                </Table.HeaderCell>
-                                <Table.HeaderCell>
-                                    Status
-                                </Table.HeaderCell>
-                                <Table.HeaderCell>
-                                    Details
-                                </Table.HeaderCell>
+                                <Table.HeaderCell> Form Creator </Table.HeaderCell>
+                                <Table.HeaderCell> Form Type </Table.HeaderCell>
+                                <Table.HeaderCell> Created Time </Table.HeaderCell>
+                                <Table.HeaderCell> Status </Table.HeaderCell>
+                                <Table.HeaderCell> Details </Table.HeaderCell>
                             </Table.Row>
                         </Table.Header>
                         <Table.Body>

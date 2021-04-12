@@ -4,6 +4,7 @@ import { reducer as contentReducer } from '../pages/content/store';
 import { reducer as loginReducer } from '../pages/login/store';
 import { reducer as requestsReducer } from '../pages/requests/store';
 import { reducer as approvalRequestReducer } from '../pages/approvalrequest/store';
+import { reducer as systemAdministratorUnitAndSubunitReducer } from '../pages/systemadministratorunitandsubunit/store';
 
 
 const reducer = combineReducers({
@@ -11,7 +12,8 @@ const reducer = combineReducers({
     content: contentReducer,
     login: loginReducer,
     request: requestsReducer,
-    approvalrequest: approvalRequestReducer
+    approvalrequest: approvalRequestReducer,
+    systemadministratorunitandsubunit: systemAdministratorUnitAndSubunitReducer
 })
 
 export default reducer;
