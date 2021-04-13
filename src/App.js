@@ -11,8 +11,9 @@ import SystemAdministratorBudget from './pages/systemadministratorbudget';
 import SystemAdministratorSystemAdministrator from './pages/systemadministratorsystemadministrator';
 import SystemAdministratorFiscalStaff from './pages/systemadministratorfiscalstaff';
 import SystemAdministratorApprover from './pages/systemadministratorapprover';
-import Approval from './pages/approval';
-import ApprovalRequests from './pages/approvalrequest';
+import Approver from './pages/approver';
+import ApproverMainpage from './pages/approvermainpage';
+import ApproverApproveRequests from './pages/approverapproverequests';
 import Submitter from './pages/submitter';
 import SubmitterMainpage from './pages/submittermainpage';
 import SubmitterCreateRequest from './pages/submittercreaterequest';
@@ -41,8 +42,9 @@ class App extends Component {
               <Route path='/system-administrator-manage-fiscal-staff' exact component={SystemAdministratorFiscalStaff}></Route>
               <Route path='/system-administrator-manage-approver' exact component={SystemAdministratorApprover}></Route>
               {/* approver */}
-              <Route path='/choose-role-approver' exact component={Approval}></Route>
-              <Route path='/requests-to-approve-approver' exact component={ApprovalRequests}></Route>
+              <Route path='/approver-choose-role' exact component={Approver}></Route>
+              <Route path='/approver-mainpage' exact component={ApproverMainpage}></Route>
+              <Route path='/approver-approverequests' exact component={ApproverApproveRequests}></Route>
               {/* submitter */}
               <Route path='/submitter-choose-role' exact component={Submitter}></Route>
               <Route path='/submitter-mainpage' exact component={SubmitterMainpage}></Route>

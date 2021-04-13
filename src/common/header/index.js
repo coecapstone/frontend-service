@@ -5,7 +5,7 @@ import { actionCreators } from './store';
 import { actionCreators as loginActionCreators } from '../login/store';
 import { actionCreators as contentActionCreators } from '../../pages/submittercreaterequest/store';
 import { actionCreators as requestsActionCreators } from '../../pages/submittermyrequests/store';
-import { actionCreators as approvalRequestsActionCreators } from '../../pages/approvalrequest/store';
+import { actionCreators as approvalRequestsActionCreators } from '../../pages/approverapproverequests/store';
 import { actionCreators as SystemAdministratorUnitAndSubunitActionCreators } from '../../pages/systemadministratorunitandsubunit/store';
 import { actionCreators as SystemAdministratorSystemAdministratorActionCreators } from '../../pages/systemadministratorsystemadministrator/store';
 import { actionCreators as SystemAdministratorBudgetActionCreators } from '../../pages/systemadministratorbudget/store';
@@ -23,6 +23,7 @@ class Header extends Component {
     getSubmitterNavItems() {
         const { login, chooseRole, role, changeChooseRole } = this.props;
         if (login && chooseRole) {
+            console.log(role)
             if (role === 'submitter') {
                 return (
                     <Fragment>
@@ -40,7 +41,14 @@ class Header extends Component {
                 return (<div>hifhidfd</div>)
             }
             else if (role === 'approver') {
-                return (<div>approe</div>)
+                return (
+                    <Fragment>
+                        <GroupHeader>GENERAL USER</GroupHeader>
+                        <Link to={'/approver-approverequests'}>
+                            <NavItem> <i className="iconfont iconfontSystemAdministrator">&#xe638;</i>Approve Requests </NavItem>
+                        </Link>
+                    </Fragment>
+                )
             }
             else if (role === 'system administrator') {
                 return (

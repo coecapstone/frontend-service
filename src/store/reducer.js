@@ -3,7 +3,7 @@ import { combineReducers } from 'redux-immutable';
 import { reducer as contentReducer } from '../pages/submittercreaterequest/store';
 import { reducer as loginReducer } from '../common/login/store';
 import { reducer as requestsReducer } from '../pages/submittermyrequests/store';
-import { reducer as approvalRequestReducer } from '../pages/approvalrequest/store';
+import { reducer as approvalRequestReducer } from '../pages/approverapproverequests/store';
 import { reducer as systemAdministratorUnitAndSubunitReducer } from '../pages/systemadministratorunitandsubunit/store';
 import { reducer as systemAdministratorSystemAdministrator } from '../pages/systemadministratorsystemadministrator/store';
 import { reducer as systemAdministratorBudget } from '../pages/systemadministratorbudget/store';

@@ -25,7 +25,7 @@ export const changeLogin = (profile) => ({
     type: CHANGE_TO_LOGIN,
     profile: fromJS(profile)
 })
-const changeRole = (role) => ({
+export const changeRole = (role) => ({
     type: CHANGE_ROLE,
     role
 })
@@ -59,7 +59,7 @@ export const initializeUserData = (netId) => {
             .then(res => getSubunitListAsApprover(netId))
             .then(res => {
                 console.log('4 -- role', role)
-                dispatch(changeRole(role)) // TODO: 改 dispatch(changeRole('submitter'))
+                dispatch(changeRole('system administrator')) // TODO: 改 dispatch(changeRole('submitter'))
                 dispatch(changeFiscalStaffSubunitList(fiscalStaffSubunitList))
                 dispatch(changeApproverSubunitList(approverSubunitList))
             })
