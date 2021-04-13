@@ -13,7 +13,7 @@ import {
     // GroupHeader,
 } from './style';
 
-class ApprovalRequests extends Component {
+class ApproverApproveRequests extends Component {
 
     componentDidMount() {
         this.props.getSubunitRequests(this.props.unit, this.props.subunit);
@@ -172,8 +172,8 @@ const mapStateToProps = (state) => {
         showDeclinedToast: state.getIn(['approvalrequest', 'showDeclinedToast']),
         showDeclineMessageInputBox: state.getIn(['approvalrequest', 'showDeclineMessageInputBox']),
         reason: state.getIn(['approvalrequest', 'reason']),
-        budget_list: state.getIn(['request', 'budget_list']),
-        whether_pay_flight: state.getIn(['request', 'whether_pay_flight']),
+        budget_list: state.getIn(['submittermyrequest', 'budget_list']),
+        whether_pay_flight: state.getIn(['submittermyrequest', 'whether_pay_flight']),
     }
 }
 
@@ -207,4 +207,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ApprovalRequests);
+export default connect(mapStateToProps, mapDispatchToProps)(ApproverApproveRequests);

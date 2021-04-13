@@ -48,7 +48,7 @@ const reducer = (state = defaultState, action) => {
             return state.setIn(['formToSubmit','unit'], action.data);
         case constants.READ_INPUT_SUBUNIT:
             return state.setIn(['formToSubmit','subunit'], action.data);
-        case constants.CHANGE_BUDGET_NUMBERS: 
+        case constants.GET_ALL_BUDGETS_DROPDOWN_LIST: 
             return state.setIn(['formToSubmit','budget_numbers'], action.data);
         case constants.GET_SUBUNITS:
             return state.setIn(['static','subunit'], action.data);

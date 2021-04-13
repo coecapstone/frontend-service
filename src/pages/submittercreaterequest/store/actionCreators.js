@@ -6,7 +6,7 @@ export const GET_FORMLIST = 'content/get_formlist';
 export const READ_FORM_TYPE = 'content/read_form_type';
 export const READ_INPUT_UNIT = 'content/read_input_unit';
 export const READ_INPUT_SUBUNIT = 'content/read_input_subunit';
-export const CHANGE_BUDGET_NUMBERS = 'content/change_budget_numbers';
+export const GET_ALL_BUDGETS_DROPDOWN_LIST = 'content/GET_ALL_BUDGETS_DROPDOWN_LIST';
 export const GET_SUBUNITS = 'content/GET_SUBUNITS';
 export const CREATE_ANOTHER_REQUEST = 'content/create_another_request';
 export const RESET_FORM_TYPE = 'content/reset_form_type';
@@ -37,10 +37,10 @@ const changeSubunit = (data) => ({
     data
 })
 
-const changeBudgetNumbers = (data) => ({
-    type: CHANGE_BUDGET_NUMBERS,
-    data
-})
+const getAllBudgetsDropdownListAction = (data) => ({
+    type: GET_ALL_BUDGETS_DROPDOWN_LIST,
+    data: fromJS(data)
+});
 
 export const createAnotherRequest = () => ({
     type: CREATE_ANOTHER_REQUEST
@@ -114,14 +114,25 @@ export const readInputUnit = (unit) => {
     }
 };
 
+// TODO: 这里需要改
 export const readInputSubunit = (unit, subunit) => {
     return (dispatch) => {
         dispatch(changeSubunit(subunit));
-        const unitWithoutSpace = unit.replaceAll(' ', '-');
-        const subunitWithoutSpace = subunit.replaceAll(' ', '-');
-        axios.get(`http://localhost:8080/api/getBudgets/${unitWithoutSpace}/${subunitWithoutSpace}`)
+        axios.get(`http://localhost:8080/api/getAllBudgetsList`)
+            // .then(res => {
+            //     dispatch(changeBudgetNumbers(res.data))
+            // })
             .then(res => {
-                dispatch(changeBudgetNumbers(res.data))
+                let allBudgetsDropdownList = [];
+                res.data.map(item => {
+                    const one_budget = {};
+                    const row = `${item.budget_number}, ${item.budget_name}`
+                    one_budget.key = row;
+                    one_budget.text = row;
+                    one_budget.value = row;
+                    allBudgetsDropdownList.push(one_budget);
+                });
+                dispatch(getAllBudgetsDropdownListAction(allBudgetsDropdownList))
             })
             .catch((error) => {
                 console.log(error)

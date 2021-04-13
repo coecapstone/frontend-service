@@ -11,7 +11,7 @@ import {
     ContentWrapper,
 } from './style';
 
-class Content extends Component {
+class SubmitterCreateRequest extends Component {
 
     componentDidMount() {
         const { getFormList, getAllUnitsList } = this.props;
@@ -218,33 +218,33 @@ const mapStateToProps = (state) => {
     return {
         login: state.getIn(['login', 'login']),
         creatorEmail: state.getIn(['login', 'profileObj', 'email']),
-        allUnitList: state.getIn(['content', 'static', 'unit']),
-        subunitList: state.getIn(['content', 'static', 'subunit']),
-        formTypeList: state.getIn(['content', 'static', 'list']),
-        formToSubmitType: state.getIn(['content', 'formToSubmit', 'formtype']),
-        formToSubmitUnit: state.getIn(['content', 'formToSubmit', 'unit']),
-        formToSubmitSubunit: state.getIn(['content', 'formToSubmit', 'subunit']),
-        allBudgetNumbers: state.getIn(['content', 'formToSubmit', 'budget_numbers']),
-        formToSubmitUnit: state.getIn(['content', 'formToSubmit', 'unit']),
-        legalFirstName: state.getIn(['content', 'tra', 'legal_firstname']),
-        legalLastName: state.getIn(['content', 'tra', 'legal_lastname']),
-        departure: state.getIn(['content', 'tra', 'departure']),
-        destination: state.getIn(['content', 'tra', 'destination']),
-        departing_date: state.getIn(['content', 'tra', 'departing_date']),
-        returning_date: state.getIn(['content', 'tra', 'returning_date']),
-        reason: state.getIn(['content', 'tra', 'reason']),
-        budget_list: state.getIn(['content', 'tra', 'budget_list']),
-        showSuccessToast: state.getIn(['content', 'showSuccessToast']),
-        whetherPayFlight: state.getIn(['content', 'tra', 'whether_pay_flight']),
-        birthday: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'birthday']),
-        airline: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'airline']),
-        flightNumber: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'flight_number']),
-        flightFrom: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'flight_from']),
-        goingTo: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'going_to']),
-        whetherToPayAmount: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'whether_to_pay_amount']),
-        flightReference: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'flight_reference']),
-        whetherToPayReturningDate: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'whether_to_pay_returning_date']),
-        whetherToPayDepartingDate: state.getIn(['content', 'tra', 'whether_pay_flight_form', 'whether_to_pay_departing_date']),
+        allUnitList: state.getIn(['submittercreaterequest', 'static', 'unit']),
+        subunitList: state.getIn(['submittercreaterequest', 'static', 'subunit']),
+        formTypeList: state.getIn(['submittercreaterequest', 'static', 'list']),
+        formToSubmitType: state.getIn(['submittercreaterequest', 'formToSubmit', 'formtype']),
+        formToSubmitUnit: state.getIn(['submittercreaterequest', 'formToSubmit', 'unit']),
+        formToSubmitSubunit: state.getIn(['submittercreaterequest', 'formToSubmit', 'subunit']),
+        allBudgetNumbers: state.getIn(['submittercreaterequest', 'formToSubmit', 'budget_numbers']),
+        formToSubmitUnit: state.getIn(['submittercreaterequest', 'formToSubmit', 'unit']),
+        legalFirstName: state.getIn(['submittercreaterequest', 'tra', 'legal_firstname']),
+        legalLastName: state.getIn(['submittercreaterequest', 'tra', 'legal_lastname']),
+        departure: state.getIn(['submittercreaterequest', 'tra', 'departure']),
+        destination: state.getIn(['submittercreaterequest', 'tra', 'destination']),
+        departing_date: state.getIn(['submittercreaterequest', 'tra', 'departing_date']),
+        returning_date: state.getIn(['submittercreaterequest', 'tra', 'returning_date']),
+        reason: state.getIn(['submittercreaterequest', 'tra', 'reason']),
+        budget_list: state.getIn(['submittercreaterequest', 'tra', 'budget_list']),
+        showSuccessToast: state.getIn(['submittercreaterequest', 'showSuccessToast']),
+        whetherPayFlight: state.getIn(['submittercreaterequest', 'tra', 'whether_pay_flight']),
+        birthday: state.getIn(['submittercreaterequest', 'tra', 'whether_pay_flight_form', 'birthday']),
+        airline: state.getIn(['submittercreaterequest', 'tra', 'whether_pay_flight_form', 'airline']),
+        flightNumber: state.getIn(['submittercreaterequest', 'tra', 'whether_pay_flight_form', 'flight_number']),
+        flightFrom: state.getIn(['submittercreaterequest', 'tra', 'whether_pay_flight_form', 'flight_from']),
+        goingTo: state.getIn(['submittercreaterequest', 'tra', 'whether_pay_flight_form', 'going_to']),
+        whetherToPayAmount: state.getIn(['submittercreaterequest', 'tra', 'whether_pay_flight_form', 'whether_to_pay_amount']),
+        flightReference: state.getIn(['submittercreaterequest', 'tra', 'whether_pay_flight_form', 'flight_reference']),
+        whetherToPayReturningDate: state.getIn(['submittercreaterequest', 'tra', 'whether_pay_flight_form', 'whether_to_pay_returning_date']),
+        whetherToPayDepartingDate: state.getIn(['submittercreaterequest', 'tra', 'whether_pay_flight_form', 'whether_to_pay_departing_date']),
     }
 }
 
@@ -340,4 +340,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Content);
+export default connect(mapStateToProps, mapDispatchToProps)(SubmitterCreateRequest);
