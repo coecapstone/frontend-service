@@ -39,10 +39,10 @@ class Login extends Component {
             return this.getLoginBox();
         } else {
             if (role === '') return this.getLoginBox();
-            else if (role === 'approver') return <Redirect to='/choose-role-approver' />
-            else if (role === 'fiscal staff') return <Redirect to='/choose-role-fiscal-staff' />
-            else if (role === 'system administrator') return <Redirect to='/choose-role-system-administrator' />
-            else return <Redirect to='/' />
+            else if (role === 'approver') return <Redirect to='/approver-choose-role' />
+            else if (role === 'fiscal staff') return <Redirect to='/fiscal-staff-choose-role' />
+            else if (role === 'system administrator') return <Redirect to='/system-administrator-choose-role' />
+            else return <Redirect to='/submitter-choose-role' />
         }
     }
 }

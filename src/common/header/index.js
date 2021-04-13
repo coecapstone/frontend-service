@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { actionCreators } from './store';
 import { actionCreators as loginActionCreators } from '../login/store';
-import { actionCreators as contentActionCreators } from '../../pages/content/store';
-import { actionCreators as requestsActionCreators } from '../../pages/requests/store';
+import { actionCreators as contentActionCreators } from '../../pages/submittercreaterequest/store';
+import { actionCreators as requestsActionCreators } from '../../pages/submittermyrequests/store';
 import { actionCreators as approvalRequestsActionCreators } from '../../pages/approvalrequest/store';
 import { actionCreators as SystemAdministratorUnitAndSubunitActionCreators } from '../../pages/systemadministratorunitandsubunit/store';
 import { actionCreators as SystemAdministratorSystemAdministratorActionCreators } from '../../pages/systemadministratorsystemadministrator/store';
@@ -24,7 +24,17 @@ class Header extends Component {
         const { login, chooseRole, role, changeChooseRole } = this.props;
         if (login && chooseRole) {
             if (role === 'submitter') {
-                return (<div>sdf</div>)
+                return (
+                    <Fragment>
+                        <GroupHeader>GENERAL USER</GroupHeader>
+                        <Link to={'/submitter-create-request'}>
+                            <NavItem> <i className="iconfont iconfontSystemAdministrator">&#xe616;</i>Create Request </NavItem>
+                        </Link>
+                        <Link to={'/submitter-my-requests'}>
+                            <NavItem> <i className="iconfont iconfontSystemAdministrator">&#xe602;</i>My Requests </NavItem>
+                        </Link>
+                    </Fragment>
+                )
             }
             else if (role === 'fiscal staff') {
                 return (<div>hifhidfd</div>)
@@ -37,36 +47,24 @@ class Header extends Component {
                     <Fragment>
                         <GroupHeader>MANAGE UNIT</GroupHeader>
                         <Link to={'/system-administrator-unit-and-subunit'}>
-                            <NavItem>
-                                <i className="iconfont iconfontSystemAdministrator">&#xe6df;</i>Unit and Subunit
-                            </NavItem>
+                            <NavItem> <i className="iconfont iconfontSystemAdministrator">&#xe6df;</i>Unit and Subunit </NavItem>
                         </Link>
                         <Link to={'/system-administrator-budget'}>
-                            <NavItem>
-                                <i className="iconfont iconfontSystemAdministrator">&#xe601;</i>Budget
-                            </NavItem>
+                            <NavItem> <i className="iconfont iconfontSystemAdministrator">&#xe601;</i>Budget </NavItem>
                         </Link>
                         <GroupHeader>MANAGE PEOPLE</GroupHeader>
                         <Link to={'/system-administrator-manage-system-administrator'}>
-                            <NavItem>
-                                <i className="iconfont iconfontSystemAdministrator">&#xe664;</i>Administrator
-                            </NavItem>
+                            <NavItem> <i className="iconfont iconfontSystemAdministrator">&#xe664;</i>Administrator </NavItem>
                         </Link>
                         <Link to={'/system-administrator-manage-fiscal-staff'}>
-                            <NavItem>
-                                <i className="iconfont iconfontSystemAdministrator">&#xe664;</i>Fiscal Staff
-                            </NavItem>
+                            <NavItem> <i className="iconfont iconfontSystemAdministrator">&#xe664;</i>Fiscal Staff </NavItem>
                         </Link>
                         <Link to={'/system-administrator-manage-approver'}>
-                            <NavItem>
-                                <i className="iconfont iconfontSystemAdministrator">&#xe664;</i>Approver
-                            </NavItem>
+                            <NavItem> <i className="iconfont iconfontSystemAdministrator">&#xe664;</i>Approver </NavItem>
                         </Link>
                         <GroupHeader>CHOOSE ROLE</GroupHeader>
-                        <Link to={'/choose-role-system-administrator'}>
-                            <NavItem onClick={() => changeChooseRole(false)}>
-                                <i className="iconfont iconfontSystemAdministrator">&#xe664;</i>Choose Role
-                            </NavItem>
+                        <Link to={'/system-administrator-choose-role'}>
+                            <NavItem onClick={() => changeChooseRole(false)}> <i className="iconfont iconfontSystemAdministrator">&#xe664;</i>Choose Role </NavItem>
                         </Link>
                     </Fragment>
                 )

@@ -59,7 +59,7 @@ export const initializeUserData = (netId) => {
             .then(res => getSubunitListAsApprover(netId))
             .then(res => {
                 console.log('4 -- role', role)
-                dispatch(changeRole(role))
+                dispatch(changeRole(role)) // TODO: 改 dispatch(changeRole('submitter'))
                 dispatch(changeFiscalStaffSubunitList(fiscalStaffSubunitList))
                 dispatch(changeApproverSubunitList(approverSubunitList))
             })
