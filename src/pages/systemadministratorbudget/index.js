@@ -49,7 +49,6 @@ class SystemAdministratorBudget extends Component {
                                 ))}
                             </Table.Body>
                         </Table>
-                        {/* <Input className='unitName' placeholder='Unit Name' value={unitName} onChange={(e, data) => inputUnitName(data.value)}/> */}
                         <Form>
                             <Form.Group widths='equal'>
                                 <Form.Input fluid label='Budget Number' placeholder='Budget Number' value={budgetNumberChosen} onChange={(e, data) => readBudgetNumber(data.value)}/>
@@ -59,10 +58,10 @@ class SystemAdministratorBudget extends Component {
                         <Button color='violet' className='systemAdminBtn' content='Add' onClick={() => appendBudget(appendBudgetData)}></Button> 
                         <Button className='removeBtn systemAdminBtn' color='red' content='Remove' onClick={() => removeBudget(appendBudgetData)}></Button>
                     </UpperHalfWrapper>
-                    {/* <BottomHalfWrapper>
+                    <BottomHalfWrapper>
                         <Header as='h3'>Add Budgets Into Subunit</Header>
                         <Dropdown placeholder='All Budgets' fluid multiple search selection options={allBudgetsDropdownListJS} />
-                    </BottomHalfWrapper> */}
+                    </BottomHalfWrapper>
                 </ContentWrapper>
             );
         }
@@ -73,6 +72,7 @@ const mapStateToProps = (state) => {
     return {
         login: state.getIn(['login', 'login']),
         allBudgetsList: state.getIn(['systemadministratorbudget', 'all_budgets_list']),
+        allBudgetsDropdownList: state.getIn(['systemadministratorbudget', 'all_budgets_dropdown_list']),
         budgetNumberChosen: state.getIn(['systemadministratorbudget', 'budget_number_chosen']),
         budgetNameChosen: state.getIn(['systemadministratorbudget', 'budget_name_chosen']),
     }
