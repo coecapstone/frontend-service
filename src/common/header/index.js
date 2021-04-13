@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { actionCreators } from './store';
-import { actionCreators as loginActionCreators } from '../../pages/login/store';
+import { actionCreators as loginActionCreators } from '../login/store';
 import { actionCreators as contentActionCreators } from '../../pages/content/store';
 import { actionCreators as requestsActionCreators } from '../../pages/requests/store';
 import { actionCreators as approvalRequestsActionCreators } from '../../pages/approvalrequest/store';

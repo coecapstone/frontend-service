@@ -3,7 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Dropdown, Header, Button } from 'semantic-ui-react';
 import Immutable from 'immutable';
-import { actionCreators as loginActionCreators } from '../../pages/login/store';
+import { actionCreators as loginActionCreators } from '../../common/login/store';
 
 import {
     ApprovalWrapper,
