@@ -172,8 +172,8 @@ const mapStateToProps = (state) => {
         showDeclinedToast: state.getIn(['approvalrequest', 'showDeclinedToast']),
         showDeclineMessageInputBox: state.getIn(['approvalrequest', 'showDeclineMessageInputBox']),
         reason: state.getIn(['approvalrequest', 'reason']),
-        budget_list: state.getIn(['request', 'budget_list']),
-        whether_pay_flight: state.getIn(['request', 'whether_pay_flight']),
+        budget_list: state.getIn(['submittermyrequest', 'budget_list']),
+        whether_pay_flight: state.getIn(['submittermyrequest', 'whether_pay_flight']),
     }
 }
 

@@ -147,12 +147,12 @@ const mapStateToProps = (state) => {
     return {
         login: state.getIn(['login', 'login']),
         creatorEmail: state.getIn(['login', 'profileObj', 'email']),
-        requests: state.getIn(['request', 'requests']),
-        allUnitList: state.getIn(['content', 'static', 'unit']),
-        detailRequest: state.getIn(['request', 'detailRequest']),
-        showDetail: state.getIn(['request', 'showDetail']),
-        budget_list: state.getIn(['request', 'budget_list']),
-        whether_pay_flight: state.getIn(['request', 'whether_pay_flight']),
+        requests: state.getIn(['submittermyrequest', 'requests']),
+        allUnitList: state.getIn(['submittercreaterequest', 'static', 'unit']),
+        detailRequest: state.getIn(['submittermyrequest', 'detailRequest']),
+        showDetail: state.getIn(['submittermyrequest', 'showDetail']),
+        budget_list: state.getIn(['submittermyrequest', 'budget_list']),
+        whether_pay_flight: state.getIn(['submittermyrequest', 'whether_pay_flight']),
     }
 }
 

@@ -41,7 +41,7 @@ class SystemAdministrator extends Component {
                             </SelectBlock>
                             <SelectBlock>
                                 Continue as <span className="importantText">Submitter</span>
-                                <Header className='textButtom' as='h4'>click <Link to={'/'}><DirectText onClick={() => changeRole('submitter')}>here</DirectText></Link> to submit requests</Header>
+                                <Header className='textButtom' as='h4'>click <Link to={'/submitter-mainpage'}><DirectText onClick={() => changeRole('submitter')}>here</DirectText></Link> to submit requests</Header>
                             </SelectBlock>
                         </ChooseTitle>
                     </DivideBox>
@@ -71,6 +71,7 @@ const mapDispatchToProps = (dispatch) => {
         },
         changeRole(role) {
             dispatch(loginActionCreators.changeRole(role));
+            dispatch(loginActionCreators.changeChooseRole(true));
         },
         changeChooseRole(hasChoseRole) {
             dispatch(loginActionCreators.changeChooseRole(hasChoseRole));

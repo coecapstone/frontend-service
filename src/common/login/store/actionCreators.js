@@ -55,11 +55,11 @@ export const initializeUserData = (netId) => {
                 console.log('1 -- checkWhetherUserIsSystemAdministrator', res) 
                 if (res === 1) role = 'system administrator';
             })
-            .then(res => getSubunitListAsFiscalStaff(netId))
+            //.then(res => getSubunitListAsFiscalStaff(netId)) // TODO: need to check whether fiscal staff
             .then(res => getSubunitListAsApprover(netId))
             .then(res => {
                 console.log('4 -- role', role)
-                dispatch(changeRole('system administrator')) // TODO: 改 dispatch(changeRole('submitter'))
+                dispatch(changeRole(role))
                 dispatch(changeFiscalStaffSubunitList(fiscalStaffSubunitList))
                 dispatch(changeApproverSubunitList(approverSubunitList))
             })
