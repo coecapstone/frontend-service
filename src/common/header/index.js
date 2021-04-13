@@ -7,6 +7,7 @@ import { actionCreators as requestsActionCreators } from '../../pages/requests/s
 import { actionCreators as approvalRequestsActionCreators } from '../../pages/approvalrequest/store';
 import { actionCreators as SystemAdministratorUnitAndSubunitActionCreators } from '../../pages/systemadministratorunitandsubunit/store';
 import { actionCreators as SystemAdministratorSystemAdministratorActionCreators } from '../../pages/systemadministratorsystemadministrator/store';
+import { actionCreators as SystemAdministratorBudgetActionCreators } from '../../pages/systemadministratorbudget/store';
 
 import {
     HeaderWrapper,
@@ -107,6 +108,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(approvalRequestsActionCreators.logout());
             dispatch(SystemAdministratorUnitAndSubunitActionCreators.logout())
             dispatch(SystemAdministratorSystemAdministratorActionCreators.logout())
+            dispatch(SystemAdministratorBudgetActionCreators.logout())
         }
     }
 }
