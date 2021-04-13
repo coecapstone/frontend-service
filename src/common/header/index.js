@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
+import { actionCreators } from './store';
 import { actionCreators as loginActionCreators } from '../../pages/login/store';
 import { actionCreators as contentActionCreators } from '../../pages/content/store';
 import { actionCreators as requestsActionCreators } from '../../pages/requests/store';
@@ -20,7 +21,7 @@ import {
 class Header extends Component {
 
     getSubmitterNavItems() {
-        const { login, chooseRole, role } = this.props;
+        const { login, chooseRole, role, changeChooseRole } = this.props;
         if (login && chooseRole) {
             if (role === 'submitter') {
                 return (<div>sdf</div>)
@@ -61,6 +62,12 @@ class Header extends Component {
                                 <i className="iconfont iconfontSystemAdministrator">&#xe664;</i>Approver
                             </NavItem>
                         </Link>
+                        <GroupHeader>CHOOSE ROLE</GroupHeader>
+                        <Link to={'/choose-role-system-administrator'}>
+                            <NavItem onClick={() => changeChooseRole(false)}>
+                                <i className="iconfont iconfontSystemAdministrator">&#xe664;</i>Choose Role
+                            </NavItem>
+                        </Link>
                     </Fragment>
                 )
             }
@@ -68,21 +75,20 @@ class Header extends Component {
     }
     
     render() {
-        const { login } = this.props;
+        const { login, logout } = this.props;
         return (
             <HeaderWrapper> 
                 <Logo href='/' />
                 <Nav>
-                    <GroupHeader>SETTINGS</GroupHeader> { 
-                        login ? (
-                            <Link to='/'>
-                                <NavItem onClick={() => this.props.logout()}> <i className="iconfont">&#xe723;</i> Log Out</NavItem> 
-                            </Link>
-                        ) : (
-                            <Link to='/login'>
-                                <NavItem> <i className="iconfont">&#xe723;</i> Log In</NavItem>
-                            </Link>
-                        )
+                    <GroupHeader>SETTINGS</GroupHeader> 
+                    { 
+                        login ? 
+                        <Link to='/'> 
+                            <NavItem onClick={() => logout()}> <i className="iconfont">&#xe723;</i> Log Out</NavItem> 
+                        </Link> : 
+                        <Link to='/login'> 
+                            <NavItem> <i className="iconfont">&#xe723;</i> Log In</NavItem> 
+                        </Link>
                     }
                     { this.getSubmitterNavItems() }
                 </Nav>
@@ -109,6 +115,9 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(SystemAdministratorUnitAndSubunitActionCreators.logout())
             dispatch(SystemAdministratorSystemAdministratorActionCreators.logout())
             dispatch(SystemAdministratorBudgetActionCreators.logout())
+        }, 
+        changeChooseRole(hasChoseRole) {
+            dispatch(loginActionCreators.changeChooseRole(hasChoseRole));
         }
     }
 }
