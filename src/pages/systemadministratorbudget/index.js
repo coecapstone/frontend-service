@@ -24,7 +24,7 @@ class SystemAdministratorBudget extends Component {
 
     render() {
         const { login, allBudgetsList, allBudgetsDropdownList, readInputBudget, budgetNumberChosen, budgetNameChosen, readBudgetNumber, 
-            readBudgetName, appendBudget } = this.props;
+            readBudgetName, appendBudget, removeBudget } = this.props;
         const allBudgetsListJS = Immutable.List(allBudgetsList).toJS();
         const allBudgetsDropdownListJS = Immutable.List(allBudgetsDropdownList).toJS();
         const appendBudgetData = { 'budget_number': budgetNumberChosen, 'budget_name': budgetNameChosen };
@@ -57,8 +57,7 @@ class SystemAdministratorBudget extends Component {
                             </Form.Group>
                         </Form>
                         <Button color='violet' className='systemAdminBtn' content='Add' onClick={() => appendBudget(appendBudgetData)}></Button> 
-                        <Button className='removeBtn systemAdminBtn' color='red' content='Remove' ></Button>
-                        {/* onClick={() => removeBudget(unitName)} */}
+                        <Button className='removeBtn systemAdminBtn' color='red' content='Remove' onClick={() => removeBudget(appendBudgetData)}></Button>
                     </UpperHalfWrapper>
                     {/* <BottomHalfWrapper>
                         <Header as='h3'>Add Budgets Into Subunit</Header>
@@ -95,6 +94,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         appendBudget(appendBudgetData) {
             dispatch(actionCreators.appendBudget(appendBudgetData));
+        },
+        removeBudget(removeBudgetData) {
+            dispatch(actionCreators.removeBudget(removeBudgetData));
         },
     }
 }

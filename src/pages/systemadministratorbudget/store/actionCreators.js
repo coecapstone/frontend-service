@@ -10,6 +10,8 @@ export const CHANGE_TO_LOGOUT = 'content/CHANGE_TO_LOGOUT';
 export const CLEAR_INPUT = 'content/CLEAR_INPUT';
 export const INSERT_BUDGET_LIST = 'content/INSERT_BUDGET_LIST';
 export const INSERT_BUDGET_LIST_JS = 'content/INSERT_BUDGET_LIST_JS';
+export const REMOVE_BUDGET_LIST = 'content/REMOVE_BUDGET_LIST';
+export const REMOVE_BUDGET_LIST_JS = 'content/REMOVE_BUDGET_LIST_JS';
 
 export const logout = () => ({
     type: CHANGE_TO_LOGOUT
@@ -24,6 +26,14 @@ const insertBudgetList = (data) => ({
 const insertBudgetListJS = (data) => ({
     type: INSERT_BUDGET_LIST_JS,
     data: fromJS({'key': `${data.budget_number}, ${data.budget_name}`, 'text': `${data.budget_number}, ${data.budget_name}`, 'value': `${data.budget_number}, ${data.budget_name}` })
+});
+const removeBudgetList = (data) => ({
+    type: REMOVE_BUDGET_LIST,
+    budget_number: data.budget_number
+});
+const removeBudgetListJS = (data) => ({
+    type: REMOVE_BUDGET_LIST_JS,
+    budget: `${data.budget_number}, ${data.budget_name}`
 });
 const getAllBudgetsListAction = (data) => ({
     type: GET_ALL_BUDGETS_LIST,
@@ -82,6 +92,28 @@ export const appendBudget = (appendBudgetData) => {
                 console.log(res)
                 dispatch(insertBudgetList(appendBudgetData))
                 dispatch(insertBudgetListJS(appendBudgetData))
+                dispatch(clearInput())
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+};
+export const removeBudget = (removeBudgetData) => {
+    return (dispatch) => {
+        const options = {
+            method: 'post',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(removeBudgetData)
+        }
+        console.log('removeBudget', options)
+        fetch(`http://localhost:8080/api/removeBudget`, options)
+            .then(res => {
+                console.log(res)
+                dispatch(removeBudgetList(removeBudgetData))
+                dispatch(removeBudgetListJS(removeBudgetData))
                 dispatch(clearInput())
             })
             .catch(error => {
