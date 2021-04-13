@@ -23,9 +23,11 @@ class SystemAdministratorBudget extends Component {
     }
 
     render() {
-        const { login, allBudgetsList, allBudgetsDropdownList, readInputBudget, budgetNumberChosen, budgetNameChosen, readBudgetNumber, readBudgetName } = this.props;
+        const { login, allBudgetsList, allBudgetsDropdownList, readInputBudget, budgetNumberChosen, budgetNameChosen, readBudgetNumber, 
+            readBudgetName, appendBudget } = this.props;
         const allBudgetsListJS = Immutable.List(allBudgetsList).toJS();
         const allBudgetsDropdownListJS = Immutable.List(allBudgetsDropdownList).toJS();
+        const appendBudgetData = { 'budget_number': budgetNumberChosen, 'budget_name': budgetNameChosen };
         if (login) {
             return (
                 <ContentWrapper>
@@ -54,8 +56,7 @@ class SystemAdministratorBudget extends Component {
                                 <Form.Input fluid label='Budget Name' placeholder='Budget Name' value={budgetNameChosen} onChange={(e, data) => readBudgetName(data.value)}/>
                             </Form.Group>
                         </Form>
-                        <Button color='violet' className='systemAdminBtn' content='Add'></Button> 
-                        {/* onClick={() => appendBudget(unitName)} */}
+                        <Button color='violet' className='systemAdminBtn' content='Add' onClick={() => appendBudget(appendBudgetData)}></Button> 
                         <Button className='removeBtn systemAdminBtn' color='red' content='Remove' ></Button>
                         {/* onClick={() => removeBudget(unitName)} */}
                     </UpperHalfWrapper>
@@ -91,6 +92,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         readBudgetName(budget_name) {
             dispatch(actionCreators.readBudgetName(budget_name));
+        },
+        appendBudget(appendBudgetData) {
+            dispatch(actionCreators.appendBudget(appendBudgetData));
         },
     }
 }

@@ -22,10 +22,20 @@ const reducer = (state = defaultState, action) => {
                 budget_number_chosen: action.budget_number,
                 budget_name_chosen: action.budget_name,
             });
+        case constants.CLEAR_INPUT:
+            return state.merge({
+                budget_number_chosen: '',
+                budget_name_chosen: '',
+            });
+        case constants.INSERT_BUDGET_LIST:
+            return state.update('all_budgets_list', arr => arr.push(action.data));
+        case constants.INSERT_BUDGET_LIST_JS:
+            return state.update('all_budgets_dropdown_list', arr => arr.push(action.data));
         case constants.CHANGE_TO_LOGOUT:
             return state.merge(fromJS({
                 all_budgets_list: [],
                 all_budgets_dropdown_list: [],
+                budget_number_chosen: '', budget_name_chosen: '',
             }));
         default:
             return state;
