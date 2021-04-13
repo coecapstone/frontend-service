@@ -6,6 +6,7 @@ import { reducer as requestsReducer } from '../pages/requests/store';
 import { reducer as approvalRequestReducer } from '../pages/approvalrequest/store';
 import { reducer as systemAdministratorUnitAndSubunitReducer } from '../pages/systemadministratorunitandsubunit/store';
 import { reducer as systemAdministratorSystemAdministrator } from '../pages/systemadministratorsystemadministrator/store';
+import { reducer as systemAdministratorBudget } from '../pages/systemadministratorbudget/store';
 
 
 const reducer = combineReducers({
@@ -16,6 +17,7 @@ const reducer = combineReducers({
     approvalrequest: approvalRequestReducer,
     systemadministratorunitandsubunit: systemAdministratorUnitAndSubunitReducer,
     systemadministratorsystemadministrator: systemAdministratorSystemAdministrator,
+    systemadministratorbudget: systemAdministratorBudget,
 })
 
 export default reducer;
