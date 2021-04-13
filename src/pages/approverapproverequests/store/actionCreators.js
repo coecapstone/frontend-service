@@ -44,9 +44,9 @@ const setWhetherPayFlightAction = (data) => ({
 });
 export const getSubunitRequests = (unit, subunit) => {
     return (dispatch) => {
-        const unitWithoutSpace = unit.replaceAll(' ', '-');
-        const subunitWithoutSpace = subunit.replaceAll(' ', '-');
-        axios.get(`http://localhost:8080/api/getSubunitRequests/${unitWithoutSpace}/${subunitWithoutSpace}`)
+        // const unitWithoutSpace = unit.replaceAll(' ', '-');
+        // const subunitWithoutSpace = subunit.replaceAll(' ', '-');
+        axios.get(`http://localhost:8080/api/getSubunitRequests/${unit}/${subunit}`)
             .then(res => {
                 console.log(res.data)
                 dispatch(getSubunitRequestsAction(res.data))

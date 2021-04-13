@@ -13,7 +13,7 @@ import {
     // GroupHeader,
 } from './style';
 
-class ApprovalRequests extends Component {
+class ApproverApproveRequests extends Component {
 
     componentDidMount() {
         this.props.getSubunitRequests(this.props.unit, this.props.subunit);
@@ -207,4 +207,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ApprovalRequests);
+export default connect(mapStateToProps, mapDispatchToProps)(ApproverApproveRequests);
