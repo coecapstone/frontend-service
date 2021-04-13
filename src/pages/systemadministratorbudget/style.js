@@ -10,10 +10,10 @@ export const ContentWrapper = styled.div`
 
 export const UpperHalfWrapper = styled.div`
     padding: 20px 30px 30px 30px;
-    height: 500px;
+    height: 600px;
     display: block;
     border-left: 1px solid grey;
-    background-color: yellow;
+    background-color: green;
 `
 
 export const BottomHalfWrapper = styled.div`
@@ -21,5 +21,5 @@ export const BottomHalfWrapper = styled.div`
     height: 450px;
     display: block;
     border-left: 1px solid grey;
-    background-color: green;
+    background-color: yellow;
 `

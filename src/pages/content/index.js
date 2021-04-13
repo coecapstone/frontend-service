@@ -183,17 +183,14 @@ class Content extends Component {
                         <Form>
                             <Form.Group widths='equal'>
                                 <Form.Field required> <label>Choose Your Unit</label>
-                                    <Dropdown options={Immutable.List(allUnitList).toJS()} selection
-                                     onChange={(e, data) => readInputUnit(data.value)} />
+                                    <Dropdown options={Immutable.List(allUnitList).toJS()} selection onChange={(e, data) => readInputUnit(data.value)} />
                                 </Form.Field>
                                 <Form.Field required> <label>Choose Your Subunit</label>
-                                    <Dropdown options={Immutable.List(subunitList).toJS()} selection
-                                     onChange={(e, data) => readInputSubunit(formToSubmitUnit, data.value)} />
+                                    <Dropdown options={Immutable.List(subunitList).toJS()} selection onChange={(e, data) => readInputSubunit(formToSubmitUnit, data.value)} />
                                 </Form.Field>
                             </Form.Group>
                             <Form.Field required> <label>Choose Your Form</label>
-                                <Dropdown clearable options={Immutable.List(formTypeList).toJS()} selection
-                                    onChange={(e, data) => readFormType(data.value)} />
+                                <Dropdown clearable options={Immutable.List(formTypeList).toJS()} selection onChange={(e, data) => readFormType(data.value)} />
                             </Form.Field>
                         </Form>
                     </ChooseWrapper>

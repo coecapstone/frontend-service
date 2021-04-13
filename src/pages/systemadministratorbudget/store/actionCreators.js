@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { fromJS } from 'immutable';
 
+export const GET_ALL_UNITS = 'content/GET_ALL_UNITS';
+export const GET_SUBUNITS = 'content/GET_SUBUNITS';
 export const GET_ALL_BUDGETS_LIST = 'content/GET_ALL_BUDGETS_LIST';
 export const GET_ALL_BUDGETS_DROPDOWN_LIST = 'content/GET_ALL_BUDGETS_DROPDOWN_LIST';
 export const INPUT_BUDGET = 'content/INPUT_BUDGET';
@@ -41,6 +43,14 @@ const getAllBudgetsListAction = (data) => ({
 });
 const getAllBudgetsDropdownListAction = (data) => ({
     type: GET_ALL_BUDGETS_DROPDOWN_LIST,
+    data: fromJS(data)
+});
+const getAllUnitsAction = (data) => ({
+    type: GET_ALL_UNITS,
+    data: fromJS(data)
+});
+const getSubunits = (data) => ({
+    type: GET_SUBUNITS,
     data: fromJS(data)
 });
 export const readInputBudget = (budget_number, budget_name) => ({
@@ -117,6 +127,45 @@ export const removeBudget = (removeBudgetData) => {
                 dispatch(clearInput())
             })
             .catch(error => {
+                console.log(error)
+            })
+    }
+};
+export const getAllUnitsList = () => {
+    return (dispatch) => {
+        axios.get('http://localhost:8080/api/getAllUnits')
+            .then(res => {
+                let allUnitsList = [];
+                res.data.map(item => {
+                    const unit = {};
+                    unit.key = item;
+                    unit.text = item;
+                    unit.value = item;
+                    allUnitsList.push(unit);
+                });
+                dispatch(getAllUnitsAction(allUnitsList));
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+};
+export const readInputUnit = (unit) => {
+    return (dispatch) => {
+        axios.get(`http://localhost:8080/api/getSubunits/${unit}`)
+            .then(res => {
+                // console.log(res)
+                let allSubunitsList = [];
+                res.data.map(item => {
+                    const subunit = {};
+                    subunit.key = item;
+                    subunit.text = item;
+                    subunit.value = item;
+                    allSubunitsList.push(subunit);
+                });
+                dispatch(getSubunits(allSubunitsList));
+            })
+            .catch((error) => {
                 console.log(error)
             })
     }
