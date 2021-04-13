@@ -13,7 +13,7 @@ export const UpperHalfWrapper = styled.div`
     height: 600px;
     display: block;
     border-left: 1px solid grey;
-    background-color: yellow;
+    background-color: green;
 `
 
 export const BottomHalfWrapper = styled.div`
@@ -21,5 +21,5 @@ export const BottomHalfWrapper = styled.div`
     height: 450px;
     display: block;
     border-left: 1px solid grey;
-    background-color: green;
+    background-color: yellow;
 `
